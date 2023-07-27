@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace tyuiu.cources.programming.interfaces
 {
-    public interface ISprint0Test0V1
+    public interface ISprint0Task0V1
     {
         int SubFrom100(int value);
     }

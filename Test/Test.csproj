@@ -10,4 +10,10 @@
     <ProjectReference Include="..\tyuiu.cources.programming.interfaces\tyuiu.cources.programming.interfaces.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="TestingClass.cs">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
 </Project>
