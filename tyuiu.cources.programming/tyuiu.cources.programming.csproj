@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\tyuiu.cources.programming.interfaces\tyuiu.cources.programming.interfaces.csproj" />
+  </ItemGroup>
+
 </Project>

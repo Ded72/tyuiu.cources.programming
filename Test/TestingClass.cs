@@ -2,8 +2,13 @@
 
 namespace Test
 {
-    public class TestingClass : ISprint0Task0V0, ISprint0Task0V1
+    public class TestingClass : ISprint0Task0V0, ISprint0Task0V1, ISprint0Task0V2
     {
+        public int Multiply(int a, int b)
+        {
+            return a * b;
+        }
+
         public string ReverseString(string str)
         {
             char[] charArray = str.ToCharArray();

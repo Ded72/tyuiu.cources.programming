@@ -4,7 +4,7 @@ using System.Runtime.Loader;
 
 namespace tyuiu.cources.programming
 {
-    public class InterfaceController
+    public class AssemblyController
     {
         public T LoadFromByteArray<T>(byte[] buffer)
         {
