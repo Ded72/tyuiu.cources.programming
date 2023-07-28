@@ -5,16 +5,11 @@ using tyuiu.cources.programming.interfaces;
 namespace tyuiu.cources.programming.tests
 {
     [TestClass]
-    public class TestMethodTests
+    public class AssemblyControllerTests
     {
-        private readonly string filename;
-        private AssemblyController controller;
+        private readonly string filename = typeof(TestingClass).Assembly.Location;
+        private readonly AssemblyController controller = new AssemblyController();
 
-        public TestMethodTests()
-        {
-            this.filename = typeof(TestingClass).Assembly.Location;
-            this.controller = new AssemblyController();
-        }
         [TestMethod]
         public void LoadFromFileValid()
         {
