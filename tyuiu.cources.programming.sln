@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tyuiu.cources.programming", "tyuiu.cources.programming\tyuiu.cources.programming.csproj", "{8A27532F-27F7-4135-BC0D-CA9E24496916}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tyuiu.cources.programming", "tyuiu.cources.programming\tyuiu.cources.programming.csproj", "{8A27532F-27F7-4135-BC0D-CA9E24496916}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tyuiu.cources.programming.tests", "tyuiu.cources.programming.tests\tyuiu.cources.programming.tests.csproj", "{46AD2CCD-A2CB-4D9E-B757-6E236B7BBFC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tyuiu.cources.programming.tests", "tyuiu.cources.programming.tests\tyuiu.cources.programming.tests.csproj", "{46AD2CCD-A2CB-4D9E-B757-6E236B7BBFC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tyuiu.cources.programming.interfaces", "tyuiu.cources.programming.interfaces\tyuiu.cources.programming.interfaces.csproj", "{B52B106D-37EE-4B0E-8E7C-BCEADAF06BA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tyuiu.cources.programming.interfaces", "tyuiu.cources.programming.interfaces\tyuiu.cources.programming.interfaces.csproj", "{B52B106D-37EE-4B0E-8E7C-BCEADAF06BA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{EF5AC84D-6AEB-43C7-9897-CA694E57DF57}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", "{EF5AC84D-6AEB-43C7-9897-CA694E57DF57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tyuiu.cources.data", "tyuiu.cources.data\tyuiu.cources.data.csproj", "{6314472A-3516-4BB9-920D-AC0E59BB0254}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{EF5AC84D-6AEB-43C7-9897-CA694E57DF57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF5AC84D-6AEB-43C7-9897-CA694E57DF57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF5AC84D-6AEB-43C7-9897-CA694E57DF57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6314472A-3516-4BB9-920D-AC0E59BB0254}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6314472A-3516-4BB9-920D-AC0E59BB0254}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6314472A-3516-4BB9-920D-AC0E59BB0254}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6314472A-3516-4BB9-920D-AC0E59BB0254}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
