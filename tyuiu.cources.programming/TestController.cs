@@ -4,21 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using tyuiu.cources.programming.interfaces;
+using tyuiu.cources.programming.Interfaces;
 
 namespace tyuiu.cources.programming
 {
     public class TestController
     {
         private readonly AssemblyController assemblyController;
+        private readonly IOutputController output;
         private Dictionary<Type, Func<object, bool>>? testMethods;
 
-        public TestController(AssemblyController assemblyController)
+        public TestController(AssemblyController assemblyController, IOutputController output)
         {
             this.assemblyController = assemblyController;
+            this.output = output;
             this.testMethods = BuildTestMethods();
         }
         public bool? Test<T>(string filename)
         {
+            output.WriteLine("Test line");
             T cls = assemblyController.LoadFromFile<T>(filename);
             return testMethods?[typeof(T)](cls!);
         }

@@ -11,11 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tyuiu.cources.programming.i
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tyuiu.SidorovAY.Sprint0.Task0.V0", "tyuiu.SidorovAY.Sprint0.Task0.V0\tyuiu.SidorovAY.Sprint0.Task0.V0.csproj", "{0D2FC0DB-9D4F-4EAC-96BB-55090930D0A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tyuiu.SpirinIS.Sprint0.Task0.V2", "tyuiu.SpirinIS.Sprint0.Task0.V2\tyuiu.SpirinIS.Sprint0.Task0.V2.csproj", "{FE792A2D-D74B-4D52-A694-2DC49E80A70A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tyuiu.SpirinIS.Sprint0.Task0.V2", "tyuiu.SpirinIS.Sprint0.Task0.V2\tyuiu.SpirinIS.Sprint0.Task0.V2.csproj", "{FE792A2D-D74B-4D52-A694-2DC49E80A70A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tyuiu.SpirinIS.Sprint0.Task0.V2.Test", "tyuiu.SpirinIS.Sprint0.Task0.V2.Test\tyuiu.SpirinIS.Sprint0.Task0.V2.Test.csproj", "{13220136-AC16-4D5F-B81E-419FB9C9EC9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tyuiu.SpirinIS.Sprint0.Task0.V2.Test", "tyuiu.SpirinIS.Sprint0.Task0.V2.Test\tyuiu.SpirinIS.Sprint0.Task0.V2.Test.csproj", "{13220136-AC16-4D5F-B81E-419FB9C9EC9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tyuiu.SpirinIS.Sprint0.Task0.V2.con", "tyuiu.SpirinIS.Sprint0.Task0.V2.con\tyuiu.SpirinIS.Sprint0.Task0.V2.con.csproj", "{9D805F05-DD12-4612-B084-394BC49A6126}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tyuiu.SpirinIS.Sprint0.Task0.V2.con", "tyuiu.SpirinIS.Sprint0.Task0.V2.con\tyuiu.SpirinIS.Sprint0.Task0.V2.con.csproj", "{9D805F05-DD12-4612-B084-394BC49A6126}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{031F8DC3-5F4B-4576-AEEA-F1BFE808C523}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +56,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0D2FC0DB-9D4F-4EAC-96BB-55090930D0A0} = {031F8DC3-5F4B-4576-AEEA-F1BFE808C523}
+		{FE792A2D-D74B-4D52-A694-2DC49E80A70A} = {031F8DC3-5F4B-4576-AEEA-F1BFE808C523}
+		{13220136-AC16-4D5F-B81E-419FB9C9EC9D} = {031F8DC3-5F4B-4576-AEEA-F1BFE808C523}
+		{9D805F05-DD12-4612-B084-394BC49A6126} = {031F8DC3-5F4B-4576-AEEA-F1BFE808C523}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {401D5810-F4A6-4F28-B35B-B70B430A733F}
