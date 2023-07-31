@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
-using Test;
 using tyuiu.cources.programming.interfaces;
+using tyuiu.SidorovAY.Sprint0.Task0.V0;
 
 namespace tyuiu.cources.programming.tests
 {

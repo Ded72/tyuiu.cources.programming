@@ -1,6 +1,6 @@
 ﻿using tyuiu.cources.programming.interfaces;
 
-namespace Test
+namespace tyuiu.SidorovAY.Sprint0.Task0.V0
 {
     public class TestingClass : ISprint0Task0V0, ISprint0Task0V1, ISprint0Task0V2
     {
