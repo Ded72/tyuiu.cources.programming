@@ -12,41 +12,39 @@ namespace tyuiu.cources.programming
     {
         private readonly AssemblyController assemblyController;
         private readonly IOutputController output;
-        private Dictionary<Type, Func<object, bool>>? testMethods;
+        private Dictionary<Type, (object result, object[] args)> testData;
 
         public TestController(AssemblyController assemblyController, IOutputController output)
         {
             this.assemblyController = assemblyController;
             this.output = output;
-            this.testMethods = BuildTestMethods();
+            this.testData = BuildTestData();
         }
-        public bool? Test<T>(string filename)
+        public bool Run<T>(string filename)
         {
-            output.WriteLine("Test line");
             T cls = assemblyController.LoadFromFile<T>(filename);
-            return testMethods?[typeof(T)](cls!);
+            var method = typeof(T).GetType().GetMethods().First();
+            var args = method.GetParameters();
+            output.WriteLine($"{method.Name}");
+            foreach (var param in args)
+            {
+                output.WriteLine($"{param.ParameterType.Name} {param.Name}");
+            }
+            var argsData = GetTestingData<T>();
+            var res = method.Invoke(cls, argsData.args);
+            output.WriteLine($"2*4={res} expected {argsData.result}");
+            return res==argsData.result;
         }
-        private Dictionary<Type, Func<object, bool>> BuildTestMethods()
+        private (object result, object[] args) GetTestingData<T>() 
         {
-            return new Dictionary<Type, Func<object, bool>>() {
-                {
-                    typeof(ISprint0Task0V0),
-                    (cls) => {
-                        return "54321"==(cls as ISprint0Task0V0)!.ReverseString("12345");
-                    }
-                },
-                {
-                    typeof(ISprint0Task0V1),
-                    (cls) => {
-                        return 90==(cls as ISprint0Task0V1)!.SubFrom100(10);
-                    }
-                },
-                {
-                    typeof(ISprint0Task0V2),
-                    (cls) => {
-                        return 20==(cls as ISprint0Task0V2)!.Multiply(10, 2);
-                    }
-                }
+            return testData[typeof(T)];
+        }
+        private Dictionary<Type, (object result, object[] args)> BuildTestData()
+        {
+            return new Dictionary<Type, (object result, object[] args)>() {
+                { typeof(ISprint0Task0V0), ("54321", new object[] { "12345" })},
+                { typeof(ISprint0Task0V1), (90, new object[] { 10 })},
+                { typeof(ISprint0Task0V2), (20, new object[] { 10, 2 })}
             };
         }
 
