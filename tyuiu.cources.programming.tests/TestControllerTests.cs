@@ -20,6 +20,7 @@ namespace tyuiu.cources.programming.tests
             Assert.IsTrue(testController.Run<ISprint0Task0V0>(filename));
             Assert.IsTrue(testController.Run<ISprint0Task0V1>(filename));
             Assert.IsTrue(testController.Run<ISprint0Task0V2>(filename));
+            Assert.IsTrue(testController.Run<ISprint1Task0V0>(filename));
         }
         [TestMethod]
         public void RunEnv()
