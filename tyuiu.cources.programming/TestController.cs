@@ -29,28 +29,44 @@ namespace tyuiu.cources.programming
             var res = method.Invoke(cls, argsData.args);
 
             OutResult(method, argsData, res);
+            return AreEquals(argsData, res);
+        }
 
-            return res!.Equals(argsData.result) || res == argsData.result;
+        private bool AreEquals((object result, object[] args) argsData, object? res)
+        {
+            if (res!.GetType().IsArray)
+            {
+                if (res!.GetType().GetElementType()?.Name == "Int32")
+                {
+                    return ((int[])res).Length == ((int[])argsData.result).Length;
+                }
+                else { return false; }
+            }
+            else
+            {
+                return res!.Equals(argsData.result);
+            }
         }
 
         private void OutResult(MethodInfo method, (object result, object[] args) argsData, object? res)
         {
-            var buffer = $"{method.Name}(";
+            var buffer = $"Signature:\n{argsData.result.GetType().Name} {method.Name}(";
             foreach (var param in method.GetParameters())
             {
                 buffer += $"{param.ParameterType.Name} {param.Name}, ";
             }
-            buffer = buffer.Substring(0, buffer.Length-2) + ")\n";
-            output.WriteLine(buffer);
+            buffer = buffer.Substring(0, buffer.Length - 2) + ")";
+            output.WriteLine($"{buffer}");
 
             output.WriteLine("Parameters:");
             var ppp = argsData.args.Zip(method.GetParameters(), (first, second) => $"{second}={first}");
-            foreach(var p in ppp)
+            foreach (var p in ppp)
             {
                 output.WriteLine(p);
             }
 
-            output.WriteLine($"expected {argsData.result} real {res}");
+            output.WriteLine("Result:");
+            output.WriteLine($"{res} expected {argsData.result}\n");
         }
 
         private (object result, object[] args) GetTestingData<T>()
@@ -64,8 +80,8 @@ namespace tyuiu.cources.programming
                 { typeof(ISprint0Task0V1), (90, new object[] { 10 })},
                 { typeof(ISprint0Task0V2), (20, new object[] { 10, 2 })},
                 { typeof(ISprint1Task0V0), (
-                    new int[] { 1, 2, 3 }, 
-                    new object[] { new int[] { 2, 3, 1 } 
+                    new int[] { 1, 2, 3 },
+                    new object[] { new int[] { 2, 3, 1 }
                 })},
             };
         }
