@@ -18,9 +18,32 @@ namespace tyuiu.cources.programming
 
         public void WriteLine(string line)
         {
-            using(var f = new StreamWriter(filename, true))
+            using (var f = new StreamWriter(filename, true))
             {
                 f.WriteLine(line);
+            }
+        }
+        public void WriteValue(string message, object? value)
+        {
+            using (var f = new StreamWriter(filename, true))
+            {
+                var buffer = message;
+                if (value!.GetType().IsArray)
+                {
+                    foreach (var item in (int[])value!)
+                    {
+                        buffer += $"{item} ";
+                    }
+                }
+                else if(value!.GetType() == typeof(string))
+                {
+                    buffer += $"'{value}'";
+                }
+                else
+                {
+                    buffer += $"{value}";
+                }
+                f.WriteLine(buffer);
             }
         }
     }

@@ -9,5 +9,6 @@ namespace tyuiu.cources.programming.Interfaces
     public interface IOutputController
     {
         void WriteLine(string line);
+        void WriteValue(string message, object? value);
     }
 }

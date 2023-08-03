@@ -59,16 +59,17 @@ namespace tyuiu.cources.programming
             output.WriteLine($"{buffer}");
 
             output.WriteLine("Parameters:");
-            var ppp = argsData.args.Zip(method.GetParameters(), (first, second) => $"{second}={first}");
-            foreach (var p in ppp)
+            var argsNameAndVal = argsData.args.Zip(method.GetParameters(), (first, second) => $"{second}={first}");
+            foreach (var p in argsNameAndVal)
             {
                 output.WriteLine(p);
             }
 
-            output.WriteLine("Result:");
-            output.WriteLine($"{res} expected {argsData.result}\n");
+            output.WriteLine("  Result:");
+            output.WriteValue($"    real: ", res); 
+            output.WriteValue($"expected: ", argsData.result);
+            output.WriteLine("--------------------------------");
         }
-
         private (object result, object[] args) GetTestingData<T>()
         {
             return testData[typeof(T)];
