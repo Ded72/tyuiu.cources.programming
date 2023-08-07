@@ -7,7 +7,7 @@ using tyuiu.cources.programming.interfaces;
 
 namespace tyuiu.cources.programming
 {
-    public class TestDataController
+    public class TestingDataController
     {
         private Dictionary<Type, (object result, object[] args)> testData = new() 
         {

@@ -14,30 +14,30 @@ namespace tyuiu.cources.programming.tests
     {
         private readonly string filename = typeof(TestingClass).Assembly.Location;
         private readonly TestingController testingController =
-            new TestingController(new AssemblyController(), new TestDataController());
+            new TestingController(new AssemblyController(), new TestingDataController());
 
         [TestMethod]
         public void RunValid()
         {
             var res = testingController.Run<ISprint0Task0V0>(filename);
             Assert.IsNotNull(res);
-            Assert.AreEqual(8, res.Count());
-            Assert.AreEqual("VALID", res.ToArray<string>()[6]);
+            Assert.AreEqual(8, res.lines.Count());
+            Assert.IsTrue(res.IsSuccess);
 
             res = testingController.Run<ISprint0Task0V1>(filename);
             Assert.IsNotNull(res);
-            Assert.AreEqual(8, res.Count());
-            Assert.AreEqual("VALID", res.ToArray<string>()[6]);
+            Assert.AreEqual(8, res.lines.Count());
+            Assert.IsTrue(res.IsSuccess);
 
             res = testingController.Run<ISprint0Task0V2>(filename);
             Assert.IsNotNull(res);
-            Assert.AreEqual(9, res.Count());
-            Assert.AreEqual("VALID", res.ToArray<string>()[7]);
+            Assert.AreEqual(9, res.lines.Count());
+            Assert.IsTrue(res.IsSuccess);
 
             res = testingController.Run<ISprint1Task0V0>(filename);
             Assert.IsNotNull(res);
-            Assert.AreEqual(8, res.Count());
-            Assert.AreEqual("VALID", res.ToArray<string>()[6]);
+            Assert.AreEqual(8, res.lines.Count());
+            Assert.IsTrue(res.IsSuccess);
         }
         [TestMethod]
         public void RunFail()

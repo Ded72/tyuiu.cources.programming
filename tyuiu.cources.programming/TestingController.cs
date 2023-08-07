@@ -11,20 +11,20 @@ namespace tyuiu.cources.programming
     public class TestingController
     {
         private readonly AssemblyController assemblyController;
-        private readonly TestDataController testDataController;
+        private readonly TestingDataController testDataController;
 
-        public TestingController(AssemblyController assemblyController, TestDataController testDataController) 
+        public TestingController(AssemblyController assemblyController, TestingDataController testDataController) 
         {
             this.assemblyController = assemblyController;
             this.testDataController = testDataController;
         }
-        public IEnumerable<String> Run<T>(string filename)
+        public (bool IsSuccess, IEnumerable<String> lines) Run<T>(string filename)
         {
             var instance = assemblyController.CreateInstanceFromFile<T>(filename);
             MethodInfo method = GetInstanceMethod(instance);
             var data = testDataController.GetData<T>();
             var res = RunMethod(instance, method, data);
-            return GetReport<T>(instance, method, data, res);
+            return (AreEquals(data.result, res), GetReport<T>(instance, method, data, res));
         }
 
         private static MethodInfo GetInstanceMethod<T>(T? instance)
