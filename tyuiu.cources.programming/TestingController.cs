@@ -20,12 +20,18 @@ namespace tyuiu.cources.programming
         }
         public IEnumerable<String> Run<T>(string filename)
         {
-            var instance = assemblyController.LoadFromFile<T>(filename);
-            var method = instance!.GetType().GetInterface(typeof(T).Name)!.GetMethods().First();
+            var instance = assemblyController.CreateInstanceFromFile<T>(filename);
+            MethodInfo method = GetInstanceMethod(instance);
             var data = testDataController.GetData<T>();
             var res = RunMethod(instance, method, data);
             return GetReport<T>(instance, method, data, res);
         }
+
+        private static MethodInfo GetInstanceMethod<T>(T? instance)
+        {
+            return instance!.GetType().GetInterface(typeof(T).Name)!.GetMethods().First();
+        }
+
         private object? RunMethod<T>(T? instance, MethodInfo method, (object result, object[] args) data)
         {
             return method.Invoke(instance, data.args);

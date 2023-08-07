@@ -6,17 +6,17 @@ namespace tyuiu.cources.programming
 {
     public class AssemblyController
     {
-        public T LoadFromByteArray<T>(byte[] buffer)
+        public T CreateInstanceFromByteArray<T>(byte[] buffer)
         {
             var assembly = Assembly.Load(buffer);
             return CreateInstance<T>(assembly);
         }
-        public T LoadFromStream<T>(Stream stream)
+        public T CreateInstanceFromStream<T>(Stream stream)
         {
             var assembly = AssemblyLoadContext.Default.LoadFromStream(stream);
             return CreateInstance<T>(assembly);
         }
-        public T LoadFromFile<T>(string filename)
+        public T CreateInstanceFromFile<T>(string filename)
         {
             if (!File.Exists(filename)) { throw new FileNotFoundException($"File {filename} not found!"); }
             var assembly = Assembly.LoadFile(filename);

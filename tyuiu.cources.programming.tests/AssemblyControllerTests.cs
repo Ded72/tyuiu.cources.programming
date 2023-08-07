@@ -13,7 +13,7 @@ namespace tyuiu.cources.programming.tests
         [TestMethod]
         public void LoadFromFileValid()
         {
-            var intf = controller.LoadFromFile<ISprint0Task0V0>(filename);
+            var intf = controller.CreateInstanceFromFile<ISprint0Task0V0>(filename);
             var res = intf.ReverseString("12345");
             Assert.AreEqual("54321", res);
         }
@@ -22,7 +22,7 @@ namespace tyuiu.cources.programming.tests
         {
             using (var stream = File.OpenRead(filename))
             {
-                var intf = controller.LoadFromStream<ISprint0Task0V1>(stream);
+                var intf = controller.CreateInstanceFromStream<ISprint0Task0V1>(stream);
                 var res = intf.SubFrom100(10);
                 Assert.AreEqual(90, res);
             }
@@ -31,7 +31,7 @@ namespace tyuiu.cources.programming.tests
         public void CheckLoadFromByteArrayValid()
         {
             var buffer = File.ReadAllBytes(filename);
-            var intf = controller.LoadFromByteArray<ISprint0Task0V2>(buffer);
+            var intf = controller.CreateInstanceFromByteArray<ISprint0Task0V2>(buffer);
             var res = intf.Multiply(3, 5);
             Assert.AreEqual(15, res);
         }
@@ -40,7 +40,7 @@ namespace tyuiu.cources.programming.tests
         {
             Assert.ThrowsException<FileNotFoundException>(() =>
             {
-                var intf = controller.LoadFromFile<ISprint0Task0V0>(@"NotExists.dll");
+                var intf = controller.CreateInstanceFromFile<ISprint0Task0V0>(@"NotExists.dll");
             });
         }
         [TestMethod]
@@ -48,7 +48,7 @@ namespace tyuiu.cources.programming.tests
         {
             Assert.ThrowsException<InvalidOperationException>(() =>
             {
-                var intf = controller.LoadFromFile<ISprint0Task99V99>(filename);
+                var intf = controller.CreateInstanceFromFile<ISprint0Task99V99>(filename);
             });
         }
     }
