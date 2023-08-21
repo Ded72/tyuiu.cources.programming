@@ -1,10 +1,4 @@
-﻿using Microsoft.VisualStudio.TestPlatform.ObjectModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using tyuiu.cources.programming.interfaces;
+﻿using tyuiu.cources.programming.interfaces;
 using tyuiu.SidorovAY.Sprint0.Task0.V0;
 
 namespace tyuiu.cources.programming.tests
