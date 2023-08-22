@@ -11,8 +11,10 @@ namespace tyuiu.cources.programming.tests
         public void LoadRepositoryToDirValid()
         {
             var gitController = new GitController();
-            //gitController.Load("https://github.com/Andrey-1970/git_prj.git", @"c:\temp\tasks");
-            gitController.Load("https://github.com/Andrey-1970/tyuiu.cources.programming.git", @"c:\temp\tasks1");
+            //gitController.Load("https://github.com/Andrey-1970/git_prj.git", @"c:\temp");
+            gitController.Load(
+                "https://github.com/Andrey-1970/tyuiu.SpirinIS.Sprint0.Task0.V2.git",
+                @"c:\temp");
         }
     }
 }

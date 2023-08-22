@@ -10,9 +10,15 @@ namespace tyuiu.cources.programming
 {
     public class GitController
     {
-        public void Load(string repoUrl, string destDir)
+        public void Load(string repoUrl, string rootDir)
         {
-            Repository.Clone(repoUrl, destDir);
+            var filename = Path.GetFileNameWithoutExtension(repoUrl);
+            var localDir = $@"{rootDir}\{filename}";
+            if (Directory.Exists(localDir))
+            {
+                throw new FileLoadException($"Directory {localDir} already exists!");
+            }
+            Repository.Clone(repoUrl, localDir);
             //var repo = new Repository(destDir);
             //foreach (var f in repo.Network.Remotes)
             //{
