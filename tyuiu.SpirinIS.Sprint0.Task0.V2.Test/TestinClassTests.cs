@@ -1,3 +1,5 @@
+using tyuiu.cources.programming.interfaces;
+
 namespace tyuiu.SpirinIS.Sprint0.Task0.V2.Test
 {
     [TestClass]
@@ -6,7 +8,7 @@ namespace tyuiu.SpirinIS.Sprint0.Task0.V2.Test
         [TestMethod]
         public void TestMethod1()
         {
-            var cls = new TestingClass();
+            ISprint0Task0V2 cls = new TestingClass();
             var res = cls.Multiply(2, 2);
             Assert.AreEqual(4, res);
         }

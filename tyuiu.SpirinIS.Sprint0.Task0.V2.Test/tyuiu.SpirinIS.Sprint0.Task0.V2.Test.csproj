@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\tyuiu.cources.programming.interfaces\tyuiu.cources.programming.interfaces.csproj" />
     <ProjectReference Include="..\tyuiu.SpirinIS.Sprint0.Task0.V2\tyuiu.SpirinIS.Sprint0.Task0.V2.csproj" />
   </ItemGroup>
 
