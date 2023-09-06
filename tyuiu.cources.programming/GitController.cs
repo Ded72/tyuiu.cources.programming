@@ -12,18 +12,24 @@ namespace tyuiu.cources.programming
     {
         public void Load(string repoUrl, string rootDir)
         {
-            var filename = Path.GetFileNameWithoutExtension(repoUrl);
+            if ((repoUrl.IndexOf("Tyuiu")) < 0)
+            {
+                throw new FileLoadException($"{repoUrl} - bad link");
+            }
+            var filename = (repoUrl.Substring(repoUrl.IndexOf("Tyuiu"))).Replace(".git", "");
             var localDir = $@"{rootDir}\{filename}";
             if (Directory.Exists(localDir))
             {
                 throw new FileLoadException($"Directory {localDir} already exists!");
             }
+            
             Repository.Clone(repoUrl, localDir);
-            //var repo = new Repository(destDir);
-            //foreach (var f in repo.Network.Remotes)
-            //{
-            //    repo.Network.Remotes.Remove(f.Name);
-            //}
+            //Console.WriteLine($"Copying {repoUrl}");
+            
+
         }
+
+        }
+
+        
     }
-}
