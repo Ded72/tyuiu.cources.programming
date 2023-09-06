@@ -41,5 +41,10 @@ namespace tyuiu.cources.programming.tests
                 var res = testingController.Run<ISprint0Task99V99>(filename);
             });
         }
+        [TestMethod]
+        public void TestNoDataValid()
+        {
+            var res = testingController.Run2<ISprint0Task0V0>(filename);
+        }
     }
 }

@@ -7,7 +7,7 @@ using tyuiu.cources.programming.interfaces;
 
 namespace tyuiu.cources.programming
 {
-    public class TestingDataController
+    public class TestingDataController: ISprint0Task0V0
     {
         private Dictionary<Type, (object result, object[] args)> testData = new() 
         {
@@ -22,6 +22,11 @@ namespace tyuiu.cources.programming
         public (object result, object[] args) GetData<T>()
         {
             return testData[typeof(T)];
+        }
+
+        public string ReverseString(string str)
+        {
+            return "54321";
         }
     }
 }

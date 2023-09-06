@@ -96,5 +96,19 @@ namespace tyuiu.cources.programming
                 return res!.Equals(expected);
             }
         }
+
+        public object Run2<T>(string filename)
+        {
+            var data = testDataController.GetData<T>();
+            
+            MethodInfo testMethod = GetInstanceMethod<ISprint0Task0V0>(testDataController);
+            var testRes = RunMethod(testDataController,testMethod, data);
+            
+            var instance = assemblyController.CreateInstanceFromFile<T>(filename);
+            MethodInfo method = GetInstanceMethod(instance);
+            var res = RunMethod(instance, method, data);
+
+            return (AreEquals(testRes, res), GetReport<T>(instance, method, data, res));
+        }
     }
 }
