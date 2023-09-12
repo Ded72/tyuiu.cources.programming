@@ -10,26 +10,27 @@ namespace tyuiu.cources.programming
 {
     public class TestingController
     {
-        private readonly AssemblyController assemblyController;
+
         private readonly TestingDataController testDataController;
 
-        public TestingController(AssemblyController assemblyController, TestingDataController testDataController) 
+        public TestingController(TestingDataController testDataController)
         {
-            this.assemblyController = assemblyController;
             this.testDataController = testDataController;
         }
-        public (bool IsSuccess, IEnumerable<String> lines) Run<T>(string filename)
+        public (bool IsSuccess, IEnumerable<String> lines) Run<T>(T instance)
         {
-            var instance = assemblyController.CreateInstanceFromFile<T>(filename);
             MethodInfo method = GetInstanceMethod(instance);
-            var data = testDataController.GetData<T>();
+            var data = testDataController.GetData(instance.GetType().GetInterfaces().First());
             var res = RunMethod(instance, method, data);
-            return (AreEquals(data.result, res), GetReport<T>(instance, method, data, res));
+            Console.WriteLine($"Successful launch: { instance.GetType().FullName} !");
+            //Console.WriteLine($"With method: {instance.GetType().GetInterfaces().First().GetMethods().First().Name} !");
+            Console.WriteLine($"Results are: {res} but waiting for: {data.result}");
+            return (AreEquals(data.result, res), GetReport(instance, method, data, res));
         }
-
         private static MethodInfo GetInstanceMethod<T>(T? instance)
         {
-            return instance!.GetType().GetInterface(typeof(T).Name)!.GetMethods().First();
+
+            return instance!.GetType().GetMethods().First();
         }
 
         private object? RunMethod<T>(T? instance, MethodInfo method, (object result, object[] args) data)
@@ -57,7 +58,7 @@ namespace tyuiu.cources.programming
             outList.Add("  Result:");
             outList.Add(WriteValue($"    real: ", res));
             outList.Add(WriteValue($"expected: ", data.result));
-            outList.Add(AreEquals(data.result, res)?"VALID":"FAIL");
+            outList.Add(AreEquals(data.result, res) ? "VALID" : "FAIL");
             outList.Add("--------------------------------");
             return outList;
         }
@@ -97,18 +98,5 @@ namespace tyuiu.cources.programming
             }
         }
 
-        public object Run2<T>(string filename)
-        {
-            var data = testDataController.GetData<T>();
-            
-            MethodInfo testMethod = GetInstanceMethod<ISprint0Task0V0>(testDataController);
-            var testRes = RunMethod(testDataController,testMethod, data);
-            
-            var instance = assemblyController.CreateInstanceFromFile<T>(filename);
-            MethodInfo method = GetInstanceMethod(instance);
-            var res = RunMethod(instance, method, data);
-
-            return (AreEquals(testRes, res), GetReport<T>(instance, method, data, res));
-        }
     }
 }
