@@ -1,14 +1,13 @@
 ﻿using Moq;
 using tyuiu.cources.programming.interfaces;
 using tyuiu.cources.programming.interfaces.Sprint1;
-using tyuiu.SidorovAY.Sprint0.Task0.V0;
 
 namespace tyuiu.cources.programming.tests
 {
     [TestClass]
     public class TestingControllerTests
     {
-        private readonly string filename = typeof(TestingClass).Assembly.Location;
+        
         private readonly TestingController testingController =
             new TestingController( new TestingDataController());
       

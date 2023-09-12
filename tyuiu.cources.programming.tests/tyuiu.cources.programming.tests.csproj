@@ -20,8 +20,6 @@
   <ItemGroup>
     <ProjectReference Include="..\tyuiu.cources.programming.interfaces\tyuiu.cources.programming.interfaces.csproj" />
     <ProjectReference Include="..\tyuiu.cources.programming\tyuiu.cources.programming.csproj" />
-    <ProjectReference Include="..\tyuiu.SidorovAY.Sprint0.Task0.V0\tyuiu.SidorovAY.Sprint0.Task0.V0.csproj" />
-    <ProjectReference Include="..\tyuiu.SpirinIS.Sprint0.Task0.V2.con\tyuiu.SpirinIS.Sprint0.Task0.V2.con.csproj" />
   </ItemGroup>
 
 </Project>
