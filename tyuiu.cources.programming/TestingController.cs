@@ -23,8 +23,6 @@ namespace tyuiu.cources.programming
             var data = testDataController.GetData(instance.GetType().GetInterfaces().First());
             var res = RunMethod(instance, method, data);
             Console.WriteLine($"Successful launch: { instance.GetType().FullName} !");
-            //Console.WriteLine($"With method: {instance.GetType().GetInterfaces().First().GetMethods().First().Name} !");
-            Console.WriteLine($"Results are: {res} but waiting for: {data.result}");
             return (AreEquals(data.result, res), GetReport(instance, method, data, res));
         }
         private static MethodInfo GetInstanceMethod<T>(T? instance)
