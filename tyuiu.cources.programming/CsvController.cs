@@ -3,86 +3,138 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Diagnostics;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using tyuiu.cources.programming.interfaces;
-using tyuiu.cources.programming.interfaces.Sprint1;
-using static tyuiu.cources.programming.ScoreController;
+
 
 namespace tyuiu.cources.programming
 {
     public class CsvController
     {
-        private readonly ScoreController scoreController;
 
         public GitController gitController { get; }
 
         private readonly AssemblyController assemblyController;
         private readonly TestingController testingController;
 
-        public CsvController(ScoreController scoreController,
+        public CsvController(
             GitController gitController,
             AssemblyController assemblyController,
             TestingController testingController)
         {
-            this.scoreController = scoreController;
             this.gitController = gitController;
             this.assemblyController = assemblyController;
             this.testingController = testingController;
         }
-        TaskData taskData = new TaskData();
-        public List<object> Load(string pathCsvFile)
+ 
+        public string Load(string pathCsvFile)
         {
-            using (StreamWriter sw = new StreamWriter(@"C:\Temp\report.txt", false)) { }
+            string currentDate = DateTime.Now.ToString().Replace(" ", "-").Replace(":", ".");
+            List<string> studentPathsToDlls = new List<string>();
+            object studentInetrfaceFromDll;
+            TaskData taskData = new TaskData();
+            if (!Directory.Exists(@$"{gitController.rootDir}\{currentDate}"))
+            {
+                Directory.CreateDirectory(@$"{gitController.rootDir}\{currentDate}");
+            }
+            string studentResultFile = @$"{gitController.rootDir}\{currentDate}\educon.txt";
+            using (StreamWriter sw = new StreamWriter(studentResultFile, false)) { }
             using (StreamReader sr = new StreamReader(pathCsvFile))
             {
 
                 List<string> downloadedLinks = new List<string>();
-
-                List<object> studentInetrfacesFromDll = new List<object>();
                 string? line = sr.ReadLine();
                 while (line != null)
                 {
-
                     if (!line.Contains("Ответ"))
                     {
                         var parsedData = Parse(line);
                         taskData.Name = parsedData.Name;
                         taskData.SurName = parsedData.SurName;
+                        taskData.Date = parsedData.Date;
+                        taskData.Task = parsedData.Task;
                         taskData.Link = parsedData.Link;
                         taskData.Score = 0.0;
                         if (!downloadedLinks.Contains(taskData.Link))
                         {
-                            if (gitController.Load(taskData.Link))
+                            downloadedLinks.Add(taskData.Link);
+                            if (gitController.Load(taskData.Link, currentDate))
                             {
-                                using (StreamWriter sw = new StreamWriter(@"C:\Temp\report.txt", true))
-                                {
-                                    sw.WriteLine(($"Ученик {taskData.StudentId}, ссылка валидна"));
-                                }
-                                taskData.Score = taskData.Score + 0.2;
-                                downloadedLinks.Add(taskData.Link);
+                                taskData.Score = 0.2;
                                 var filename = Path.GetFileNameWithoutExtension(taskData.Link);
-                                var localDir = $@"{gitController.rootDir}\{filename}";
-                                Build(localDir);
-                                //studentInetrfacesFromDll = ExtractInterfaceFromDll(Build(localDir));
+                                var localDir = $@"{gitController.rootDir}\{currentDate}\{filename}";
+                                List<string> notCompiledDirectories = GetNotCompiledLibDirs(Directory.GetDirectories(localDir));
 
+                                if (notCompiledDirectories.Count > 0)
+                                {
+                                    studentPathsToDlls = Build(localDir);
+                                    bool found = false;
+                                    Regex regex = new Regex(@"Sprint\d.Task\d\b");
+                                    foreach (string directory in notCompiledDirectories)
+                                    {
+                                        Match match = regex.Match(directory);
+                                        taskData.Task = match.Value;
+                                        foreach (string path in studentPathsToDlls)
+                                        {
+                                            if (path.Contains(directory) && taskData.Task != "")
+                                            {
 
+                                                found = true;
+                                                taskData.Score = 0.4;
+                                                studentInetrfaceFromDll = ExtractInterfaceFromDll(path);
+                                                if (studentInetrfaceFromDll != null)
+                                                {
+                                                    if (LaunchFiles(studentInetrfaceFromDll))
+                                                    {
+                                                        taskData.Score = 0.6;
+                                                    }
+                                                    ;
+                                                }
+                                                WriteReport(studentResultFile, taskData.StudentData);
+                                                break;
+                                            }
+                                        }
+                                        if (!found)
+                                        {
+                                            taskData.Score = 0.2;
+                                            WriteReport(studentResultFile, taskData.StudentData);
+                                            found = false;
+                                        }
+                                    } 
+                                }
+                                else
+                                {
+                                    WriteReport(studentResultFile, taskData.StudentData);
+                                }    
                             }
-
+                            else
+                            {
+                                WriteReport(studentResultFile, taskData.StudentData);
+                            }
                         }
-                    }
-                    using (StreamWriter sw = new StreamWriter(@"C:\Temp\report.txt", true))
-                    {
-                        sw.WriteLine(($"Ученик {taskData.StudentId}, имеет {taskData.Score} баллов"));
                     }
                     line = sr.ReadLine();
                 }
-
-                return studentInetrfacesFromDll;
+                return @$"{gitController.rootDir}\{currentDate}\educon.txt";
             }
+        }
 
-
+        public List <string> GetNotCompiledLibDirs(string[] directory)
+        {
+            List <string> notCompoiledLibDirs = new List <string>();
+            foreach (string dir in directory)
+            {
+                if (dir.EndsWith(".Lib"))
+                {
+                    notCompoiledLibDirs.Add(dir);
+                }
+            }
+            return notCompoiledLibDirs;
         }
 
         private static bool RunProcess(string directory)
@@ -95,20 +147,18 @@ namespace tyuiu.cources.programming
             process.Start();
             process.WaitForExit();
 
-            ;
-
             return process.ExitCode == 0;
         }
 
         public List<string> Build(string directory)
         {
             List<string> dllPaths = new List<string>();
-            List <string> subLibDirectories = new List<string>();
-            foreach(var subDir in Directory.GetDirectories(directory))
+            List<string> subLibDirectories = new List<string>();
+            foreach (var subDir in Directory.GetDirectories(directory))
             {
                 if (subDir.EndsWith(".Lib"))
                 {
-                     subLibDirectories.Add(subDir);
+                    subLibDirectories.Add(subDir);
                 }
             }
             if (subLibDirectories.Count > 0)
@@ -117,70 +167,76 @@ namespace tyuiu.cources.programming
                 {
                     if (RunProcess(subDirectory))
                     {
-                        scoreController.SetCompileScore(0.2);
 
                         dllPaths.Add($@"{directory}\{Path.GetFileNameWithoutExtension(subDirectory)}.Lib\bin\Debug\{Path.GetFileNameWithoutExtension(subDirectory)}.Lib.dll");
-                        using (StreamWriter sw = new StreamWriter(@"C:\Temp\report.txt", true))
-                        {
-                            sw.WriteLine(($"Уcпешная компиляция {subDirectory}"));
-                        }
-
                     }
-                    else
-                    {
-                        using (StreamWriter sw = new StreamWriter(@"C:\Temp\report.txt", true))
-                        {
-                            sw.WriteLine(($"Ошибка компиляции {subDirectory}"));
-                        }
-                        //throw new Exception($"Compilation error at {subDirectory}");
-                    }
-                }
-                if (dllPaths.Count == subLibDirectories.Count)
-                {
-                    taskData.Score = taskData.Score + 0.2;
                 }
             }
-            
-
-            
-
             return dllPaths;
 
         }
 
-
-        public List<object> ExtractInterfaceFromDll(List<string> studentDllPaths)
+        public object ExtractInterfaceFromDll(string studentDllPath)
         {
-            List<object> interfacesFromDll = new List<object>();
-            foreach (string dll in studentDllPaths)
+            object? dllInterface = null;
+
+            if (!studentDllPath.Contains("Task5"))
             {
-                if (!dll.Contains('5'))
+                try
                 {
-                    try
-                    {
-                        var intf = assemblyController.CreateInstanceFromFile(dll);
-                        interfacesFromDll.Add(intf);
+                    dllInterface = assemblyController.CreateInstanceFromFile(studentDllPath);
 
-                    }
-                    catch (Exception e)
-                    {
-                        throw new Exception(e.Message);
-                    };
                 }
+                catch (Exception e)
+                {
+                    //throw new Exception(e.Message);
+                };
+            }
+            return dllInterface;
+        }
 
+        public bool LaunchFiles(object interfaceFromDll)
+        {
+
+            try
+            {
+                (var areEquals, var report) = testingController.Run(interfaceFromDll);
+                if (areEquals)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
             }
 
-            return interfacesFromDll;
+
+        }
+
+        public void WriteReport(string filePath, string data)
+        {
+            using (StreamWriter sw = new StreamWriter(filePath, true))
+            {
+                sw.WriteLine(data);
+            }
         }
 
         private TaskData Parse(string line)
         {
             var values = line.Split(',');
-
+            DateTime date = DateTime.ParseExact(values[4].Replace("\"", ""), "d MMMM yyyy  HH:mm", CultureInfo.InvariantCulture);
             return new TaskData()
             {
                 Name = values[0],
                 SurName = values[1],
+                Date = date.ToString("dd.MM.yyyy HH:mm"),
+                Task = values[7].Replace("\"", ""),
                 Link = values[8]
             };
         }
@@ -192,9 +248,11 @@ namespace tyuiu.cources.programming
     {
         public string Name = string.Empty;
         public string SurName = string.Empty;
+        public string Date = string.Empty;
+        public string Task = string.Empty;
         public string Link = string.Empty;
         public double Score = 0.0;
-        public string StudentId { get { return Name + SurName; } }
+        public string StudentData { get { return $"Группа 1,{Name} {SurName},{Task},{Date},{Score.ToString().Replace(',', '.')}"; } }
 
     }
 }
