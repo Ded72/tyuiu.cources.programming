@@ -15,20 +15,16 @@ namespace tyuiu.cources.programming.tests
         [TestMethod]
         public void LoadFileValid()
         {
-            var csvController = new CsvController(new ScoreController(), 
+            var csvController = new CsvController( 
                 new GitController(@"C:\Temp"), 
                 new AssemblyController(),
                 new TestingController(new TestingDataController()));
             var testingController = new TestingController(new TestingDataController());
 
-            List<object> interfacesFromDll = csvController.Load(@"C:\Temp\links.csv");
-            foreach (var intf in interfacesFromDll)
-            {
-                //Console.WriteLine(intf.GetType().GetInterfaces().First().Name);
-                var result = testingController.Run(intf);
+            string studentResults = csvController.Load(@"C:\Temp\0_7_Vyslat_ssylku_s_GitHub-otvety.csv");
+            Console.WriteLine(studentResults);
 
-            }
-            ;
+            
 
         }
 
