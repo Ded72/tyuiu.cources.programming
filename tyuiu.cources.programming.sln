@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tyuiu.cources.programming.t
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tyuiu.cources.programming.interfaces", "tyuiu.cources.programming.interfaces\tyuiu.cources.programming.interfaces.csproj", "{B52B106D-37EE-4B0E-8E7C-BCEADAF06BA3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{38CFA050-BA6D-4430-8640-35D9D0F25218}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{14942942-7692-4C2E-B1E0-D47329583D0E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{B52B106D-37EE-4B0E-8E7C-BCEADAF06BA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B52B106D-37EE-4B0E-8E7C-BCEADAF06BA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B52B106D-37EE-4B0E-8E7C-BCEADAF06BA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38CFA050-BA6D-4430-8640-35D9D0F25218}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38CFA050-BA6D-4430-8640-35D9D0F25218}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38CFA050-BA6D-4430-8640-35D9D0F25218}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38CFA050-BA6D-4430-8640-35D9D0F25218}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14942942-7692-4C2E-B1E0-D47329583D0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14942942-7692-4C2E-B1E0-D47329583D0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14942942-7692-4C2E-B1E0-D47329583D0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14942942-7692-4C2E-B1E0-D47329583D0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
