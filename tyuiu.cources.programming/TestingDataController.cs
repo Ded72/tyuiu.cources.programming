@@ -22,7 +22,7 @@ namespace tyuiu.cources.programming
             { typeof(ISprint1Task3V0), (2.0, new object[] {1, 1})},
             { typeof(ISprint1Task4V0), (2.0, new object[] {1 , 1 })},
             { typeof(ISprint1Task6V0), ("", new object[] {"" })},
-            { typeof(ISprint1Task7V0), (0, new object[] {2, 3, 1 })},
+            { typeof(ISprint1Task7V0), (1, new object[] {2, 3, 1 })},
         };
         public (object result, object[] args) GetData(Type type)
         {
