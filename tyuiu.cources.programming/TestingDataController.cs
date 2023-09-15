@@ -12,7 +12,6 @@ namespace tyuiu.cources.programming
     {
         private Dictionary<Type, (object result, object[] args)> testData = new()
         {
-
             { typeof(ISprint1Task0V1), (2.0, new object[] {})},
             { typeof(ISprint1Task1V0), (2.0, new object[] {1, 9})},
             { typeof(ISprint1Task2V0), (2.0, new object[] {2})},
