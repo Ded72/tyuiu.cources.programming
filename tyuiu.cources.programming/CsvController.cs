@@ -43,6 +43,7 @@ namespace tyuiu.cources.programming
                 Directory.CreateDirectory(@$"{gitController.rootDir}\{currentDate}");
             }
             string studentResultFile = @$"{gitController.rootDir}\{currentDate}\educon.txt";
+            File.Copy(@$"{gitController.rootDir}\Vedomost.xlsm", @$"{gitController.rootDir}\{currentDate}\Vedomost.xlsm");
             using (StreamWriter sw = new StreamWriter(studentResultFile, false)) { }
             using (StreamReader sr = new StreamReader(pathCsvFile))
             {
