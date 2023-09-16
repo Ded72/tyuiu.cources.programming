@@ -31,8 +31,8 @@ namespace tyuiu.cources.programming
             this.assemblyController = assemblyController;
             this.testingController = testingController;
         }
- 
-        public string Load(string pathCsvFile)
+
+        public string Load(string pathCsvFiles)
         {
             string currentDate = DateTime.Now.ToString().Replace(" ", "-").Replace(":", ".");
             List<string> studentPathsToDlls = new List<string>();
@@ -45,88 +45,120 @@ namespace tyuiu.cources.programming
             string studentResultFile = @$"{gitController.rootDir}\{currentDate}\educon.txt";
             File.Copy(@$"{gitController.rootDir}\Vedomost.xlsm", @$"{gitController.rootDir}\{currentDate}\Vedomost.xlsm");
             using (StreamWriter sw = new StreamWriter(studentResultFile, false)) { }
-            using (StreamReader sr = new StreamReader(pathCsvFile))
+            foreach (var csvFile in Directory.GetFiles(pathCsvFiles))
             {
 
-                List<string> downloadedLinks = new List<string>();
-                string? line = sr.ReadLine();
-                while (line != null)
+                if (Path.GetExtension(csvFile) == ".csv")
                 {
-                    if (!line.Contains("Ответ"))
+                    ProcessCsvFile(csvFile);
+                    using (StreamReader sr = new StreamReader(csvFile))
                     {
-                        var parsedData = Parse(line);
-                        taskData.Name = parsedData.Name;
-                        taskData.SurName = parsedData.SurName;
-                        taskData.Date = parsedData.Date;
-                        taskData.Task = parsedData.Task;
-                        taskData.Link = parsedData.Link;
-                        taskData.Score = 0.0;
-                        if (!downloadedLinks.Contains(taskData.Link))
-                        {
-                            downloadedLinks.Add(taskData.Link);
-                            if (gitController.Load(taskData.Link, currentDate))
-                            {
-                                taskData.Score = 0.2;
-                                var filename = Path.GetFileNameWithoutExtension(taskData.Link);
-                                var localDir = $@"{gitController.rootDir}\{currentDate}\{filename}";
-                                List<string> notCompiledDirectories = GetNotCompiledLibDirs(Directory.GetDirectories(localDir));
 
-                                if (notCompiledDirectories.Count > 0)
+                        List<string> downloadedLinks = new List<string>();
+                        string? line = sr.ReadLine();
+                        while (line != null)
+                        {
+                            if (!line.Contains("Ответ"))
+                            {
+                                var parsedData = Parse(line);
+                                taskData.Name = parsedData.Name;
+                                taskData.SurName = parsedData.SurName;
+                                taskData.Date = parsedData.Date;
+                                taskData.Task = parsedData.Task;
+                                taskData.Link = parsedData.Link;
+                                taskData.Score = 0.0;
+                                if (!downloadedLinks.Contains(taskData.Link))
                                 {
-                                    studentPathsToDlls = Build(localDir);
-                                    bool found = false;
-                                    Regex regex = new Regex(@"Sprint\d{1,2}.Task\d{1,2}.V\d{1,2}\b");
-                                    foreach (string directory in notCompiledDirectories)
+                                    downloadedLinks.Add(taskData.Link);
+                                    if (gitController.Load(taskData.Link, currentDate))
                                     {
-                                        Match match = regex.Match(directory);
-                                        taskData.Task = match.Value;
-                                        taskData.Score = 0.4;
-                                        foreach (string path in studentPathsToDlls)
+                                        
+                                        taskData.Score = 0.2;
+                                        var filename = Path.GetFileNameWithoutExtension(taskData.Link);
+                                        var localDir = $@"{gitController.rootDir}\{currentDate}\{filename}";
+                                        List<string> notCompiledDirectories = GetNotCompiledLibDirs(Directory.GetDirectories(localDir));
+
+                                        if (notCompiledDirectories.Count > 0)
                                         {
-                                            if (path.Contains(directory) && taskData.Task != "")
+                                            studentPathsToDlls = Build(localDir);
+                                            bool found = false;
+                                            Regex regex = new Regex(@"Sprint\d{1,2}.Task\d{1,2}.V\d{1,2}\b");
+                                            foreach (string directory in notCompiledDirectories)
                                             {
-                                                found = true;
-                                                studentInetrfaceFromDll = ExtractInterfaceFromDll(path);
-                                                if (studentInetrfaceFromDll != null)
+                                                Match match = regex.Match(directory);
+                                                taskData.Task = match.Value;
+                                                taskData.Score = 0.4;
+                                                foreach (string path in studentPathsToDlls)
                                                 {
-                                                    if (LaunchFiles(studentInetrfaceFromDll))
+                                                    if (path.Contains(directory) && taskData.Task != "")
                                                     {
-                                                        taskData.Score = 0.6;
+                                                        found = true;
+                                                        studentInetrfaceFromDll = ExtractInterfaceFromDll(path);
+                                                        if (studentInetrfaceFromDll != null)
+                                                        {
+                                                            if (LaunchFiles(studentInetrfaceFromDll))
+                                                            {
+                                                                taskData.Score = 0.6;
+                                                            }
+                                                             ;
+                                                        }
+                                                        WriteReport(studentResultFile, taskData.StudentData);
+                                                        break;
                                                     }
-                                                     ;
                                                 }
-                                                WriteReport(studentResultFile, taskData.StudentData);
-                                                break;
+                                                if (!found)
+                                                {
+                                                    taskData.Score = 0.2;
+                                                    WriteReport(studentResultFile, taskData.StudentData);
+                                                }
+                                                found = false;
                                             }
                                         }
-                                        if (!found)
+                                        else
                                         {
-                                            taskData.Score = 0.2;
                                             WriteReport(studentResultFile, taskData.StudentData);
                                         }
-                                        found = false;
+                                    }
+                                    else
+                                    {
+                                        WriteReport(studentResultFile, taskData.StudentData);
                                     }
                                 }
-                                else
-                                {
-                                    WriteReport(studentResultFile, taskData.StudentData);
-                                }
                             }
-                            else
-                            {
-                                WriteReport(studentResultFile, taskData.StudentData);
-                            }
+                            line = sr.ReadLine();
                         }
                     }
-                    line = sr.ReadLine();
                 }
-                return @$"{gitController.rootDir}\{currentDate}\educon.txt";
+
+            }
+            return @$"{gitController.rootDir}\{currentDate}\educon.txt";
+        }
+
+        public void ProcessCsvFile(string pathCsvFile)
+        {
+            string[] lines = File.ReadAllLines(pathCsvFile);
+            Dictionary<string, string> dataDictionary = new Dictionary<string, string>();
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string[] values = lines[i].Split(',');
+                if (values.Length >= 2)
+                {
+                    string key = values[0] + "," + values[1];
+                    dataDictionary[key] = lines[i];
+                }
+            }
+            using (StreamWriter writer = new StreamWriter(pathCsvFile))
+            {
+                foreach (var line in dataDictionary.Values)
+                {
+                    writer.WriteLine(line);
+                }
             }
         }
 
-        public List <string> GetNotCompiledLibDirs(string[] directory)
+        public List<string> GetNotCompiledLibDirs(string[] directory)
         {
-            List <string> notCompoiledLibDirs = new List <string>();
+            List<string> notCompoiledLibDirs = new List<string>();
             foreach (string dir in directory)
             {
                 if (dir.EndsWith(".Lib"))
@@ -179,15 +211,16 @@ namespace tyuiu.cources.programming
         public object ExtractInterfaceFromDll(string studentDllPath)
         {
             object? dllInterface = null;
-                try
-                {
-                    dllInterface = assemblyController.CreateInstanceFromFile(studentDllPath);
+            try
+            {
+                dllInterface = assemblyController.CreateInstanceFromFile(studentDllPath);
 
-                }
-                catch (Exception e)
-                {
-                    //throw new Exception(e.Message);
-                };
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                //throw new Exception(e.Message);
+            };
             return dllInterface;
         }
 
@@ -230,15 +263,31 @@ namespace tyuiu.cources.programming
         private TaskData Parse(string line)
         {
             var values = line.Split(',');
-            DateTime date = DateTime.ParseExact(values[4].Replace("\"", ""), "d MMMM yyyy  HH:mm", CultureInfo.InvariantCulture);
-            return new TaskData()
+            try
             {
-                Name = values[0],
-                SurName = values[1],
-                Date = date.ToString("dd.MM.yyyy HH:mm"),
-                Task = values[7].Replace("\"", ""),
-                Link = values[8]
-            };
+                DateTime date = DateTime.ParseExact(values[4].Replace("\"", ""), "d MMMM yyyy  HH:mm", CultureInfo.InvariantCulture);
+                return new TaskData()
+                {
+                    Name = values[0],
+                    SurName = values[1],
+                    Date = date.ToString("dd.MM.yyyy HH:mm"),
+                    Task = values[7].Replace("\"", ""),
+                    Link = values[8]
+                };
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return new TaskData()
+                {
+                    Name = String.Empty,
+                    SurName = String.Empty,
+                    Date = String.Empty,
+                    Task = String.Empty,
+                    Link = String.Empty
+                };
+
+            }
         }
 
 
