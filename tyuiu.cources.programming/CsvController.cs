@@ -75,27 +75,25 @@ namespace tyuiu.cources.programming
                                 {
                                     studentPathsToDlls = Build(localDir);
                                     bool found = false;
-                                    Regex regex = new Regex(@"Sprint\d.Task\d\b");
+                                    Regex regex = new Regex(@"Sprint\d{1,2}.Task\d{1,2}.V\d{1,2}\b");
                                     foreach (string directory in notCompiledDirectories)
                                     {
                                         Match match = regex.Match(directory);
                                         taskData.Task = match.Value;
+                                        taskData.Score = 0.4;
                                         foreach (string path in studentPathsToDlls)
                                         {
                                             if (path.Contains(directory) && taskData.Task != "")
                                             {
-
                                                 found = true;
-                                                taskData.Score = 0.4;
                                                 studentInetrfaceFromDll = ExtractInterfaceFromDll(path);
                                                 if (studentInetrfaceFromDll != null)
                                                 {
                                                     if (LaunchFiles(studentInetrfaceFromDll))
                                                     {
                                                         taskData.Score = 0.6;
-                                                        
                                                     }
-                                                    ;
+                                                     ;
                                                 }
                                                 WriteReport(studentResultFile, taskData.StudentData);
                                                 break;
@@ -105,14 +103,14 @@ namespace tyuiu.cources.programming
                                         {
                                             taskData.Score = 0.2;
                                             WriteReport(studentResultFile, taskData.StudentData);
-                                            found = false;
                                         }
-                                    } 
+                                        found = false;
+                                    }
                                 }
                                 else
                                 {
                                     WriteReport(studentResultFile, taskData.StudentData);
-                                }    
+                                }
                             }
                             else
                             {
