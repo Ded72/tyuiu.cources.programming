@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace tyuiu.cources.programming.interfaces.Sprint1
 {
     public interface ISprint1Task7V0 { double Calculate(double x, double y, double z); }
-    public interface ISprint1Task7V1 { double Calculate(double a, double b, double c, double d); }
+    public interface ISprint1Task7V1 { double Calculate(double a, double b, double c); }
     public interface ISprint1Task7V2 { double Calculate(double x, double y); }
     public interface ISprint1Task7V3 { double Calculate(double x, double y); }
     public interface ISprint1Task7V4 { double Calculate(double x, double y); }
