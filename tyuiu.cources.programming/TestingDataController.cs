@@ -174,7 +174,7 @@ namespace tyuiu.cources.programming
             //Task5
 
             { typeof(ISprint1Task5V0), (2.0, new object[] {1 , 1 })},
-            { typeof(ISprint1Task5V1), (4.0, new object[] {5 , 3, 2, 1 })},
+            { typeof(ISprint1Task5V1), (2, new object[] {5 , 3, 2, 1 })},
             { typeof(ISprint1Task5V2), (-15, new object[] {5 })},
             { typeof(ISprint1Task5V3), (5, new object[] {230598 })},
             { typeof(ISprint1Task5V4), (5, new object[] {20000})},
@@ -185,7 +185,7 @@ namespace tyuiu.cources.programming
             //Task6
 
             { typeof(ISprint1Task6V0), ("", new object[] {"" })},
-            { typeof(ISprint1Task6V1), ("1", new object[] {"49" })},
+            { typeof(ISprint1Task6V1), ("49", new object[] {"1" })},
             { typeof(ISprint1Task6V2), (true, new object[] {"Hello world" })},
             { typeof(ISprint1Task6V3), ("od", new object[] {"Hello world" })},
             { typeof(ISprint1Task6V4), ("желанный медленный", new object[] {"желанный юный медленный" })},
