@@ -133,9 +133,9 @@ namespace tyuiu.cources.programming
             { typeof(ISprint1Task3V14), (321.0, new object[] {123})},
             { typeof(ISprint1Task3V15), (15.0, new object[] {1, 5, 3, 2})},
             { typeof(ISprint1Task3V16), (-2.0, new object[] {1, 1})},
-            { typeof(ISprint1Task3V17), ("true", new object[] {1})},
+            { typeof(ISprint1Task3V17), (true, new object[] {1})},
             { typeof(ISprint1Task3V18), (9.0, new object[] {9, 9, 3})},
-            { typeof(ISprint1Task3V19), ("true", new object[] {5, 1, 5, 1})},
+            { typeof(ISprint1Task3V19), (true, new object[] {5, 1, 5, 1})},
 
             //Task4
 
@@ -186,7 +186,7 @@ namespace tyuiu.cources.programming
 
             { typeof(ISprint1Task6V0), ("", new object[] {"" })},
             { typeof(ISprint1Task6V1), ("1", new object[] {"49" })},
-            { typeof(ISprint1Task6V2), ("true", new object[] {"Hello world" })},
+            { typeof(ISprint1Task6V2), (true, new object[] {"Hello world" })},
             { typeof(ISprint1Task6V3), ("od", new object[] {"Hello world" })},
             { typeof(ISprint1Task6V4), ("желанный медленный", new object[] {"желанный юный медленный" })},
             { typeof(ISprint1Task6V5), ("шалаш", new object[] {"хороший шалаш" })},
@@ -195,14 +195,14 @@ namespace tyuiu.cources.programming
             { typeof(ISprint1Task6V8), ("риветп ирм", new object[] {"привет мир" })},
             { typeof(ISprint1Task6V9), ("тприве рми", new object[] {"привет мир" })},
             { typeof(ISprint1Task6V10), ("привет мр", new object[] {"привет мир" })},
-            { typeof(ISprint1Task6V11), ("false", new object[] {"привет мир" })},
-            { typeof(ISprint1Task6V12), ("true", new object[] {"привет мир мир" })},
-            { typeof(ISprint1Task6V13), ("true", new object[] {"абвгд" })},
-            { typeof(ISprint1Task6V14), ("true", new object[] {"строка" })},
-            { typeof(ISprint1Task6V15), ("true", new object[] {"привет!" })},
-            { typeof(ISprint1Task6V16), ("true", new object[] {"что?!" })},
-            { typeof(ISprint1Task6V17), ("true", new object[] {"шалаш" })},
-            { typeof(ISprint1Task6V18), ("true", new object[] {"122" })},            
+            { typeof(ISprint1Task6V11), (false, new object[] {"привет мир" })},
+            { typeof(ISprint1Task6V12), (true, new object[] {"привет мир мир" })},
+            { typeof(ISprint1Task6V13), (true, new object[] {"абвгд" })},
+            { typeof(ISprint1Task6V14), (true, new object[] {"строка" })},
+            { typeof(ISprint1Task6V15), (true, new object[] {"привет!" })},
+            { typeof(ISprint1Task6V16), (true, new object[] {"что?!" })},
+            { typeof(ISprint1Task6V17), (true, new object[] {"шалаш" })},
+            { typeof(ISprint1Task6V18), (true, new object[] {"122" })},            
 
             //Task7
 
