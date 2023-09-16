@@ -24,11 +24,13 @@ namespace tyuiu.cources.programming
             {
                 var filename = Path.GetFileNameWithoutExtension(repoUrl);
                 var localDir = $@"{rootDir}\{currentDate}\{filename}";
+
                 Repository.Clone(repoUrl, localDir);
                 return true;
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 return false;
                 //throw new Exception(e.Message);
                 
