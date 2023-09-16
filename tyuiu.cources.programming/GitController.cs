@@ -18,47 +18,20 @@ namespace tyuiu.cources.programming
         {
             this.rootDir = rootDir;
         }
-
-        private void deleteFolder(string folder)
-        {
-            try
-            {
-                DirectoryInfo di = new DirectoryInfo(folder);
-                DirectoryInfo[] diA = di.GetDirectories();
-                FileInfo[] fi = di.GetFiles();
-                foreach (FileInfo f in fi)
-                {
-                    f.Attributes = FileAttributes.Normal;
-                    f.Delete();
-                }
-                foreach (DirectoryInfo df in diA)
-                {
-                    deleteFolder(df.FullName);
-                }
-                if (di.GetDirectories().Length == 0 && di.GetFiles().Length == 0) di.Delete();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Произошла ошибка: " + ex.Message);
-            }
-        }
-        public bool Load(string repoUrl)
+        public bool Load(string repoUrl, string currentDate)
         {
             try
             {
                 var filename = Path.GetFileNameWithoutExtension(repoUrl);
-                var localDir = $@"{rootDir}\{filename}";
-
-                if (Directory.Exists(localDir))
-                {
-                    deleteFolder(localDir);
-                }
+                var localDir = $@"{rootDir}\{currentDate}\{filename}";
                 Repository.Clone(repoUrl, localDir);
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
                 return false;
+                //throw new Exception(e.Message);
+                
             }
         }
 
