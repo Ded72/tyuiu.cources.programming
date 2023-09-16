@@ -29,7 +29,7 @@ namespace tyuiu.cources.programming.interfaces.Sprint1
     public interface ISprint1Task1V19 { double Calculate(double x, double y); }
     public interface ISprint1Task1V20 { double Calculate(double x, double y); }
     public interface ISprint1Task1V21 { double Calculate(double x, double y); }
-    public interface ISprint1Task1V22 { double Calculate(double y); }
+    public interface ISprint1Task1V22 { double Calculate(double x, double y); }
     public interface ISprint1Task1V23 { double Calculate(double a, double x); }
     public interface ISprint1Task1V24 { double Calculate(double x, double y); }
     public interface ISprint1Task1V25 { double Calculate(double x, double y); }

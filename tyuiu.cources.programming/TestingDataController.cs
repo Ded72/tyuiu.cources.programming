@@ -46,7 +46,7 @@ namespace tyuiu.cources.programming
             { typeof(ISprint1Task0V30), (96.0, new object[] {})},
 
             //Task1
-
+          
             { typeof(ISprint1Task1V0), (2.0, new object[] {1, 9})},
             { typeof(ISprint1Task1V1), (7.5, new object[] {9, 2, 1})},
             { typeof(ISprint1Task1V2), (0.5, new object[] {5, 1})},
@@ -78,7 +78,6 @@ namespace tyuiu.cources.programming
             { typeof(ISprint1Task1V28), (1.5, new object[] {3})},
             { typeof(ISprint1Task1V29), (0.8, new object[] {2, 2, 1})},
             { typeof(ISprint1Task1V30), (2.0, new object[] {2})},
-            
 
             //Task2
 
@@ -203,8 +202,7 @@ namespace tyuiu.cources.programming
             { typeof(ISprint1Task6V15), ("true", new object[] {"привет!" })},
             { typeof(ISprint1Task6V16), ("true", new object[] {"что?!" })},
             { typeof(ISprint1Task6V17), ("true", new object[] {"шалаш" })},
-            { typeof(ISprint1Task6V18), ("true", new object[] {"122" })},
-            
+            { typeof(ISprint1Task6V18), ("true", new object[] {"122" })},            
 
             //Task7
 
@@ -245,9 +243,5 @@ namespace tyuiu.cources.programming
             return testData[type];
         }
 
-        public string ReverseString(string str)
-        {
-            return "54321";
-        }
     }
 }
