@@ -203,7 +203,6 @@ namespace tyuiu.cources.programming
             { typeof(ISprint1Task6V16), (true, new object[] {"что?!" })},
             { typeof(ISprint1Task6V17), (true, new object[] {"шалаш" })},
             { typeof(ISprint1Task6V18), (true, new object[] {"122" })},
-            
 
             //Task7
 

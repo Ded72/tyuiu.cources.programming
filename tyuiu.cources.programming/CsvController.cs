@@ -93,6 +93,7 @@ namespace tyuiu.cources.programming
                                                     if (LaunchFiles(studentInetrfaceFromDll))
                                                     {
                                                         taskData.Score = 0.6;
+                                                        
                                                     }
                                                     ;
                                                 }
@@ -180,9 +181,6 @@ namespace tyuiu.cources.programming
         public object ExtractInterfaceFromDll(string studentDllPath)
         {
             object? dllInterface = null;
-
-            if (!studentDllPath.Contains("Task5"))
-            {
                 try
                 {
                     dllInterface = assemblyController.CreateInstanceFromFile(studentDllPath);
@@ -192,7 +190,6 @@ namespace tyuiu.cources.programming
                 {
                     //throw new Exception(e.Message);
                 };
-            }
             return dllInterface;
         }
 
@@ -202,6 +199,10 @@ namespace tyuiu.cources.programming
             try
             {
                 (var areEquals, var report) = testingController.Run(interfaceFromDll);
+                foreach (string line in report)
+                {
+                    Console.WriteLine(line);
+                }
                 if (areEquals)
                 {
                     return true;
