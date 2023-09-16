@@ -85,7 +85,7 @@ namespace tyuiu.cources.programming
             { typeof(ISprint1Task2V1), (1000.0, new object[] {1609})},
             { typeof(ISprint1Task2V2), (3.142, new object[] {180})},
             { typeof(ISprint1Task2V3), (360, new object[] {6})},
-            { typeof(ISprint1Task2V4), (36.0, new object[] {6})},
+            { typeof(ISprint1Task2V4), (36, new object[] {6})},
             { typeof(ISprint1Task2V5), (216, new object[] {6})},
             { typeof(ISprint1Task2V6), (0.006, new object[] {6})},
             { typeof(ISprint1Task2V7), (113.097, new object[] {6})},
