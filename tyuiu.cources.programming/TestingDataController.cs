@@ -72,7 +72,7 @@ namespace tyuiu.cources.programming
             { typeof(ISprint1Task2V1), (1000, new object[] {1609})},
             { typeof(ISprint1Task2V2), (3.142, new object[] {180})},
             { typeof(ISprint1Task2V3), (360, new object[] {6})},
-            { typeof(ISprint1Task2V4), (36, new object[] {6})},
+            { typeof(ISprint1Task2V4), (36.0, new object[] {6})},
             { typeof(ISprint1Task2V5), (216, new object[] {6})},
             { typeof(ISprint1Task2V6), (0.006, new object[] {6})},
             { typeof(ISprint1Task2V7), (113.097, new object[] {6})},
@@ -127,7 +127,7 @@ namespace tyuiu.cources.programming
 
             { typeof(ISprint1Task6V0), ("", new object[] {"" })},
             { typeof(ISprint1Task6V1), ("1", new object[] {"49" })},
-            { typeof(ISprint1Task6V2), ("true", new object[] {"Hello world" })},
+            { typeof(ISprint1Task6V2), (true, new object[] {"Hello world" })},
             { typeof(ISprint1Task6V3), ("od", new object[] {"Hello world" })},
             { typeof(ISprint1Task6V4), ("желанный медленный", new object[] {"желанный юный медленный" })},
             { typeof(ISprint1Task6V5), ("шалаш", new object[] {"хороший шалаш" })},
@@ -150,7 +150,7 @@ namespace tyuiu.cources.programming
             { typeof(ISprint1Task7V11), (15.527, new object[] {5, 5 })},
             { typeof(ISprint1Task7V12), (2257.593, new object[] {5, 5 })},
             { typeof(ISprint1Task7V13), (0.999, new object[] {156, 156 })},
-            { typeof(ISprint1Task7V14), (-0.888, new object[] {5, 5 })},
+            { typeof(ISprint1Task7V14), (-0.889, new object[] {5, 5 })},
             { typeof(ISprint1Task7V15), (96.484, new object[] {5 })},
             
         };
