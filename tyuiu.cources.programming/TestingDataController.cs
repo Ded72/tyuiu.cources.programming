@@ -151,17 +151,17 @@ namespace tyuiu.cources.programming
             { typeof(ISprint1Task4V9), (0.039, new object[] {120 , 30 })},
             { typeof(ISprint1Task4V10), (0.512, new object[] {60 })},
             { typeof(ISprint1Task4V11), (0.009, new object[] {5 , 5 })},
-            { typeof(ISprint1Task4V12), (0.400, new object[] {0.5 , 44 })},
+            { typeof(ISprint1Task4V12), (0.602, new object[] {0.5 , 4 })},
             { typeof(ISprint1Task4V13), (-0.045, new object[] {1 , 1 })},
             { typeof(ISprint1Task4V14), (0.007, new object[] {5, 5 })},
-            { typeof(ISprint1Task4V15), (1969799074.119, new object[] {5 , 5 })},
+            { typeof(ISprint1Task4V15), (2017.144, new object[] {1 , 2 })},
             { typeof(ISprint1Task4V16), (0.037, new object[] {23})},
             { typeof(ISprint1Task4V17), (0.115, new object[] {100 , 5 })},
             { typeof(ISprint1Task4V18), (0.005, new object[] {5 , 5 })},
             { typeof(ISprint1Task4V19), (1.14, new object[] {52 , 5 })},
             { typeof(ISprint1Task4V20), (2.549, new object[] {5 , 5 })},
             { typeof(ISprint1Task4V21), (41.011, new object[] {60, 30 })},
-            { typeof(ISprint1Task4V22), (0.002, new object[] {120, 30 })},
+            { typeof(ISprint1Task4V22), (0.019, new object[] {0.5, 4 })},
             { typeof(ISprint1Task4V23), (0.096, new object[] {60, 30 })},
             { typeof(ISprint1Task4V24), (1.199, new object[] {60, 30 })},
             { typeof(ISprint1Task4V25), (0.551, new object[] {120 })},
@@ -173,14 +173,14 @@ namespace tyuiu.cources.programming
 
             //Task5
 
-            { typeof(ISprint1Task5V0), (2.000, new object[] {1 , 1 })},
+            { typeof(ISprint1Task5V0), (2.0, new object[] {1 , 1 })},
             { typeof(ISprint1Task5V1), (4.0, new object[] {5 , 3, 2, 1 })},
-            { typeof(ISprint1Task5V2), (-15.0, new object[] {5 })},
-            { typeof(ISprint1Task5V3), (5.0, new object[] {230598 })},
-            { typeof(ISprint1Task5V4), (5.0, new object[] {20000})},
-            { typeof(ISprint1Task5V5), (6.0, new object[] {50.699})},
-            { typeof(ISprint1Task5V6), (5.0, new object[] {5})},
-            { typeof(ISprint1Task5V7), (1.0, new object[] {45})},
+            { typeof(ISprint1Task5V2), (-15, new object[] {5 })},
+            { typeof(ISprint1Task5V3), (5, new object[] {230598 })},
+            { typeof(ISprint1Task5V4), (5, new object[] {20000})},
+            { typeof(ISprint1Task5V5), (6, new object[] {50.699})},
+            { typeof(ISprint1Task5V6), (5, new object[] {5})},
+            { typeof(ISprint1Task5V7), (1, new object[] {45})},
 
             //Task6
 
@@ -202,7 +202,7 @@ namespace tyuiu.cources.programming
             { typeof(ISprint1Task6V15), (true, new object[] {"привет!" })},
             { typeof(ISprint1Task6V16), (true, new object[] {"что?!" })},
             { typeof(ISprint1Task6V17), (true, new object[] {"шалаш" })},
-            { typeof(ISprint1Task6V18), (true, new object[] {"122" })},            
+            { typeof(ISprint1Task6V18), (true, new object[] {"122" })},
 
             //Task7
 
@@ -217,26 +217,26 @@ namespace tyuiu.cources.programming
             { typeof(ISprint1Task7V8), (-9.676, new object[] {2, 4 })},
             { typeof(ISprint1Task7V9), (5.982, new object[] {2, 4 })},
             { typeof(ISprint1Task7V10), (6.398, new object[] {20, 20 })},
-            { typeof(ISprint1Task7V11), (15.527, new object[] {5, 5 })},
-            { typeof(ISprint1Task7V12), (2257.593, new object[] {5, 5 })},
-            { typeof(ISprint1Task7V13), (0.999, new object[] {156, 156 })},
-            { typeof(ISprint1Task7V14), (-0.888, new object[] {5, 5 })},
+            { typeof(ISprint1Task7V11), (15.528, new object[] {5, 5 })},
+            { typeof(ISprint1Task7V12), (2257.594, new object[] {5, 5 })},
+            { typeof(ISprint1Task7V13), (0.871, new object[] {1, 1 })},
+            { typeof(ISprint1Task7V14), (-0.889, new object[] {5, 5 })},
             { typeof(ISprint1Task7V15), (96.484, new object[] {5 })},
             { typeof(ISprint1Task7V16), (0.026, new object[] {5 })},
             { typeof(ISprint1Task7V17), (0.087, new object[] {5, 5 })},
-            { typeof(ISprint1Task7V18), (5.001, new object[] {5, 5 })},
+            { typeof(ISprint1Task7V18), (1.061, new object[] {1, 1 })},
             { typeof(ISprint1Task7V19), (2502.641, new object[] {5 })},
             { typeof(ISprint1Task7V20), (25.479, new object[] {5, 5 })},
-            { typeof(ISprint1Task7V21), (-18.917, new object[] {2, 4})},
+            { typeof(ISprint1Task7V21), (-18.916, new object[] {2, 4})},
             { typeof(ISprint1Task7V22), (0.172, new object[] {2, 4 })},
-            { typeof(ISprint1Task7V23), (-1.782, new object[] {2, 4 })},
+            { typeof(ISprint1Task7V23), (-1.781, new object[] {2, 4 })},
             { typeof(ISprint1Task7V24), (0.016, new object[] {2, 4 })},
             { typeof(ISprint1Task7V25), (6.733, new object[] {2, 4 })},
-            { typeof(ISprint1Task7V26), (0.754, new object[] {2, 4 })},
+            { typeof(ISprint1Task7V26), (0.753, new object[] {2, 4 })},
             { typeof(ISprint1Task7V27), (-3.597, new object[] {2, 4 })},
             { typeof(ISprint1Task7V28), (16.787, new object[] {2, 4 })},
-            { typeof(ISprint1Task7V29), (2.072, new object[] {2, 4 })},
-            { typeof(ISprint1Task7V30), (11.978, new object[] {2, 4 })}
+            { typeof(ISprint1Task7V29), (2.071, new object[] {2, 4 })},
+            { typeof(ISprint1Task7V30), (11.977, new object[] {2, 4 })}
         };
         public (object result, object[] args) GetData(Type type)
         {
