@@ -22,8 +22,8 @@ namespace tyuiu.cources.programming.interfaces.Sprint1
     public interface ISprint1Task4V13 { double Calculate(double x, double y); }
     public interface ISprint1Task4V14 { double Calculate(double x, double y); }
     public interface ISprint1Task4V15 { double Calculate(double x, double y); }
-    public interface ISprint1Task4V16 { double Calculate(double x, double y); }
-    public interface ISprint1Task4V17 { double Calculate(double x); }
+    public interface ISprint1Task4V16 { double Calculate(double x); }
+    public interface ISprint1Task4V17 { double Calculate(double x, double y); }
     public interface ISprint1Task4V18 { double Calculate(double x, double y); }
     public interface ISprint1Task4V19 { double Calculate(double x, double y); }
     public interface ISprint1Task4V20 { double Calculate(double x, double y); }
