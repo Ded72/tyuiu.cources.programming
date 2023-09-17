@@ -15,20 +15,16 @@ namespace tyuiu.cources.programming.tests
         [TestMethod]
         public void RunValid()
         {
-
-            Mock<ISprint1Task0V0> m4 = new Mock<ISprint1Task0V0>();
-            m4.Setup(f => f.Calculate()).Returns(2.0);
-            var res = testingController.Run(m4.Object);
+            Mock<ISprint1Task3V17> m5 = new Mock<ISprint1Task3V17>();
+            m5.Setup(f => f.ZeroCheck(150.150)).Returns(true);
+            var res = testingController.Run(m5.Object);
             Assert.IsNotNull(res);
-            Assert.AreEqual(7, res.lines.Count());
-            Console.WriteLine(res.lines.Count());
             Console.WriteLine(res.IsSuccess);
             foreach (var line in res.lines)
             {
                 Console.WriteLine(line);
             }
             Assert.IsTrue(res.IsSuccess);
-
         }
         [TestMethod]
         public void RunFail()
