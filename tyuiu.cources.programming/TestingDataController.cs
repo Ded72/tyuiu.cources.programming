@@ -81,8 +81,8 @@ namespace tyuiu.cources.programming
 
             //Task2
 
-            { typeof(ISprint1Task2V0), (2.0, new object[] {2})},
-            { typeof(ISprint1Task2V1), (1000, new object[] {1609})},
+            { typeof(ISprint1Task2V0), (2, new object[] {2})},
+            { typeof(ISprint1Task2V1), (1000.0, new object[] {1609})},
             { typeof(ISprint1Task2V2), (3.142, new object[] {180})},
             { typeof(ISprint1Task2V3), (360, new object[] {6})},
             { typeof(ISprint1Task2V4), (36, new object[] {6})},
@@ -95,22 +95,22 @@ namespace tyuiu.cources.programming
             { typeof(ISprint1Task2V11), (21780, new object[] {6, 3})},
             { typeof(ISprint1Task2V12), (36, new object[] {6, 2, 3})},
             { typeof(ISprint1Task2V13), (9.656, new object[] {6})},
-            { typeof(ISprint1Task2V14), (282.85, new object[] {556})},
+            { typeof(ISprint1Task2V14), (283, new object[] {556})},
             { typeof(ISprint1Task2V15), (216, new object[] {6})},
             { typeof(ISprint1Task2V16), (37.699, new object[] {6})},
-            { typeof(ISprint1Task2V17), (2.0, new object[] {120})},
-            { typeof(ISprint1Task2V18), (56.0, new object[] {6, 2, 2})},
+            { typeof(ISprint1Task2V17), (2, new object[] {120})},
+            { typeof(ISprint1Task2V18), (56, new object[] {6, 2, 2})},
             { typeof(ISprint1Task2V19), (0.584, new object[] {23})},
-            { typeof(ISprint1Task2V20), (45.0, new object[] {6, 3})},
-            { typeof(ISprint1Task2V21), (18.0, new object[] {6, 3})},
-            { typeof(ISprint1Task2V22), (4.0, new object[] {6, 3, 3})},
-            { typeof(ISprint1Task2V23), (360.0, new object[] {6})},
-            { typeof(ISprint1Task2V24), (9.0, new object[] {6, 3})},
+            { typeof(ISprint1Task2V20), (45, new object[] {6, 3})},
+            { typeof(ISprint1Task2V21), (18, new object[] {6, 3})},
+            { typeof(ISprint1Task2V22), (4, new object[] {6, 3, 3})},
+            { typeof(ISprint1Task2V23), (360, new object[] {6})},
+            { typeof(ISprint1Task2V24), (9, new object[] {6, 3})},
             { typeof(ISprint1Task2V25), (343.775, new object[] {6})},
-            { typeof(ISprint1Task2V26), (363.0, new object[] {6, 3})},
-            { typeof(ISprint1Task2V27), (24.0, new object[] {6})},
-            { typeof(ISprint1Task2V28), (279.15, new object[] {6})},
-            { typeof(ISprint1Task2V29), (10.0, new object[] {600})},
+            { typeof(ISprint1Task2V26), (363, new object[] {6, 3})},
+            { typeof(ISprint1Task2V27), (24, new object[] {6})},
+            { typeof(ISprint1Task2V28), (279, new object[] {6})},
+            { typeof(ISprint1Task2V29), (10, new object[] {600})},
             { typeof(ISprint1Task2V30), (8900.0, new object[] {8.9})},
            
 
@@ -133,7 +133,7 @@ namespace tyuiu.cources.programming
             { typeof(ISprint1Task3V14), (321.0, new object[] {123})},
             { typeof(ISprint1Task3V15), (15.0, new object[] {1, 5, 3, 2})},
             { typeof(ISprint1Task3V16), (-2.0, new object[] {1, 1})},
-            { typeof(ISprint1Task3V17), (true, new object[] {1})},
+            { typeof(ISprint1Task3V17), (true, new object[] {150, 150})},
             { typeof(ISprint1Task3V18), (9.0, new object[] {9, 9, 3})},
             { typeof(ISprint1Task3V19), (true, new object[] {5, 1, 5, 1})},
 
@@ -206,7 +206,7 @@ namespace tyuiu.cources.programming
 
             //Task7
 
-            { typeof(ISprint1Task7V0), (1, new object[] {2, 3, 1 })},
+            { typeof(ISprint1Task7V0), (1.0, new object[] {2, 3, 1 })},
             { typeof(ISprint1Task7V1), (-28.579, new object[] {2, 4, 5 })},
             { typeof(ISprint1Task7V2), (-5.103, new object[] {2, 4})},
             { typeof(ISprint1Task7V3), (0.896, new object[] {2, 4 })},
