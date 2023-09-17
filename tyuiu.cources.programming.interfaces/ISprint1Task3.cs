@@ -23,7 +23,7 @@ namespace tyuiu.cources.programming.interfaces.Sprint1
     public interface ISprint1Task3V14 { double ReverseNumber(double number); }
     public interface ISprint1Task3V15 { double DistanceOverTime(double v1, double v2, double S, double T); }
     public interface ISprint1Task3V16 { double CoeffOfQuadraticEquation(double x1, double x2); }
-    public interface ISprint1Task3V17 { double ZeroCheck(double number); }
+    public interface ISprint1Task3V17 { bool ZeroCheck(double number); }
     public interface ISprint1Task3V18 { double HowManySquares(double a, double b, double c); }
     public interface ISprint1Task3V19 { bool ElephCanMove(double x1, double x2, double y1, double y2); }
 
