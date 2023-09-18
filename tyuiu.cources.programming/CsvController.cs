@@ -339,7 +339,7 @@ namespace tyuiu.cources.programming
         public string Link = string.Empty;
         public double Score = 0.0;
         public string LinkValid = string.Empty;
-        public string StudentData { get { return $"{Group},{Name} {SurName},{Task},{Date},{Score.ToString().Replace(',', '.')},{LinkValid},{Link}"; } }
+        public string StudentData { get { return $"{Group},{SurName} {Name},{Task},{Date},{Score.ToString().Replace(',', '.')},{LinkValid},{Link}"; } }
 
     }
 }
