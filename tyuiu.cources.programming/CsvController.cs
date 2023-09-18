@@ -106,9 +106,11 @@ namespace tyuiu.cources.programming
                 if (!line.Contains("Ответ"))
                 {
                     taskData = Parse(line);
+                    taskData.Group = GetGroup(taskData.Name, taskData.SurName);
                     taskData.Score = 0.0;
                     if (gitController.Load(taskData.Link, currentDate))
                     {
+                        taskData.LinkValid = "ДА";
                         taskData.Score = 0.2;
                         var filename = Path.GetFileNameWithoutExtension(taskData.Link);
                         var localDir = $@"{gitController.rootDir}\{currentDate}\{filename}";
@@ -122,26 +124,34 @@ namespace tyuiu.cources.programming
                             foreach (string directory in notCompiledDirectories)
                             {
                                 Match match = regex.Match(directory);
-                                taskData.Task = match.Value;
-                                foreach (string path in studentPathsToDlls)
+                                if (match.Value != "")
                                 {
-                                    if (path.Contains(directory) && taskData.Task != "")
+                                    taskData.Task = match.Value;
+                                    foreach (string path in studentPathsToDlls)
                                     {
-                                        found = true;
-                                        taskData.Score = 0.4;
-                                        studentInetrfaceFromDll = ExtractInterfaceFromDll(path);
-                                        if (studentInetrfaceFromDll != null)
+                                        if (path.Contains(directory))
                                         {
-                                            if (LaunchFiles(studentInetrfaceFromDll))
+                                            found = true;
+                                            taskData.Score = 0.4;
+                                            studentInetrfaceFromDll = ExtractInterfaceFromDll(path);
+                                            if (studentInetrfaceFromDll != null)
                                             {
-                                                taskData.Score = 0.6;
+                                                if (LaunchFiles(studentInetrfaceFromDll))
+                                                {
+                                                    taskData.Score = 0.6;
+                                                }
+                                                 ;
                                             }
-                                             ;
+                                            WriteReport(studentResultFile, taskData.StudentData);
+                                            break;
                                         }
-                                        WriteReport(studentResultFile, taskData.StudentData);
-                                        break;
                                     }
                                 }
+                                else
+                                {
+                                    taskData.Task = Path.GetFileNameWithoutExtension(directory);
+                                }
+                                
                                 if (!found)
                                 {
                                     taskData.Score = 0.2;
@@ -154,9 +164,10 @@ namespace tyuiu.cources.programming
                         {
                             WriteReport(studentResultFile, taskData.StudentData);
                         }
-                    }
+                    }  
                     else
                     {
+                        taskData.LinkValid = "НЕТ";
                         WriteReport(studentResultFile, taskData.StudentData);
                     }
 
@@ -268,6 +279,23 @@ namespace tyuiu.cources.programming
             }
         }
 
+        public string GetGroup(string name, string surName)
+        {
+            string group = "Группа";
+            
+            List<string> lines = new List<string>(File.ReadAllLines(@$"{gitController.rootDir}\GroupsList.csv"));
+            foreach (string line in lines)
+            {
+                string[] values = line.Split(',');
+                if(surName == values[1] && name  == values[2])
+                {
+                    group = values[0];
+                    break;
+                }
+            }
+
+            return group;
+        }
         private TaskData Parse(string line)
         {
             var values = line.Split(',');
@@ -276,8 +304,8 @@ namespace tyuiu.cources.programming
                 DateTime date = DateTime.ParseExact(values[4].Replace("\"", ""), "d MMMM yyyy  HH:mm", CultureInfo.InvariantCulture);
                 return new TaskData()
                 {
-                    Name = values[0],
-                    SurName = values[1],
+                    SurName = values[0],
+                    Name = values[1],
                     Date = date.ToString("dd.MM.yyyy HH:mm"),
                     Task = values[7].Replace("\"", ""),
                     Link = values[8]
@@ -288,11 +316,11 @@ namespace tyuiu.cources.programming
                 Console.WriteLine(e.Message);
                 return new TaskData()
                 {
-                    Name = String.Empty,
-                    SurName = String.Empty,
+                    SurName = values[0],
+                    Name = values[1],
                     Date = String.Empty,
-                    Task = String.Empty,
-                    Link = String.Empty
+                    Task = values[7].Replace("\"", ""),
+                    Link = values[8]
                 };
 
             }
@@ -303,13 +331,15 @@ namespace tyuiu.cources.programming
 
     public class TaskData
     {
+        public string Group = string.Empty;
         public string Name = string.Empty;
         public string SurName = string.Empty;
         public string Date = string.Empty;
         public string Task = string.Empty;
         public string Link = string.Empty;
         public double Score = 0.0;
-        public string StudentData { get { return $"Группа 1,{Name} {SurName},{Task},{Date},{Score.ToString().Replace(',', '.')}"; } }
+        public string LinkValid = string.Empty;
+        public string StudentData { get { return $"{Group},{Name} {SurName},{Task},{Date},{Score.ToString().Replace(',', '.')},{LinkValid},{Link}"; } }
 
     }
 }
