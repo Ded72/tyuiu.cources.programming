@@ -14,6 +14,7 @@ namespace tyuiu.cources.programming
         {
             //Task0
 
+            { typeof(ISprint1Task0V0), (2.0, new object[] {})},
             { typeof(ISprint1Task0V1), (-6.0, new object[] {})},
             { typeof(ISprint1Task0V2), (1.0, new object[] {})},
             { typeof(ISprint1Task0V3), (1.0, new object[] {})},
