@@ -265,7 +265,8 @@ namespace tyuiu.cources.programming
             catch (Exception e)
             {
 
-                throw new Exception(e.Message);
+                Console.WriteLine(e.Message);
+                return false;
             }
 
 
