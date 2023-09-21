@@ -15,7 +15,8 @@ namespace tyuiu.cources.programming.tests
         [TestMethod]
         public void LoadFileValid()
         {
-            var csvController = new CsvController( 
+            var csvController = new CsvController(
+                "0",
                 new GitController(@"C:\Temp"), 
                 new AssemblyController(),
                 new TestingController(new TestingDataController()));
