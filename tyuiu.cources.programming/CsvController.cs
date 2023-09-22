@@ -45,7 +45,7 @@ namespace tyuiu.cources.programming
             {
                 Directory.CreateDirectory(@$"{gitController.rootDir}\{currentDate}");
             }
-            File.Copy(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "WorkFiles", "Vedomost.xlsm"), @$"{gitController.rootDir}\{currentDate}\Vedomost-{currentDate}.xlsm");
+            File.Copy(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "WorkFiles", "Vedomost.xlsm"), @$"{gitController.rootDir}\{currentDate}\Vedomost-Task{taskNumber}-{currentDate}.xlsm");
             if (File.Exists(csvPath))
             {
                 csvFileLines = ReadCsvFile(csvPath);
@@ -84,10 +84,19 @@ namespace tyuiu.cources.programming
             foreach (string line in lines)
             {
                 string[] values = line.Split(',');
+
                 if (values.Length >= 2)
                 {
                     string key = values[0] + "," + values[1];
-                    dataDictionary[key] = line;
+
+                    if (!dataDictionary.ContainsKey(key))
+                    {
+                        dataDictionary[key] = line;
+                    }
+                    else if (dataDictionary.ContainsKey(key) && dataDictionary[key].Split(',')[8] != values[8] && values[8] != "-")
+                    {
+                        dataDictionary[key] = line;
+                    }
                 }
             }
             foreach (var line in dataDictionary.Values)
