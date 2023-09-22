@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -77,25 +78,50 @@ namespace tyuiu.cources.programming
 
         }
 
+        public bool CheckLink(string url)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    HttpResponseMessage response = client.GetAsync(url).GetAwaiter().GetResult();
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ошибка: " + ex.Message);
+                return false;
+            }
+        }
         public List<string> DeleteDuplitaces(List<string> lines)
         {
             List<string> correctedLines = new List<string>();
             Dictionary<string, string> dataDictionary = new Dictionary<string, string>();
-            foreach (string line in lines)
+            using (HttpClient client = new HttpClient())
             {
-                string[] values = line.Split(',');
-
-                if (values.Length >= 2)
+                foreach (string line in lines)
                 {
-                    string key = values[0] + "," + values[1];
+                    string[] values = line.Split(',');
 
-                    if (!dataDictionary.ContainsKey(key))
+                    if (values.Length >= 2)
                     {
-                        dataDictionary[key] = line;
-                    }
-                    else if (dataDictionary.ContainsKey(key) && dataDictionary[key].Split(',')[8] != values[8] && values[8] != "-")
-                    {
-                        dataDictionary[key] = line;
+                        string key = values[0] + "," + values[1];
+                        if (!dataDictionary.ContainsKey(key))
+                        {
+                            dataDictionary[key] = line;
+                        }
+                        else if (dataDictionary.ContainsKey(key) && dataDictionary[key].Split(',')[8] != values[8] && CheckLink(values[8]))
+                        {
+                            dataDictionary[key] = line;
+                        }
                     }
                 }
             }
