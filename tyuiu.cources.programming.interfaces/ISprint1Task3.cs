@@ -10,7 +10,7 @@ namespace tyuiu.cources.programming.interfaces.Sprint1
     public interface ISprint1Task3V1 { double CylinderVolume(double r, double h); }
     public interface ISprint1Task3V2 { double PurchaseAmount(double priceNotebook, int amountNotebook, double pricePencil, int amountPencil); }
     public interface ISprint1Task3V3 { double ParallelepipedVolume(double length, double width, double height); }
-    public interface ISprint1Task3V4 { double PurchaseAmount(double priceNotebook, double priceCover, int amount); }
+    public interface ISprint1Task3V4 { double PurchaseAmount(double priceNotebook, double priceCover, int quantity); }
     public interface ISprint1Task3V5 { double DistanceLength(double mapScale, double distanceBetweenPoints);}
     public interface ISprint1Task3V6 { double TravelCost(double distance, double gasFlow, double gasPrice);}
     public interface ISprint1Task3V7 { double VerstsToKilometers(double verst);}
