@@ -173,7 +173,7 @@ namespace tyuiu.cources.programming
                                             {
                                                 taskData.Score = 0.4;
                                                 studentInetrfaceFromDll = ExtractInterfaceFromDll(path);
-                                                if (studentInetrfaceFromDll != null)
+                                                if (studentInetrfaceFromDll != null && directory.Replace(".", "").Contains(studentInetrfaceFromDll.GetType().GetInterfaces().First().Name.Substring(1)))
                                                 {
                                                     if (LaunchFiles(studentInetrfaceFromDll))
                                                     {
