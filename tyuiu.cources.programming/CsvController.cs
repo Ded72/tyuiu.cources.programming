@@ -46,7 +46,7 @@ namespace tyuiu.cources.programming
             {
                 Directory.CreateDirectory(@$"{gitController.rootDir}\{currentDate}");
             }
-            File.Copy(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "WorkFiles", "Vedomost.xlsm"), @$"{gitController.rootDir}\{currentDate}\Vedomost-Task{taskNumber}-{currentDate}.xlsm");
+            File.Copy(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "WorkFiles", "Vedomost.xlsm"), @$"{gitController.rootDir}\{currentDate}\Vedomost-Task-{taskNumber}-{currentDate}.xlsm");
             if (File.Exists(csvPath))
             {
                 csvFileLines = ReadCsvFile(csvPath);
@@ -118,11 +118,12 @@ namespace tyuiu.cources.programming
                         {
                             dataDictionary[key] = line;
                         }
-                        else if (dataDictionary.ContainsKey(key) && dataDictionary[key].Split(',')[8] != values[8] && CheckLink(values[8]))
+                        else if (dataDictionary.ContainsKey(key) && dataDictionary[key].Split(',')[dataDictionary[key].Split(',').Length - 1] != values[values.Length - 1] && CheckLink(values[values.Length - 1]))
                         {
                             dataDictionary[key] = line;
                         }
                     }
+
                 }
             }
             foreach (var line in dataDictionary.Values)
@@ -355,26 +356,54 @@ namespace tyuiu.cources.programming
             try
             {
                 DateTime date = DateTime.ParseExact(values[4].Replace("\"", ""), "d MMMM yyyy  HH:mm", CultureInfo.InvariantCulture);
-                return new TaskData()
+                if (values.Length < 8)
                 {
-                    SurName = values[0],
-                    Name = values[1],
-                    Date = date.ToString("dd.MM.yyyy HH:mm"),
-                    Task = values[7].Replace("\"", ""),
-                    Link = values[8]
-                };
+                    return new TaskData()
+                    {
+                        SurName = values[0],
+                        Name = values[1],
+                        Date = String.Empty,
+                        Task = String.Empty,
+                        Link = values[values.Length - 1]
+                    };
+                }
+                else
+                {
+                    return new TaskData()
+                    {
+                        SurName = values[0],
+                        Name = values[1],
+                        Date = String.Empty,
+                        Task = values[values.Length - 2],
+                        Link = values[values.Length - 1]
+                    };
+                }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return new TaskData()
+                if (values.Length < 8)
                 {
-                    SurName = values[0],
-                    Name = values[1],
-                    Date = String.Empty,
-                    Task = values[7].Replace("\"", ""),
-                    Link = values[8]
-                };
+                    return new TaskData()
+                    {
+                        SurName = values[0],
+                        Name = values[1],
+                        Date = String.Empty,
+                        Task = String.Empty,
+                        Link = values[values.Length - 1]
+                    };
+                }
+                else
+                {
+                    return new TaskData()
+                    {
+                        SurName = values[0],
+                        Name = values[1],
+                        Date = String.Empty,
+                        Task = values[values.Length - 2],
+                        Link = values[values.Length - 1]
+                    };
+                }
 
             }
         }
