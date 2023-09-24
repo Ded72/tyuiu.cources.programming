@@ -15,7 +15,7 @@ namespace tyuiu.cources.programming.interfaces.Sprint1
     public interface ISprint1Task3V6 { double TravelCost(double distance, double gasFlow, double gasPrice);}
     public interface ISprint1Task3V7 { double VerstsToKilometers(double verst);}
     public interface ISprint1Task3V8 { double IncomeAmount(double startAmount, double percent, double timeDays); }
-    public interface ISprint1Task3V9 { double ConvertMinutesToHours(int minutes); }
+    public interface ISprint1Task3V9 { int ConvertMinutesToHours(int minutes); }
     public interface ISprint1Task3V10 { double NumberToMoney(double number); }
     public interface ISprint1Task3V11 { double TriangleArea(double x1, double y1, double x2, double y2, double x3, double y3); }
     public interface ISprint1Task3V12 { double TriangleArea(double lengthCathetus1, double lengthCathetus2); }
