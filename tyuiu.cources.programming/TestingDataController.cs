@@ -151,7 +151,7 @@ namespace tyuiu.cources.programming
             { typeof(ISprint1Task4V9), (0.039, new object[] {120 , 30 })},
             { typeof(ISprint1Task4V10), (0.512, new object[] {60 })},
             { typeof(ISprint1Task4V11), (0.009, new object[] {5 , 5 })},
-            { typeof(ISprint1Task4V12), (-0.416, new object[] {5 , 5 })},
+            { typeof(ISprint1Task4V12), (0.4, new object[] {5 , 5 })},
             { typeof(ISprint1Task4V13), (-0.045, new object[] {1 , 1 })},
             { typeof(ISprint1Task4V14), (0.007, new object[] {5, 5 })},
             { typeof(ISprint1Task4V15), (2017.144, new object[] {1 , 2 })},
