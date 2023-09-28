@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 //using tyuiu.cources.programming.interfaces;
 using tyuiu.cources.programming.interfaces.Sprint1;
+using tyuiu.cources.programming.interfaces.Sprint2;
 
 namespace tyuiu.cources.programming
 {
@@ -12,6 +13,8 @@ namespace tyuiu.cources.programming
     {
         private Dictionary<Type, (object result, object[] args)> testData = new()
         {
+            //Sprint1
+
             //Task0
 
             { typeof(ISprint1Task0V1), (-6.0, new object[] {})},
@@ -236,7 +239,13 @@ namespace tyuiu.cources.programming
             { typeof(ISprint1Task7V27), (-3.597, new object[] {2, 4 })},
             { typeof(ISprint1Task7V28), (16.787, new object[] {2, 4 })},
             { typeof(ISprint1Task7V29), (2.071, new object[] {2, 4 })},
-            { typeof(ISprint1Task7V30), (11.977, new object[] {2, 4 })}
+            { typeof(ISprint1Task7V30), (11.977, new object[] {2, 4 })},
+
+            //Sprint 2
+
+            //Task0
+
+            { typeof(ISprint2Task0V0), (new object[6] {true, true, true, true, true, true }, new object[] {5, 6 })}
         };
         public (object result, object[] args) GetData(Type type)
         {
