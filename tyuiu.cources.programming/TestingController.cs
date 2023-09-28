@@ -63,9 +63,9 @@ namespace tyuiu.cources.programming
         private string WriteValue(string message, object? value)
         {
             var buffer = message;
-            if (value!.GetType().IsArray)
-            {
-                foreach (var item in (int[])value!)
+            if (value is Array valueArray)
+            {             
+                foreach (var item in valueArray)
                 {
                     buffer += $"{item} ";
                 }
@@ -82,13 +82,22 @@ namespace tyuiu.cources.programming
         }
         private bool AreEquals(object? expected, object? res)
         {
-            if (res!.GetType().IsArray)
+            if (res is Array resArray && expected is Array expectedArray)
             {
-                if (res!.GetType().GetElementType()?.Name == "Int32")
+                if (resArray.Length != expectedArray.Length)
                 {
-                    return ((int[])res).Length == ((int[])expected!).Length;
+                    return false;
                 }
-                else { return false; }
+
+                for (int i = 0; i < resArray.Length; i++)
+                {
+                    if (!object.Equals(resArray.GetValue(i), expectedArray.GetValue(i)))
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
             }
             else
             {
