@@ -233,9 +233,17 @@ namespace tyuiu.cources.programming
             List<string> notCompoiledLibDirs = new List<string>();
             foreach (string dir in directory)
             {
-                if (dir.EndsWith(".Lib") && dir.Contains($"Task{taskNumber}"))
+                if (dir.EndsWith(".Lib"))
                 {
-                    notCompoiledLibDirs.Add(dir);
+                    if (taskNumber != "-" && dir.Contains($"Task{taskNumber}"))
+                    {
+                        notCompoiledLibDirs.Add(dir);
+                    }
+                    else if (taskNumber == "-")
+                    {
+                        notCompoiledLibDirs.Add(dir);
+                    }
+
                 }
             }
             return notCompoiledLibDirs;
@@ -260,10 +268,20 @@ namespace tyuiu.cources.programming
             List<string> subLibDirectories = new List<string>();
             foreach (var subDir in Directory.GetDirectories(directory))
             {
-                if (subDir.EndsWith(".Lib") && subDir.Contains($"Task{taskNumber}"))
+                if (subDir.EndsWith(".Lib"))
                 {
-                    subLibDirectories.Add(subDir);
+
+                    if (taskNumber != "-" && subDir.Contains($"Task{taskNumber}"))
+                    {
+                        subLibDirectories.Add(subDir);
+                    }
+                    else if(taskNumber == "-")
+                    {
+                        subLibDirectories.Add(subDir);
+                    }
+
                 }
+                
             }
             if (subLibDirectories.Count > 0)
             {
@@ -374,7 +392,7 @@ namespace tyuiu.cources.programming
                         SurName = values[0],
                         Name = values[1],
                         Date = String.Empty,
-                        Task = values[values.Length - 2],
+                        Task = String.Empty,
                         Link = values[values.Length - 1]
                     };
                 }
