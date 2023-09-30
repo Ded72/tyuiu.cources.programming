@@ -20,7 +20,7 @@ namespace tyuiu.cources.programming.interfaces.Sprint2
     public interface ISprint2Task5V11 { int FindDateOfNextDay(int g, int m, int n); }
     public interface ISprint2Task5V12 { double FindDateOfPreviousDay(int g, int m, int n); }
     public interface ISprint2Task5V13 { double FindDateOfNextDay(int g, int m, int n); }
-    public interface ISprint2Task5V14 { string FindDayName(int value); }
+    public interface ISprint2Task5V14 { int FindDayValueName(int value); }
     public interface ISprint2Task5V15 { string FindDayName(int value); }
 
 }
