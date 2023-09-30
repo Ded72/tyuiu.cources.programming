@@ -245,7 +245,127 @@ namespace tyuiu.cources.programming
 
             //Task0
 
-            { typeof(ISprint2Task0V0), (new object[6] {true, true, true, true, true, true }, new object[] {5, 6 })}
+            { typeof(ISprint2Task0V0), (new object[6] {true, true, true, true, true, true }, new object[] {5, 6 })},
+            { typeof(ISprint2Task0V1), (new object[6] {true, false, true, false, true, false }, new object[] {233, 122 })},
+            { typeof(ISprint2Task0V2), (new object[6] {false, true, false, true, false, true }, new object[] {123, 123 })},
+            { typeof(ISprint2Task0V3), (new object[6] {false, true, false, true, false, true }, new object[] {45, 127 })},
+            { typeof(ISprint2Task0V4), (new object[6] {false, true, false, true, false, true }, new object[] {333, 324 })},
+            { typeof(ISprint2Task0V5), (new object[6] {false, true, true, true, false, true }, new object[] {105, 223 })},
+            { typeof(ISprint2Task0V6), (new object[6] {true, true, true, false, true, false }, new object[] {107, 754 })},
+            { typeof(ISprint2Task0V7), (new object[6] {true, false, true, true, true, false }, new object[] {103, 475 })},
+            { typeof(ISprint2Task0V8), (new object[6] {true, false, true, false, true, false }, new object[] {185, 251 })},
+            { typeof(ISprint2Task0V9), (new object[6] {true, true, true, true, true, false }, new object[] {1054, 375 })},
+            { typeof(ISprint2Task0V10), (new object[6] {false, true, false, true, false, true }, new object[] {1305, 475 })},
+            { typeof(ISprint2Task0V11), (new object[6] {true, false, true, false, true, false }, new object[] {8105, 275 })},
+            { typeof(ISprint2Task0V12), (new object[6] {true, false, true, false, true, false }, new object[] {1095, 475 })},
+            { typeof(ISprint2Task0V13), (new object[6] {false, true, false, true, false, true }, new object[] {1905, 475 })},
+            { typeof(ISprint2Task0V14), (new object[6] {true, false, true, false, true, false }, new object[] {1075, 754 })},
+            { typeof(ISprint2Task0V15), (new object[6] {false, false, true, true, false, false }, new object[] {3105, 275 })},
+
+            //Task1
+
+            { typeof(ISprint2Task1V1), (new object[6] {true, false, true, false, true, false }, new object[] {119, 196, 134, 327 })},
+            { typeof(ISprint2Task1V2), (new object[6] {true, true, true, true, true, false }, new object[] {135, 156, 154, 174 })},
+            { typeof(ISprint2Task1V3), (new object[6] {true, false, false, false, false, false }, new object[] {185, 316, 134, 134 })},
+            { typeof(ISprint2Task1V4), (new object[6] {false, false, false, false, true, false }, new object[] {175, 176, 414, 414 })},
+            { typeof(ISprint2Task1V5), (new object[6] {true, false, false, false, true, false }, new object[] {154, 163, 134, 137 })},
+            { typeof(ISprint2Task1V6), (new object[6] {false, false, true, false, true, false }, new object[] {915, 169, 174, 133 })},
+            { typeof(ISprint2Task1V7), (new object[6] {true, false, false, false, true, false }, new object[] {195, 16, 14, 45 })},
+            { typeof(ISprint2Task1V8), (new object[6] {true, false, true, false, false, false }, new object[] {15, 16, 14, 335 })},
+            { typeof(ISprint2Task1V9), (new object[6] {false, false, true, false, true, false }, new object[] {15, 335, 174, 478 })},
+            { typeof(ISprint2Task1V10), (new object[6] {true, false, false, false, true, false }, new object[] {455, 335, 14, 17 })},
+            { typeof(ISprint2Task1V11), (new object[6] {false, false, true, false, true, false }, new object[] {145, 156, 142, 117 })},
+            { typeof(ISprint2Task1V12), (new object[6] {true, true, true, false, true, false }, new object[] {152, 116, 887, 556 })},
+            { typeof(ISprint2Task1V13), (new object[6] {true, true, true, true, true, false }, new object[] {145, 916, 164, 137 })},
+            { typeof(ISprint2Task1V14), (new object[6] {false, true, true, true, true, false }, new object[] {185, 216, 174, 917 })},
+            { typeof(ISprint2Task1V15), (new object[6] {true, false, false, false, false, true }, new object[] {415, 616, 134, 127 })},
+
+            //Task2
+
+            { typeof(ISprint2Task2V1), (true, new object[] {9, 6 })},
+            { typeof(ISprint2Task2V2), (true, new object[] {9, 6 })},
+            { typeof(ISprint2Task2V3), (true, new object[] {9, 6 })},
+            { typeof(ISprint2Task2V4), (true, new object[] {9, 6 })},
+            { typeof(ISprint2Task2V5), (true, new object[] {9, 6 })},
+            { typeof(ISprint2Task2V6), (true, new object[] {9, 6 })},
+            { typeof(ISprint2Task2V7), (true, new object[] {9, 6 })},
+            { typeof(ISprint2Task2V8), (true, new object[] {9, 6 })},
+            { typeof(ISprint2Task2V9), (true, new object[] {9, 6 })},
+            { typeof(ISprint2Task2V10), (true, new object[] {9, 6 })},
+            { typeof(ISprint2Task2V11), (true, new object[] {9, 6 })},
+            { typeof(ISprint2Task2V12), (true, new object[] {9, 6 })},
+            { typeof(ISprint2Task2V13), (true, new object[] {9, 6 })},
+            { typeof(ISprint2Task2V14), (true, new object[] {9, 5 })},
+            { typeof(ISprint2Task2V15), (true, new object[] {9, 6 })},
+            
+            //Task3
+
+            { typeof(ISprint2Task3V1), (88.697, new object[] {5 })},
+            { typeof(ISprint2Task3V2), (-54.716, new object[] {5 })},
+            { typeof(ISprint2Task3V3), (37.969, new object[] {5 })},
+            { typeof(ISprint2Task3V4), (12.594, new object[] {5 })},
+            { typeof(ISprint2Task3V5), (-2.594, new object[] {5 })},
+            { typeof(ISprint2Task3V6), (9, new object[] {5 })},
+            { typeof(ISprint2Task3V7), (0.002, new object[] {-3 })},
+            { typeof(ISprint2Task3V8), (-0.543, new object[] {5 })},
+            { typeof(ISprint2Task3V9), (1, new object[] {0 })},
+            { typeof(ISprint2Task3V10), (-1, new object[] {0 })},
+            { typeof(ISprint2Task3V11), (5.186, new object[] {5 })},
+            { typeof(ISprint2Task3V12), (12.594, new object[] {5 })},
+            { typeof(ISprint2Task3V13), (-2.594, new object[] {5 })},
+            { typeof(ISprint2Task3V14), (1.625, new object[] {5 })},
+            { typeof(ISprint2Task3V15), (12.594, new object[] {5 })},
+
+            //Task4
+
+            { typeof(ISprint2Task4V1), (1.429, new object[] {9, 4 })},
+            { typeof(ISprint2Task4V2), (11.5, new object[] {9, 4 })}, 
+            { typeof(ISprint2Task4V3), (35, new object[] {9, 4 })}, 
+            { typeof(ISprint2Task4V4), (71.346, new object[] {9, 4 })}, 
+            { typeof(ISprint2Task4V5), (171.25, new object[] {9, 4 })}, 
+            { typeof(ISprint2Task4V6), (0.007, new object[] {9, 4 })}, 
+            { typeof(ISprint2Task4V7), (753.25, new object[] {9, 4 })}, 
+            { typeof(ISprint2Task4V8), (175.625, new object[] {9, 4 })}, 
+            { typeof(ISprint2Task4V9), (6560.25, new object[] {9, 4 })}, 
+            { typeof(ISprint2Task4V10), (93.444, new object[] {9, 4 })}, 
+            { typeof(ISprint2Task4V11), (92.205, new object[] {9, 4 })}, 
+            { typeof(ISprint2Task4V12), (9.076, new object[] {9, 4 })}, 
+            { typeof(ISprint2Task4V13), (48.889, new object[] {9, 4 })}, 
+            { typeof(ISprint2Task4V14), (0.272, new object[] {9, 4 })},   
+            { typeof(ISprint2Task4V15), (28421.709, new object[] {9, 4 })}, 
+
+            //Task5
+
+            { typeof(ISprint2Task5V1), (30, new object[] {9 })},
+            { typeof(ISprint2Task5V2), ("осень", new object[] {9 })},  
+            { typeof(ISprint2Task5V3), ("понедельник", new object[] {1 })},  
+            { typeof(ISprint2Task5V4), ("трефы", new object[] {2 })},  
+            { typeof(ISprint2Task5V5), ("дама", new object[] {12 })},  
+            { typeof(ISprint2Task5V6), ("дама пик", new object[] {1, 12 })},  
+            { typeof(ISprint2Task5V7), ("март", new object[] {2 })},  
+            { typeof(ISprint2Task5V8), ("24 мая", new object[] {5, 25 })},  
+
+            //Task6
+
+            { typeof(ISprint2Task6V1), (30, new object[] {9 })},
+            { typeof(ISprint2Task6V2), ("осень", new object[] {9 })},  
+            { typeof(ISprint2Task6V3), ("понедельник", new object[] {1 })},  
+            { typeof(ISprint2Task6V4), ("трефы", new object[] {2 })},  
+            { typeof(ISprint2Task6V5), ("дама", new object[] {12 })},  
+            { typeof(ISprint2Task6V6), ("дама пик", new object[] {1, 12 })},  
+            { typeof(ISprint2Task6V7), ("март", new object[] {2 })},  
+            { typeof(ISprint2Task6V8), ("24 мая", new object[] {5, 25 })},          
+
+            //Task7
+
+            { typeof(ISprint2Task7V1), (true, new object[] {0.5, 0.5 })}, 
+            { typeof(ISprint2Task7V2), (true, new object[] {0, 0.5 })}, 
+            { typeof(ISprint2Task7V3), (true, new object[] {0.5, -0.5 })}, 
+            { typeof(ISprint2Task7V4), (true, new object[] {0.5, 0.3 })}, 
+            { typeof(ISprint2Task7V5), (true, new object[] {0, 0.5 })}, 
+            { typeof(ISprint2Task7V6), (true, new object[] {1.5, 1 })}, 
+            { typeof(ISprint2Task7V7), (true, new object[] {0, 0.5 })}, 
+            { typeof(ISprint2Task7V8), (true, new object[] {3, 1 })}, 
         };
         public (object result, object[] args) GetData(Type type)
         {
