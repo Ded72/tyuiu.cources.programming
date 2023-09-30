@@ -14,12 +14,12 @@ namespace tyuiu.cources.programming.interfaces.Sprint2
     public interface ISprint2Task5V5 { string FindCardValue(int value); }
     public interface ISprint2Task5V6 { string FindCardNameAndValue(int value1, int value2); }
     public interface ISprint2Task5V7 { string FindMonthName(int startYear, int n); }
-    public interface ISprint2Task5V8 { int FindDateOfPreviousDay(int m, int n); }
-    public interface ISprint2Task5V9 { int FindDateOfNextDay(int m, int n); }
-    public interface ISprint2Task5V10 { int FindDateOfPreviousDay(int g, int m, int n); }
-    public interface ISprint2Task5V11 { int FindDateOfNextDay(int g, int m, int n); }
-    public interface ISprint2Task5V12 { double FindDateOfPreviousDay(int g, int m, int n); }
-    public interface ISprint2Task5V13 { double FindDateOfNextDay(int g, int m, int n); }
+    public interface ISprint2Task5V8 { string FindDateOfPreviousDay(int m, int n); }
+    public interface ISprint2Task5V9 { string FindDateOfNextDay(int m, int n); }
+    public interface ISprint2Task5V10 { string FindDateOfPreviousDay(int g, int m, int n); }
+    public interface ISprint2Task5V11 { string FindDateOfNextDay(int g, int m, int n); }
+    public interface ISprint2Task5V12 { string FindDateOfPreviousDay(int g, int m, int n); }
+    public interface ISprint2Task5V13 { string FindDateOfNextDay(int g, int m, int n); }
     public interface ISprint2Task5V14 { string FindDayName(int k, int d); }
     public interface ISprint2Task5V15 { string FindDayName(int k); }
 
