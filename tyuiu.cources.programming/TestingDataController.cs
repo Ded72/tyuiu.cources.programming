@@ -261,7 +261,6 @@ namespace tyuiu.cources.programming
             { typeof(ISprint2Task0V13), (new object[6] {false, true, false, true, false, true }, new object[] {1905, 475 })},
             { typeof(ISprint2Task0V14), (new object[6] {true, false, true, false, true, false }, new object[] {1075, 754 })},
             { typeof(ISprint2Task0V15), (new object[6] {false, false, true, true, false, false }, new object[] {3105, 275 })},
-            { typeof(ISprint2Task0V0), (new object[6] {true, true, true, true, true, true }, new object[] {5, 6 })},
             { typeof(ISprint2Task0V16), (new object[6] {true, false, true, false, true, false }, new object[] {1025, 275 })},
             { typeof(ISprint2Task0V17), (new object[6] {true, false, false, false, false, false }, new object[] {1065, 755 })},
             { typeof(ISprint2Task0V18), (new object[6] {false, true, true, true, true, false }, new object[] {5105, 475 })},
