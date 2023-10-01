@@ -11,6 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using tyuiu.cources.programming.interfaces;
+using OfficeOpenXml;
 
 namespace tyuiu.cources.programming
 {
@@ -39,8 +40,7 @@ namespace tyuiu.cources.programming
         public static string currentDate = DateTime.Now.ToString().Replace(" ", "-").Replace(":", ".");
         public string Load(string csvPath)
         {
-
-            string studentResultFile = @$"{gitController.rootDir}\{currentDate}\educon.txt";
+            string studentResultFile = @$"{gitController.rootDir}\{currentDate}\CsvReport-Task{taskNumber}.csv";
             List<string> csvFileLines = new List<string>();
             if (!Directory.Exists(@$"{gitController.rootDir}\{currentDate}"))
             {
@@ -67,6 +67,8 @@ namespace tyuiu.cources.programming
             {
                 WriteReport(studentResultFile, $"Некорректно указан путь - {csvPath}");
             }
+
+            WriteExcelReport(studentResultFile);
             return studentResultFile;
         }
 
@@ -137,6 +139,7 @@ namespace tyuiu.cources.programming
         {
 
             using (StreamWriter sw = new StreamWriter(studentResultFile, false)) { }
+            WriteReport(studentResultFile, "Группа,ФИО,Задание,Дата сдачи,Дата проверки,Оценка,Статус,Ссылка");
             List<string> studentPathsToDlls = new List<string>();
             object studentInetrfaceFromDll;
             TaskData taskData = new TaskData();
@@ -275,13 +278,12 @@ namespace tyuiu.cources.programming
                     {
                         subLibDirectories.Add(subDir);
                     }
-                    else if(taskNumber == "-")
+                    else if (taskNumber == "-")
                     {
                         subLibDirectories.Add(subDir);
                     }
 
                 }
-                
             }
             if (subLibDirectories.Count > 0)
             {
@@ -316,7 +318,6 @@ namespace tyuiu.cources.programming
 
         public bool LaunchFiles(object interfaceFromDll)
         {
-
             try
             {
                 (var areEquals, var report) = testingController.Run(interfaceFromDll);
@@ -340,6 +341,46 @@ namespace tyuiu.cources.programming
                 return false;
             }
 
+
+        }
+
+        public void WriteExcelReport(string pathToCsv)
+        {
+            string studentResultExcelFile = @$"{gitController.rootDir}\{currentDate}\ExcelReport-Task{taskNumber}.xlsx";
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            using (ExcelPackage package = new ExcelPackage(new FileInfo(studentResultExcelFile)))
+            {
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault();
+
+                if (worksheet == null)
+                {
+                    worksheet = package.Workbook.Worksheets.Add("Лист1");
+                }
+                string[] lines = File.ReadAllLines(pathToCsv); ;
+                int rowIndex = 1;
+                foreach (string line in lines)
+                {
+                    string[] parts = line.Split(',');
+                    for (int i = 0; i < parts.Length - 1; i++)
+                    {
+                        worksheet.Cells[rowIndex, i + 1].Value = parts[i];
+                    }
+                    Uri url;
+                    if (Uri.TryCreate(parts[parts.Length - 1], UriKind.Absolute, out url))
+                    {
+                        worksheet.Cells[rowIndex, parts.Length].Hyperlink = url;
+                        worksheet.Cells[rowIndex, parts.Length].Style.Font.UnderLine = true;
+                        worksheet.Cells[rowIndex, parts.Length].Style.Font.Color.SetColor(System.Drawing.Color.Blue);
+                    }
+                    else
+                    {
+                        worksheet.Cells[rowIndex, parts.Length].Value = parts[parts.Length - 1];
+                    }
+                    rowIndex++;
+                }
+                worksheet.Cells.AutoFitColumns();
+                package.Save();
+            }
 
         }
 
@@ -380,7 +421,7 @@ namespace tyuiu.cources.programming
                     {
                         SurName = values[0],
                         Name = values[1],
-                        Date = String.Empty,
+                        Date = date.ToString("dd.MM.yyyy HH:mm"),
                         Task = String.Empty,
                         Link = values[values.Length - 1]
                     };
@@ -391,8 +432,8 @@ namespace tyuiu.cources.programming
                     {
                         SurName = values[0],
                         Name = values[1],
-                        Date = String.Empty,
-                        Task = String.Empty,
+                        Date = date.ToString("dd.MM.yyyy HH:mm"),
+                        Task = values[values.Length - 2],
                         Link = values[values.Length - 1]
                     };
                 }
