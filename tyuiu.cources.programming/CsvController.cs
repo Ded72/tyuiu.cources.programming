@@ -38,9 +38,10 @@ namespace tyuiu.cources.programming
         }
 
         public static string currentDate = DateTime.Now.ToString().Replace(" ", "-").Replace(":", ".");
-        public string Load(string csvPath)
+        public string[] Load(string csvPath)
         {
             string studentResultFile = @$"{gitController.rootDir}\{currentDate}\CsvReport-Task{taskNumber}.csv";
+            string studentResultHrefFile = @$"{gitController.rootDir}\{currentDate}\HrefCsvReport-Task{taskNumber}.csv";
             List<string> csvFileLines = new List<string>();
             if (!Directory.Exists(@$"{gitController.rootDir}\{currentDate}"))
             {
@@ -50,7 +51,7 @@ namespace tyuiu.cources.programming
             if (File.Exists(csvPath))
             {
                 csvFileLines = ReadCsvFile(csvPath);
-                ProcessRepository(csvFileLines, studentResultFile);
+                ProcessRepository(csvFileLines, studentResultFile, studentResultHrefFile);
             }
             else if (Directory.Exists(csvPath))
             {
@@ -59,7 +60,7 @@ namespace tyuiu.cources.programming
                     if (Path.GetExtension(csvFilePath) == ".csv")
                     {
                         csvFileLines = ReadCsvFile(csvFilePath);
-                        ProcessRepository(csvFileLines, studentResultFile);
+                        ProcessRepository(csvFileLines, studentResultFile, studentResultHrefFile);
                     }
                 }
             }
@@ -67,9 +68,7 @@ namespace tyuiu.cources.programming
             {
                 WriteReport(studentResultFile, $"Некорректно указан путь - {csvPath}");
             }
-
-            WriteExcelReport(studentResultFile);
-            return studentResultFile;
+            return new string[] { studentResultFile, currentDate };
         }
 
         public List<string> ReadCsvFile(string pathCsvFile)
@@ -135,11 +134,13 @@ namespace tyuiu.cources.programming
             return correctedLines;
         }
 
-        public void ProcessRepository(List<string> csvFileLines, string studentResultFile)
+        public void ProcessRepository(List<string> csvFileLines, string studentResultFile, string studentResutlHrefFile)
         {
 
             using (StreamWriter sw = new StreamWriter(studentResultFile, false)) { }
+            using (StreamWriter sw = new StreamWriter(studentResutlHrefFile, false)) { }
             WriteReport(studentResultFile, "Группа,ФИО,Задание,Дата сдачи,Дата проверки,Оценка,Статус,Ссылка");
+            WriteReport(studentResutlHrefFile, "Группа,ФИО,Задание,Дата сдачи,Дата проверки,Оценка,Статус,Ссылка");
             List<string> studentPathsToDlls = new List<string>();
             object studentInetrfaceFromDll;
             TaskData taskData = new TaskData();
@@ -193,6 +194,7 @@ namespace tyuiu.cources.programming
                                                     taskData.TaskStatus = "ОШИБКА ИНТЕРФЕЙСА";
                                                 }
                                                 WriteReport(studentResultFile, taskData.StudentData);
+                                                WriteReport(studentResutlHrefFile, taskData.StudentHrefdata);
                                                 break;
                                             }
                                         }
@@ -203,6 +205,7 @@ namespace tyuiu.cources.programming
                                         taskData.Task = Path.GetFileNameWithoutExtension(directory);
                                         taskData.TaskStatus = "НЕКОРРЕКТНОЕ НАЗВАНИЕ ТАСКА";
                                         WriteReport(studentResultFile, taskData.StudentData);
+                                        WriteReport(studentResutlHrefFile, taskData.StudentHrefdata);
                                     }
 
                                 }
@@ -212,6 +215,7 @@ namespace tyuiu.cources.programming
                             {
                                 taskData.TaskStatus = "БИБЛИОТЕКА НЕ СКОМПИЛИРОВАЛАСЬ";
                                 WriteReport(studentResultFile, taskData.StudentData);
+                                WriteReport(studentResutlHrefFile, taskData.StudentHrefdata);
                             }
 
                         }
@@ -219,12 +223,14 @@ namespace tyuiu.cources.programming
                         {
                             taskData.TaskStatus = "НЕТ БИБЛИОТЕКИ У НУЖНОГО ТАСКА";
                             WriteReport(studentResultFile, taskData.StudentData);
+                            WriteReport(studentResutlHrefFile, taskData.StudentHrefdata);
                         }
                     }
                     else
                     {
                         taskData.TaskStatus = "ССЫЛКА НЕВАЛИДНА";
                         WriteReport(studentResultFile, taskData.StudentData);
+                        WriteReport(studentResutlHrefFile, taskData.StudentHrefdata);
                     }
 
                 }
@@ -344,46 +350,6 @@ namespace tyuiu.cources.programming
 
         }
 
-        public void WriteExcelReport(string pathToCsv)
-        {
-            string studentResultExcelFile = @$"{gitController.rootDir}\{currentDate}\ExcelReport-Task{taskNumber}.xlsx";
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            using (ExcelPackage package = new ExcelPackage(new FileInfo(studentResultExcelFile)))
-            {
-                ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault();
-
-                if (worksheet == null)
-                {
-                    worksheet = package.Workbook.Worksheets.Add("Лист1");
-                }
-                string[] lines = File.ReadAllLines(pathToCsv); ;
-                int rowIndex = 1;
-                foreach (string line in lines)
-                {
-                    string[] parts = line.Split(',');
-                    for (int i = 0; i < parts.Length - 1; i++)
-                    {
-                        worksheet.Cells[rowIndex, i + 1].Value = parts[i];
-                    }
-                    Uri url;
-                    if (Uri.TryCreate(parts[parts.Length - 1], UriKind.Absolute, out url))
-                    {
-                        worksheet.Cells[rowIndex, parts.Length].Hyperlink = url;
-                        worksheet.Cells[rowIndex, parts.Length].Style.Font.UnderLine = true;
-                        worksheet.Cells[rowIndex, parts.Length].Style.Font.Color.SetColor(System.Drawing.Color.Blue);
-                    }
-                    else
-                    {
-                        worksheet.Cells[rowIndex, parts.Length].Value = parts[parts.Length - 1];
-                    }
-                    rowIndex++;
-                }
-                worksheet.Cells.AutoFitColumns();
-                package.Save();
-            }
-
-        }
-
         public void WriteReport(string filePath, string data)
         {
             using (StreamWriter sw = new StreamWriter(filePath, true))
@@ -479,6 +445,7 @@ namespace tyuiu.cources.programming
         public double Score = 0.0;
         public string TaskStatus = string.Empty;
         public string StudentData { get { return $"{Group},{SurName} {Name},{Task},{Date},{CsvController.currentDate},{Score.ToString().Replace(',', '.')},{TaskStatus},{Link}"; } }
-
+        public string StudentHrefdata { get { return @$"{Group},{SurName} {Name},{Task},{Date},{CsvController.currentDate},{Score.ToString().Replace(',', '.')},{TaskStatus},<a href=""" + Link + @""" target=""_blank"">" + Link + "</a>"; } }
     }
 }
+
