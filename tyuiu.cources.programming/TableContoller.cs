@@ -74,40 +74,43 @@ namespace tyuiu.cources.programming
         public string MergeTables(string pathToTables)
         {
             string outputFilePath = Path.Combine(pathToTables, "MergedTables.xlsx");
-
             if (File.Exists(outputFilePath))
             {
                 File.Delete(outputFilePath);
             }
-
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-
             using (ExcelPackage package = new ExcelPackage())
             {
+                ExcelWorksheet mergedWorksheet = package.Workbook.Worksheets.Add("MergedData");
                 string[] excelFiles = Directory.GetFiles(pathToTables, "*.xls*");
-
+                mergedWorksheet.Cells["A1"].Value = "Группа";
+                mergedWorksheet.Cells["B1"].Value = "ФИО";
+                mergedWorksheet.Cells["C1"].Value = "Задание";
+                mergedWorksheet.Cells["D1"].Value = "Дата сдачи";
+                mergedWorksheet.Cells["E1"].Value = "Дата проверки";
+                mergedWorksheet.Cells["F1"].Value = "Статус задания";
+                mergedWorksheet.Cells["G1"].Value = "Баллы";
+                mergedWorksheet.Cells["H1"].Value = "Бонус";
+                mergedWorksheet.Cells["I1"].Value = "Сумма";
+                mergedWorksheet.Cells["J1"].Value = "Сcылка";
+                int startRow = 2;
                 foreach (var file in excelFiles)
                 {
-                    ExcelWorksheet mergedWorksheet = package.Workbook.Worksheets.Add(Path.GetFileName(file));
-                    int startRow = 1;
-
                     using (ExcelPackage excelPackage = new ExcelPackage(new FileInfo(file)))
                     {
                         ExcelWorksheet currentWorksheet = excelPackage.Workbook.Worksheets[1];
                         int rowCount = currentWorksheet.Dimension.End.Row;
                         int colCount = currentWorksheet.Dimension.End.Column;
-
-                        for (int row = 1; row <= rowCount; row++)
+                        bool hasData = false;
+                        for (int row = 2; row <= rowCount; row++)
                         {
                             for (int col = 1; col <= colCount; col++)
                             {
                                 mergedWorksheet.Cells[startRow, col].Value = currentWorksheet.Cells[row, col].Value;
-
                                 if (col == colCount)
                                 {
                                     Uri url;
                                     string cellValue = (currentWorksheet.Cells[row, col].Value ?? "").ToString();
-
                                     if (Uri.TryCreate(cellValue, UriKind.Absolute, out url))
                                     {
                                         mergedWorksheet.Cells[startRow, col].Hyperlink = url;
@@ -115,18 +118,25 @@ namespace tyuiu.cources.programming
                                         mergedWorksheet.Cells[startRow, col].Style.Font.Color.SetColor(System.Drawing.Color.Blue);
                                     }
                                 }
+                                if (currentWorksheet.Cells[row, col].Value != null)
+                                {
+                                    hasData = true;
+                                }
                             }
-                            startRow++;
+                            if (hasData)
+                            {
+                                startRow++;
+                                hasData = false;
+                            }
                         }
                     }
-
-                    mergedWorksheet.Cells.AutoFitColumns();
                 }
-
+                mergedWorksheet.Cells.AutoFitColumns();
                 package.SaveAs(new FileInfo(outputFilePath));
             }
             return outputFilePath;
         }
+
     }
 }
 
