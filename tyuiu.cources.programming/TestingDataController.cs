@@ -210,7 +210,7 @@ namespace tyuiu.cources.programming
             //Task7
 
             { typeof(ISprint1Task7V0), (1.0, new object[] {2, 3, 1 })},
-            { typeof(ISprint1Task7V1), (-37.192, new object[] {2, 4, 5 })},
+            { typeof(ISprint1Task7V1), (-37.067, new object[] {2, 4, 5 })},
             { typeof(ISprint1Task7V2), (-5.103, new object[] {2, 4})},
             { typeof(ISprint1Task7V3), (0.897, new object[] {2, 4 })},
             { typeof(ISprint1Task7V4), (0.545, new object[] {2, 4 })},
