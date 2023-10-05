@@ -153,7 +153,6 @@ namespace tyuiu.cources.programming
                     taskData.Score = 0.0;
                     if (gitController.Load(taskData.Link, currentDate))
                     {
-                        taskData.TaskStatus = "ДА";
                         taskData.Score = 0.2;
                         var filename = Path.GetFileNameWithoutExtension(taskData.Link);
                         var localDir = $@"{gitController.rootDir}\{currentDate}\{filename}";
