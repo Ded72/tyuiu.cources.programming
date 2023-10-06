@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace tyuiu.cources.programming.interfaces
+namespace tyuiu.cources.programming.interfaces.Sprint3
 {
-    internal interface ISprint3Task0
-    {
-    }
+   
 }
