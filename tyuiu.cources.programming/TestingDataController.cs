@@ -469,7 +469,7 @@ namespace tyuiu.cources.programming
 
             //Task0
 
-            { typeof(ISprint3Task0V1),  (1935, new object[] {4.0})},
+            { typeof(ISprint3Task0V1),  (1935.0, new object[] {4.0})},
             { typeof(ISprint3Task0V2),  (0.968, new object[] {})},
             { typeof(ISprint3Task0V3),  (0.353, new object[] {})},
             { typeof(ISprint3Task0V4),  (1.550, new object[] {})},
