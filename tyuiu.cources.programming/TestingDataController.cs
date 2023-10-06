@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 //using tyuiu.cources.programming.interfaces;
 using tyuiu.cources.programming.interfaces.Sprint1;
 using tyuiu.cources.programming.interfaces.Sprint2;
+using tyuiu.cources.programming.interfaces.Sprint3;
 
 namespace tyuiu.cources.programming
 {
@@ -463,6 +464,41 @@ namespace tyuiu.cources.programming
             { typeof(ISprint2Task7V13), (true, new object[] {0.1, 0})},
             { typeof(ISprint2Task7V14), (true, new object[] {0.1, 0})},
             { typeof(ISprint2Task7V15), (true, new object[] {1.5, 1})},
+
+            //Sprint3
+
+            //Task0
+
+            { typeof(ISprint3Task0V1),  (1935, new object[] {4})},
+            { typeof(ISprint3Task0V2),  (0.968, new object[] {})},
+            { typeof(ISprint3Task0V3),  (0.353, new object[] {4})},
+            { typeof(ISprint3Task0V4),  (1.550, new object[] {4})},
+            { typeof(ISprint3Task0V5),  (81.083, new object[] {4})},
+            { typeof(ISprint3Task0V6),  (-389102.25, new object[] {4})},
+            { typeof(ISprint3Task0V7),  (0.333, new object[] {0.75})},
+            { typeof(ISprint3Task0V8),  (2539.225, new object[] {0.25})},
+            { typeof(ISprint3Task0V9),  (0.430, new object[] {0.5})},
+            { typeof(ISprint3Task0V10),  (0.168, new object[] {5})},
+            { typeof(ISprint3Task0V11),  (0.042, new object[] {5})},
+            { typeof(ISprint3Task0V12),  (1.001, new object[] {5})},
+            { typeof(ISprint3Task0V13),  (0.298, new object[] {0.5})},
+            { typeof(ISprint3Task0V14),  (3.546, new object[] {0.7})},
+            { typeof(ISprint3Task0V15),  (4.063, new object[] {0.7})},
+            { typeof(ISprint3Task0V16),  (15.948, new object[] {0.7})},
+            { typeof(ISprint3Task0V17),  (-0.709, new object[] {})},
+            { typeof(ISprint3Task0V18),  (0.121, new object[] {})},
+            { typeof(ISprint3Task0V19),  (4.399, new object[] {})},
+            { typeof(ISprint3Task0V20),  (51191.405, new object[] {})},
+            { typeof(ISprint3Task0V21),  (-63.727, new object[] {1.5})},
+            { typeof(ISprint3Task0V22),  (3550.571, new object[] {1.5})},
+            { typeof(ISprint3Task0V23),  (0.298, new object[] {1.5})},
+            { typeof(ISprint3Task0V24),  (0.186, new object[] {5})},
+            { typeof(ISprint3Task0V25),  (0.690, new object[] {5})},
+            { typeof(ISprint3Task0V26),  (1.5, new object[] {5})},
+            { typeof(ISprint3Task0V27),  (16.016, new object[] {5})},
+            { typeof(ISprint3Task0V28),  (-0.186, new object[] {0.5})},
+            { typeof(ISprint3Task0V29),  (2.065, new object[] {0.5})},
+            { typeof(ISprint3Task0V30),  (3.589, new object[] {0.5})},
         };
         public (object result, object[] args) GetData(Type type)
         {
