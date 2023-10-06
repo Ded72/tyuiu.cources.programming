@@ -215,7 +215,7 @@ namespace tyuiu.cources.programming
             { typeof(ISprint1Task7V3), (0.897, new object[] {2, 4 })},
             { typeof(ISprint1Task7V4), (0.545, new object[] {2, 4 })},
             { typeof(ISprint1Task7V5), (-0.545, new object[] {2 })},
-            { typeof(ISprint1Task7V6), (-188.000, new object[] {2, 4 })},
+            { typeof(ISprint1Task7V6), (-190.438, new object[] {2, 4 })}, 
             { typeof(ISprint1Task7V7), (-6.642, new object[] {2, 4 })},
             { typeof(ISprint1Task7V8), (-2.308, new object[] {2, 4 })},
             { typeof(ISprint1Task7V9), (5.983, new object[] {2, 4 })},
@@ -229,7 +229,7 @@ namespace tyuiu.cources.programming
             { typeof(ISprint1Task7V17), (0.087, new object[] {5, 5 })},
             { typeof(ISprint1Task7V18), (1.061, new object[] {1, 1 })},
             { typeof(ISprint1Task7V19), (2502.641, new object[] {5 })},
-            { typeof(ISprint1Task7V20), (25.479, new object[] {5, 5 })},
+            { typeof(ISprint1Task7V20), (25.452, new object[] {5, 5 })},  
             { typeof(ISprint1Task7V21), (13.377, new object[] {2, 4})},
             { typeof(ISprint1Task7V22), (0.172, new object[] {2, 4 })},
             { typeof(ISprint1Task7V23), (-1.782, new object[] {2, 4 })},
@@ -239,7 +239,7 @@ namespace tyuiu.cources.programming
             { typeof(ISprint1Task7V27), (-3.597, new object[] {2, 4 })},
             { typeof(ISprint1Task7V28), (16.787, new object[] {2, 4 })},
             { typeof(ISprint1Task7V29), (2.072, new object[] {2, 4 })},
-            { typeof(ISprint1Task7V30), (11.978, new object[] {2, 4 })},
+            { typeof(ISprint1Task7V30), (11.978, new object[] {2, 4 })},  //
 
             //Sprint 2
 
