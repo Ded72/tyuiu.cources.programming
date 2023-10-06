@@ -8,5 +8,6 @@ namespace tyuiu.cources.programming.interfaces
 {
     internal interface ISprint3Task0
     {
+        //привет мир
     }
 }
