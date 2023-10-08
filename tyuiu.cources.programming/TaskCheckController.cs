@@ -47,7 +47,7 @@ namespace tyuiu.cources.programming
             {
                 Directory.CreateDirectory(@$"{gitController.rootDir}\{currentDate}");
             }
-            ProcessLinkRepository(link, studentResultFile);
+            ProcessRepositoryFromLink(link, studentResultFile);
             return new string[] { studentResultFile, currentDate };
         }
         public string[] LoadFile(string csvPath)
@@ -182,12 +182,17 @@ namespace tyuiu.cources.programming
                 taskData.Score = 0.0;
                 WriteReport(studentResultFile, "Задание,Статус,Ссылка");
             }
-            else
+            else if(item.EndsWith(".csv"))
             {
                 taskData = Parse(item);
                 taskData.Group = GetGroup(taskData.Name, taskData.SurName);
                 taskData.Score = 0.0;
                 WriteReport(studentResultFile, "Группа,ФИО,Задание,Дата сдачи,Дата проверки,Оценка,Статус,Ссылка");
+            }
+            else
+            {
+                WriteReport(studentResultFile, "НЕВАЛИДНЫЕ ДАННЫЕ");
+                return;
             }
             if (gitController.Load(taskData.Link, currentDate))
             {
