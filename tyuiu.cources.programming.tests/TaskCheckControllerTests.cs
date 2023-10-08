@@ -22,7 +22,7 @@ namespace tyuiu.cources.programming.tests
                 new TestingController(new TestingDataController()));
             var testingController = new TestingController(new TestingDataController());
 
-            string[] studentResults = taskCheckController.Load(@"C:\Temp\0_7_Vyslat_ssylku_s_GitHub-otvety.csv");
+            string[] studentResults = taskCheckController.LoadFile(@"C:\Temp\0_7_Vyslat_ssylku_s_GitHub-otvety.csv");
             Console.WriteLine(studentResults);
 
 
