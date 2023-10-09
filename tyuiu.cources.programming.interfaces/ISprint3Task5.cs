@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace tyuiu.cources.programming.interfaces.Sprint3
 {
-    public interface ISprint3Task5V0 { double GetSumSumSeries(double x, double startValue1, double startValue2, double stopValue1, double stopValue2); }
+    public interface ISprint3Task5V0 { double GetSumSumSeries(double x, int startValue1, int startValue2, int stopValue1, int stopValue2); }
 
 }

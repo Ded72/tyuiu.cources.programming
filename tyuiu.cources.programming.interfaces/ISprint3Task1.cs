@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace tyuiu.cources.programming.interfaces.Sprint3
 {
-    public interface ISprint3Task1V0 { double GetMultiplySeries(); }
+    public interface ISprint3Task1V0 { double GetMultiplySeries(double value, int startValue, int stopValue); }
     public interface ISprint3Task1V1 { double GetMultiplySeries(); }
     public interface ISprint3Task1V2 { double GetMultiplySeries(); }
     public interface ISprint3Task1V3 { double GetMultiplySeries(); }
