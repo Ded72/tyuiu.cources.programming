@@ -17,7 +17,7 @@ namespace tyuiu.cources.programming.tests
         public void InvalidTestData()
         {
             var taskCheckController = new TaskCheckController(
-                "0",
+                "10",
                 new GitController(@"F:\ServiceWorkFolder"),
                 new AssemblyController(),
                 new TestingController(new TestingDataController()));
@@ -31,11 +31,11 @@ namespace tyuiu.cources.programming.tests
         public void InvalidLink()
         {
             var taskCheckController = new TaskCheckController(
-               "0",
+               "11",
                new GitController(@"F:\ServiceWorkFolder"),
                new AssemblyController(),
                new TestingController(new TestingDataController()));
-            string[] items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint");
+            string[] items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSTests.Sprint");
 
             string[] results = File.ReadAllLines(items[0]);
 
