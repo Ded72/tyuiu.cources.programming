@@ -21,8 +21,8 @@ namespace tyuiu.cources.programming.tests
                 new GitController(@"F:\ServiceWorkFolder"),
                 new AssemblyController(),
                 new TestingController(new TestingDataController()));
-            string[] items = taskCheckController.LoadLink("");
-            string[] results = File.ReadAllLines(items[0]);
+            string items = taskCheckController.LoadLink("");
+            string[] results = File.ReadAllLines(items);
 
             Assert.AreEqual("НЕВАЛИДНЫЕ ДАННЫЕ", results[1]);
         }
@@ -35,9 +35,9 @@ namespace tyuiu.cources.programming.tests
                new GitController(@"F:\ServiceWorkFolder"),
                new AssemblyController(),
                new TestingController(new TestingDataController()));
-            string[] items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSTests.Sprint");
+            string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSTests.Sprint");
 
-            string[] results = File.ReadAllLines(items[0]);
+            string[] results = File.ReadAllLines(items);
 
             Assert.AreEqual("ССЫЛКА НЕВАЛИДНА", results[1].Split(",")[1]);
         }
@@ -50,8 +50,8 @@ namespace tyuiu.cources.programming.tests
                new GitController(@"F:\ServiceWorkFolder"),
                new AssemblyController(),
                new TestingController(new TestingDataController()));
-            string[] items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
-            string[] results = File.ReadAllLines(items[0]);
+            string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
+            string[] results = File.ReadAllLines(items);
 
             Assert.AreEqual("НЕТ БИБЛИОТЕКИ У НУЖНОГО ТАСКА", results[1].Split(",")[1]);
         }
@@ -64,8 +64,8 @@ namespace tyuiu.cources.programming.tests
                 new GitController(@"F:\ServiceWorkFolder"),
                 new AssemblyController(),
                 new TestingController(new TestingDataController()));
-            string[] items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
-            string[] results = File.ReadAllLines(items[0]);
+            string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
+            string[] results = File.ReadAllLines(items);
 
             Assert.AreEqual("БИБЛИОТЕКА НЕ СКОМПИЛИРОВАЛАСЬ", results[1].Split(",")[1]);
         }
@@ -78,8 +78,8 @@ namespace tyuiu.cources.programming.tests
                 new GitController(@"F:\ServiceWorkFolder"),
                 new AssemblyController(),
                 new TestingController(new TestingDataController()));
-            string[] items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
-            string[] results = File.ReadAllLines(items[0]);
+            string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
+            string[] results = File.ReadAllLines(items);
 
             Assert.AreEqual("НЕКОРРЕКТНОЕ НАЗВАНИЕ ТАСКА", results[1].Split(",")[1]);
         }
@@ -93,8 +93,8 @@ namespace tyuiu.cources.programming.tests
                 new GitController(@"F:\ServiceWorkFolder"),
                 new AssemblyController(),
                 new TestingController(new TestingDataController()));
-            string[] items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
-            string[] results = File.ReadAllLines(items[0]);
+            string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
+            string[] results = File.ReadAllLines(items);
 
             Assert.AreEqual("ОШИБКА ИНТЕРФЕЙСА", results[1].Split(",")[1]);
         }
@@ -107,8 +107,8 @@ namespace tyuiu.cources.programming.tests
                 new GitController(@"F:\ServiceWorkFolder"),
                 new AssemblyController(),
                 new TestingController(new TestingDataController()));
-            string[] items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
-            string[] results = File.ReadAllLines(items[0]);
+            string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
+            string[] results = File.ReadAllLines(items);
 
             Assert.AreEqual("НЕ СОШЛИСЬ ОТВЕТЫ", results[1].Split(",")[1]);
         }
@@ -121,8 +121,8 @@ namespace tyuiu.cources.programming.tests
                 new GitController(@"F:\ServiceWorkFolder"),
                 new AssemblyController(),
                 new TestingController(new TestingDataController()));
-            string[] items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
-            string[] results = File.ReadAllLines(items[0]);
+            string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
+            string[] results = File.ReadAllLines(items);
 
             Assert.AreEqual("ВСЕ ХОРОШО", results[1].Split(",")[1]);
         }
