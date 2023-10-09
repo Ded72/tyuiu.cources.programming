@@ -42,7 +42,7 @@ namespace tyuiu.cources.programming
         public string[] LoadLink(string link)
         {
 
-            string studentResultFile = @$"{gitController.rootDir}\{currentDate}\CsvReport-{link}.csv";
+            string studentResultFile = @$"{gitController.rootDir}\{currentDate}\CsvReport-Task{taskNumber}.csv";
             if (!Directory.Exists(@$"{gitController.rootDir}\{currentDate}"))
             {
                 Directory.CreateDirectory(@$"{gitController.rootDir}\{currentDate}");
@@ -58,7 +58,6 @@ namespace tyuiu.cources.programming
             {
                 Directory.CreateDirectory(@$"{gitController.rootDir}\{currentDate}");
             }
-            File.Copy(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "WorkFiles", "Vedomost.xlsm"), @$"{gitController.rootDir}\{currentDate}\Vedomost-Task-{taskNumber}-{currentDate}.xlsm");
             if (File.Exists(csvPath))
             {
                 csvFileLines = ReadCsvFile(csvPath);
