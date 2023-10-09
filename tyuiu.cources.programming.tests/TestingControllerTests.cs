@@ -3,7 +3,6 @@ using tyuiu.cources.programming.interfaces;
 using tyuiu.cources.programming.interfaces.Sprint1;
 using tyuiu.cources.programming.interfaces.Sprint2;
 
-using Tyuiu.SimonSRTests.Sprint1.Task0.V10.Lib;
 
 namespace tyuiu.cources.programming.tests
 {
@@ -13,8 +12,7 @@ namespace tyuiu.cources.programming.tests
         
         private readonly TestingController testingController =
             new TestingController( new TestingDataController());
-        private readonly AssemblyController assemblyController = new AssemblyController();
-        private readonly string filename = typeof(DataService).Assembly.Location;
+
 
 
         [TestMethod]
