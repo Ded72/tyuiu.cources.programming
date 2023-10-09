@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace tyuiu.cources.programming.interfaces.Sprint3
 {
-    public interface ISprint3Task4V0 { double Calculate(double startValue, double stopValue); }
+    public interface ISprint3Task4V0 { double Calculate(int startValue, int stopValue); }
 
 }
