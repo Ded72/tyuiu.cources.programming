@@ -2,15 +2,16 @@
 using System.Text;
 using tyuiu.cources.programming;
 
+string taskNubmer = "3";
 
 var taskCheckController = new TaskCheckController(
-                "3",
+                taskNubmer,
                 new GitController(@"F:\ServiceWorkFolder"),
                 new AssemblyController(),
                 new TestingController(new TestingDataController()));
 
 var tableReportController = new TableContoller(
-    "1",
+    taskNubmer,
     new GitController(@"F:\ServiceWorkFolder")
     );
 
