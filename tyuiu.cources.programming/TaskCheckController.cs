@@ -39,7 +39,7 @@ namespace tyuiu.cources.programming
 
         public static string currentDate = DateTime.Now.ToString().Replace(" ", "-").Replace(":", ".");
 
-        public string[] LoadLink(string link)
+        public string LoadLink(string link)
         {
 
             string studentResultFile = @$"{gitController.rootDir}\{currentDate}\CsvReport-Task{taskNumber}.csv";
@@ -48,9 +48,9 @@ namespace tyuiu.cources.programming
                 Directory.CreateDirectory(@$"{gitController.rootDir}\{currentDate}");
             }
             ProcessRepositoryFromLink(link, studentResultFile);
-            return new string[] { studentResultFile, currentDate };
+            return studentResultFile;
         }
-        public string[] LoadFile(string csvPath)
+        public string LoadFile(string csvPath)
         {
             string studentResultFile = @$"{gitController.rootDir}\{currentDate}\CsvReport-{Path.GetFileName(csvPath).Replace("csv", "")}.csv";
             List<string> csvFileLines = new List<string>();
@@ -78,7 +78,7 @@ namespace tyuiu.cources.programming
             {
                 WriteReport(studentResultFile, $"Некорректно указан путь - {csvPath}");
             }
-            return new string[] { studentResultFile, currentDate };
+            return studentResultFile;
         }
 
         public List<string> ReadCsvFile(string pathCsvFile)

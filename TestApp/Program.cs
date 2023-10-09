@@ -2,7 +2,7 @@
 using System.Text;
 using tyuiu.cources.programming;
 
-string taskNubmer = "3";
+string taskNubmer = "-";
 
 var taskCheckController = new TaskCheckController(
                 taskNubmer,
@@ -15,9 +15,9 @@ var tableReportController = new TableContoller(
     new GitController(@"F:\ServiceWorkFolder")
     );
 
-string[] items = taskCheckController.LoadFile(@"C:\Temp\test\Sprint1.Task3.csv");
+string csvReportPath = taskCheckController.LoadFile(@"C:\Temp\test\sprint2linkstest.csv");
 
-Console.WriteLine(tableReportController.WriteExcelReport(items));
+Console.WriteLine(tableReportController.WriteExcelReport(csvReportPath));
 
 //Console.WriteLine(tableReportController.MergeTables(@"C:\Temp\TableFiles"));
 
