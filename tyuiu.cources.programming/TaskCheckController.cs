@@ -42,7 +42,7 @@ namespace tyuiu.cources.programming
         public string[] LoadLink(string link)
         {
 
-            string studentResultFile = @$"{gitController.rootDir}\{currentDate}\CsvReport-Task{taskNumber}.csv";
+            string studentResultFile = @$"{gitController.rootDir}\{currentDate}\CsvReport-{link}.csv";
             if (!Directory.Exists(@$"{gitController.rootDir}\{currentDate}"))
             {
                 Directory.CreateDirectory(@$"{gitController.rootDir}\{currentDate}");
@@ -52,7 +52,7 @@ namespace tyuiu.cources.programming
         }
         public string[] LoadFile(string csvPath)
         {
-            string studentResultFile = @$"{gitController.rootDir}\{currentDate}\CsvReport-Task{taskNumber}.csv";
+            string studentResultFile = @$"{gitController.rootDir}\{currentDate}\CsvReport-{Path.GetFileName(csvPath).Replace("csv", "")}.csv";
             List<string> csvFileLines = new List<string>();
             if (!Directory.Exists(@$"{gitController.rootDir}\{currentDate}"))
             {
@@ -150,7 +150,7 @@ namespace tyuiu.cources.programming
         {
 
             using (StreamWriter sw = new StreamWriter(studentResultFile, false)) { };
-
+            WriteReport(studentResultFile, "Задание,Статус,Ссылка");
             ProcessRepository(studentResultFile, repoLink);
         }
 
@@ -158,7 +158,7 @@ namespace tyuiu.cources.programming
         {
 
             using (StreamWriter sw = new StreamWriter(studentResultFile, false)) { }
-
+            WriteReport(studentResultFile, "Группа,ФИО,Задание,Дата сдачи,Дата проверки,Оценка,Статус,Ссылка");
             foreach (string line in csvFileLines)
             {
                 if (!line.Contains("Ответ"))
@@ -176,23 +176,21 @@ namespace tyuiu.cources.programming
             object studentInetrfaceFromDll;
             TaskData taskData = new TaskData();
             taskData.itemIsLink = (Uri.TryCreate(item, UriKind.Absolute, out Uri uriResult));
+            if (item == "")
+            {
+                WriteReport(studentResultFile, "НЕВАЛИДНЫЕ ДАННЫЕ");
+                return;
+            }
             if (taskData.itemIsLink)
             {
                 taskData.Link = item;
                 taskData.Score = 0.0;
-                WriteReport(studentResultFile, "Задание,Статус,Ссылка");
             }
-            else if(item.EndsWith(".csv"))
+            else
             {
                 taskData = Parse(item);
                 taskData.Group = GetGroup(taskData.Name, taskData.SurName);
                 taskData.Score = 0.0;
-                WriteReport(studentResultFile, "Группа,ФИО,Задание,Дата сдачи,Дата проверки,Оценка,Статус,Ссылка");
-            }
-            else
-            {
-                WriteReport(studentResultFile, "НЕВАЛИДНЫЕ ДАННЫЕ");
-                return;
             }
             if (gitController.Load(taskData.Link, currentDate))
             {
@@ -200,7 +198,7 @@ namespace tyuiu.cources.programming
                 var filename = Path.GetFileNameWithoutExtension(taskData.Link);
                 var localDir = $@"{gitController.rootDir}\{currentDate}\{filename}";
                 List<string> notCompiledDirectories = GetNotCompiledLibDirs(Directory.GetDirectories(localDir));
-
+                taskData.Task = Path.GetFileName(studentResultFile);
                 if (notCompiledDirectories.Count > 0)
                 {
                     studentPathsToDlls = Build(localDir);
