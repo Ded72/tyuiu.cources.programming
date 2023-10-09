@@ -24,7 +24,7 @@ namespace tyuiu.cources.programming.tests
             string[] items = taskCheckController.LoadLink("");
             string[] results = File.ReadAllLines(items[0]);
 
-            Assert.AreEqual("НЕВАЛИДНЫЕ ДАННЫЕ", results[0]);
+            Assert.AreEqual("НЕВАЛИДНЫЕ ДАННЫЕ", results[1]);
         }
 
         [TestMethod]
