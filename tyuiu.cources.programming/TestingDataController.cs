@@ -229,7 +229,7 @@ namespace tyuiu.cources.programming
             { typeof(ISprint1Task7V15), (96.484, new object[] {5 })},
             { typeof(ISprint1Task7V16), (0.026, new object[] {5 })},
             { typeof(ISprint1Task7V17), (0.087, new object[] {5, 5 })},
-            { typeof(ISprint1Task7V18), (1.061, new object[] {1, 1 })},
+            { typeof(ISprint1Task7V18), (1.913, new object[] {1, 1 })},
             { typeof(ISprint1Task7V19), (2502.641, new object[] {5 })},
             { typeof(ISprint1Task7V20), (25.452, new object[] {5, 5 })},  
             { typeof(ISprint1Task7V21), (13.377, new object[] {2, 4})},
