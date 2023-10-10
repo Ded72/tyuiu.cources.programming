@@ -241,7 +241,7 @@ namespace tyuiu.cources.programming
             { typeof(ISprint1Task7V27), (-3.597, new object[] {2, 4 })},
             { typeof(ISprint1Task7V28), (16.787, new object[] {2, 4 })},
             { typeof(ISprint1Task7V29), (2.072, new object[] {2, 4 })},
-            { typeof(ISprint1Task7V30), (11.978, new object[] {2, 4 })},  //
+            { typeof(ISprint1Task7V30), (11.978, new object[] {2, 4 })}, 
 
             //Sprint 2
 
