@@ -15,14 +15,14 @@ namespace tyuiu.cources.programming.tests
         [TestMethod]
         public void LoadFileValid()
         {
-            var csvController = new CsvController(
+            var taskCheckController = new TaskCheckController(
                 "0",
                 new GitController(@"C:\Temp"), 
                 new AssemblyController(),
                 new TestingController(new TestingDataController()));
             var testingController = new TestingController(new TestingDataController());
 
-            string studentResults = csvController.Load(@"C:\Temp\0_7_Vyslat_ssylku_s_GitHub-otvety.csv");
+            string[] studentResults = taskCheckController.Load(@"C:\Temp\0_7_Vyslat_ssylku_s_GitHub-otvety.csv");
             Console.WriteLine(studentResults);
 
 

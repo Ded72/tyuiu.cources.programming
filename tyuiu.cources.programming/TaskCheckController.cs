@@ -16,7 +16,7 @@ using OfficeOpenXml;
 namespace tyuiu.cources.programming
 {
 
-    public class CsvController
+    public class TaskCheckController
     {
 
         public GitController gitController { get; }
@@ -25,7 +25,7 @@ namespace tyuiu.cources.programming
         private readonly TestingController testingController;
         private readonly string taskNumber;
 
-        public CsvController(
+        public TaskCheckController(
             string taskNumber,
             GitController gitController,
             AssemblyController assemblyController,
@@ -443,8 +443,8 @@ namespace tyuiu.cources.programming
         public string Link = string.Empty;
         public double Score = 0.0;
         public string TaskStatus = string.Empty;
-        public string StudentData { get { return $"{Group},{SurName} {Name},{Task},{Date},{CsvController.currentDate},{Score.ToString().Replace(',', '.')},{TaskStatus},{Link}"; } }
-        public string StudentHrefdata { get { return @$"{Group},{SurName} {Name},{Task},{Date},{CsvController.currentDate},{Score.ToString().Replace(',', '.')},{TaskStatus},<a href=""" + Link + @""" target=""_blank"">" + Link + "</a>"; } }
+        public string StudentData { get { return $"{Group},{SurName} {Name},{Task},{Date},{TaskCheckController.currentDate},{Score.ToString().Replace(',', '.')},{TaskStatus},{Link}"; } }
+        public string StudentHrefdata { get { return @$"{Group},{SurName} {Name},{Task},{Date},{TaskCheckController.currentDate},{Score.ToString().Replace(',', '.')},{TaskStatus},<a href=""" + Link + @""" target=""_blank"">" + Link + "</a>"; } }
     }
 }
 
