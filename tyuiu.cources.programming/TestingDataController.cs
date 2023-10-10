@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using tyuiu.cources.programming.interfaces.Sprint1;
 using tyuiu.cources.programming.interfaces.Sprint2;
 using tyuiu.cources.programming.interfaces.Sprint3;
+using tyuiu.cources.programming.interfaces.Sprint99;
 
 namespace tyuiu.cources.programming
 {
@@ -533,6 +534,10 @@ namespace tyuiu.cources.programming
             { typeof(ISprint3Task1V29), (13051.34, new object[] {0.25 })},
             { typeof(ISprint3Task1V30), (2477.158, new object[] { })},
 
+
+
+
+            { typeof(ISprint99Task99V99), ("101", new object[] { })},
         };
         public (object result, object[] args) GetData(Type type)
         {
