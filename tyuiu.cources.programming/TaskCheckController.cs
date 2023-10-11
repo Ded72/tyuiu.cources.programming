@@ -23,7 +23,7 @@ namespace tyuiu.cources.programming
 
         private readonly AssemblyController assemblyController;
         private readonly TestingController testingController;
-        private readonly string taskNumber;
+        public string taskNumber;
 
         public TaskCheckController(
             string taskNumber,
