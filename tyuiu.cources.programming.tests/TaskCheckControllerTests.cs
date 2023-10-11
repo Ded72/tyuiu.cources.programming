@@ -13,14 +13,15 @@ namespace tyuiu.cources.programming.tests
     [TestClass]
     public class TaskCheckControllerTests
     {
-        [TestMethod]
-        public void InvalidTestData()
-        {
-            var taskCheckController = new TaskCheckController(
-                "10",
+        TaskCheckController taskCheckController = new TaskCheckController(
+                "-",
                 new GitController(@"F:\ServiceWorkFolder"),
                 new AssemblyController(),
                 new TestingController(new TestingDataController()));
+        [TestMethod]
+        public void InvalidTestData()
+        {
+            taskCheckController.taskNumber = "10";
             string items = taskCheckController.LoadLink("");
             string[] results = File.ReadAllLines(items);
 
@@ -30,11 +31,7 @@ namespace tyuiu.cources.programming.tests
         [TestMethod]
         public void InvalidLink()
         {
-            var taskCheckController = new TaskCheckController(
-               "11",
-               new GitController(@"F:\ServiceWorkFolder"),
-               new AssemblyController(),
-               new TestingController(new TestingDataController()));
+            taskCheckController.taskNumber = "11";
             string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSTests.Sprint");
 
             string[] results = File.ReadAllLines(items);
@@ -45,11 +42,7 @@ namespace tyuiu.cources.programming.tests
         [TestMethod]
         public void LibDontExists()
         {
-            var taskCheckController = new TaskCheckController(
-               "10",
-               new GitController(@"F:\ServiceWorkFolder"),
-               new AssemblyController(),
-               new TestingController(new TestingDataController()));
+            taskCheckController.taskNumber = "10";
             string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
             string[] results = File.ReadAllLines(items);
 
@@ -59,11 +52,7 @@ namespace tyuiu.cources.programming.tests
         [TestMethod]
         public void LibBuildFail()
         {
-            var taskCheckController = new TaskCheckController(
-                "1",
-                new GitController(@"F:\ServiceWorkFolder"),
-                new AssemblyController(),
-                new TestingController(new TestingDataController()));
+            taskCheckController.taskNumber = "1";
             string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
             string[] results = File.ReadAllLines(items);
 
@@ -73,11 +62,7 @@ namespace tyuiu.cources.programming.tests
         [TestMethod]
         public void InvalidTaskName()
         {
-            var taskCheckController = new TaskCheckController(
-                "0",
-                new GitController(@"F:\ServiceWorkFolder"),
-                new AssemblyController(),
-                new TestingController(new TestingDataController()));
+            taskCheckController.taskNumber = "0";
             string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
             string[] results = File.ReadAllLines(items);
 
@@ -88,11 +73,7 @@ namespace tyuiu.cources.programming.tests
         [TestMethod]
         public void InterfaceLoadFail()
         {
-            var taskCheckController = new TaskCheckController(
-                "2",
-                new GitController(@"F:\ServiceWorkFolder"),
-                new AssemblyController(),
-                new TestingController(new TestingDataController()));
+            taskCheckController.taskNumber = "2";
             string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
             string[] results = File.ReadAllLines(items);
 
@@ -102,11 +83,7 @@ namespace tyuiu.cources.programming.tests
         [TestMethod]
         public void InvalidAnswers()
         {
-            var taskCheckController = new TaskCheckController(
-                "3",
-                new GitController(@"F:\ServiceWorkFolder"),
-                new AssemblyController(),
-                new TestingController(new TestingDataController()));
+            taskCheckController.taskNumber = "3";
             string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
             string[] results = File.ReadAllLines(items);
 
@@ -116,11 +93,7 @@ namespace tyuiu.cources.programming.tests
         [TestMethod]
         public void FullValidLaunch()
         {
-            var taskCheckController = new TaskCheckController(
-                "4",
-                new GitController(@"F:\ServiceWorkFolder"),
-                new AssemblyController(),
-                new TestingController(new TestingDataController()));
+            taskCheckController.taskNumber = "4";
             string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
             string[] results = File.ReadAllLines(items);
 
