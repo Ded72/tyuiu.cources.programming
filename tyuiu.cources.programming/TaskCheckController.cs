@@ -23,7 +23,7 @@ namespace tyuiu.cources.programming
 
         private readonly AssemblyController assemblyController;
         private readonly TestingController testingController;
-        private readonly string taskNumber;
+        public string taskNumber;
 
         public TaskCheckController(
             string taskNumber,
@@ -38,20 +38,30 @@ namespace tyuiu.cources.programming
         }
 
         public static string currentDate = DateTime.Now.ToString().Replace(" ", "-").Replace(":", ".");
-        public string[] Load(string csvPath)
+
+        public string LoadLink(string link)
         {
+
             string studentResultFile = @$"{gitController.rootDir}\{currentDate}\CsvReport-Task{taskNumber}.csv";
-            string studentResultHrefFile = @$"{gitController.rootDir}\{currentDate}\HrefCsvReport-Task{taskNumber}.csv";
+            if (!Directory.Exists(@$"{gitController.rootDir}\{currentDate}"))
+            {
+                Directory.CreateDirectory(@$"{gitController.rootDir}\{currentDate}");
+            }
+            ProcessRepositoryFromLink(link, studentResultFile);
+            return studentResultFile;
+        }
+        public string LoadFile(string csvPath)
+        {
+            string studentResultFile = @$"{gitController.rootDir}\{currentDate}\CsvReport-{Path.GetFileName(csvPath).Replace("csv", "")}.csv";
             List<string> csvFileLines = new List<string>();
             if (!Directory.Exists(@$"{gitController.rootDir}\{currentDate}"))
             {
                 Directory.CreateDirectory(@$"{gitController.rootDir}\{currentDate}");
             }
-            File.Copy(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "WorkFiles", "Vedomost.xlsm"), @$"{gitController.rootDir}\{currentDate}\Vedomost-Task-{taskNumber}-{currentDate}.xlsm");
             if (File.Exists(csvPath))
             {
                 csvFileLines = ReadCsvFile(csvPath);
-                ProcessRepository(csvFileLines, studentResultFile, studentResultHrefFile);
+                ProcessRepositoryFromFile(csvFileLines, studentResultFile);
             }
             else if (Directory.Exists(csvPath))
             {
@@ -60,7 +70,7 @@ namespace tyuiu.cources.programming
                     if (Path.GetExtension(csvFilePath) == ".csv")
                     {
                         csvFileLines = ReadCsvFile(csvFilePath);
-                        ProcessRepository(csvFileLines, studentResultFile, studentResultHrefFile);
+                        ProcessRepositoryFromFile(csvFileLines, studentResultFile);
                     }
                 }
             }
@@ -68,7 +78,7 @@ namespace tyuiu.cources.programming
             {
                 WriteReport(studentResultFile, $"Некорректно указан путь - {csvPath}");
             }
-            return new string[] { studentResultFile, currentDate };
+            return studentResultFile;
         }
 
         public List<string> ReadCsvFile(string pathCsvFile)
@@ -134,107 +144,129 @@ namespace tyuiu.cources.programming
             return correctedLines;
         }
 
-        public void ProcessRepository(List<string> csvFileLines, string studentResultFile, string studentResutlHrefFile)
+
+        public void ProcessRepositoryFromLink(string repoLink, string studentResultFile)
+        {
+
+            using (StreamWriter sw = new StreamWriter(studentResultFile, false)) { };
+            WriteReport(studentResultFile, "Задание,Статус,Ссылка");
+            ProcessRepository(studentResultFile, repoLink);
+        }
+
+        public void ProcessRepositoryFromFile(List<string> csvFileLines, string studentResultFile)
         {
 
             using (StreamWriter sw = new StreamWriter(studentResultFile, false)) { }
-            using (StreamWriter sw = new StreamWriter(studentResutlHrefFile, false)) { }
-            WriteReport(studentResultFile, "Группа,ФИО,Спринт,Таск,Вариант,Дата сдачи,Дата проверки,Оценка,Статус,Баллы,Бонус,Сумма,Ссылка");
-            WriteReport(studentResutlHrefFile, "Группа,ФИО,Спринт,Таск,Вариант,Дата сдачи,Дата проверки,Оценка,Статус,Баллы,Бонус,Сумма,Ссылка");
-            List<string> studentPathsToDlls = new List<string>();
-            object studentInetrfaceFromDll;
-            TaskData taskData = new TaskData();
+            WriteReport(studentResultFile, "Группа,ФИО,Спринт,Таск,Вариант,Дата сдачи,Дата проверки,Статус,Баллы,Бонус,Сумма,Ссылка");
             foreach (string line in csvFileLines)
             {
                 if (!line.Contains("Ответ"))
                 {
-                    taskData = Parse(line);
-                    taskData.Group = GetGroup(taskData.Name, taskData.SurName);
-                    taskData.Score = 0.0;
-                    if (gitController.Load(taskData.Link, currentDate))
-                    {
-                        taskData.Score = 0.2;
-                        var filename = Path.GetFileNameWithoutExtension(taskData.Link);
-                        var localDir = $@"{gitController.rootDir}\{currentDate}\{filename}";
-                        List<string> notCompiledDirectories = GetNotCompiledLibDirs(Directory.GetDirectories(localDir));
+                    ProcessRepository(studentResultFile, line);
+                }
+            }
+        }
 
-                        if (notCompiledDirectories.Count > 0)
+
+        public void ProcessRepository(string studentResultFile, string item)
+        {
+
+            List<string> studentPathsToDlls = new List<string>();
+            object studentInetrfaceFromDll;
+            TaskData taskData = new TaskData();
+            taskData.itemIsLink = (Uri.TryCreate(item, UriKind.Absolute, out Uri uriResult));
+            if (item == "")
+            {
+                WriteReport(studentResultFile, "НЕВАЛИДНЫЕ ДАННЫЕ");
+                return;
+            }
+            if (taskData.itemIsLink)
+            {
+                taskData.Link = item;
+                taskData.Score = 0.0;
+            }
+            else
+            {
+                taskData = Parse(item);
+                taskData.Group = GetGroup(taskData.Name, taskData.SurName);
+                taskData.Score = 0.0;
+            }
+            taskData.Task = Path.GetFileName(studentResultFile);
+            if (gitController.Load(taskData.Link, currentDate))
+            {
+                taskData.Score = 0.2;
+                var filename = Path.GetFileNameWithoutExtension(taskData.Link);
+                var localDir = $@"{gitController.rootDir}\{currentDate}\{filename}";
+                List<string> notCompiledDirectories = GetNotCompiledLibDirs(Directory.GetDirectories(localDir));
+                if (notCompiledDirectories.Count > 0)
+                {
+                    studentPathsToDlls = Build(localDir);
+                    if (studentPathsToDlls.Count > 0)
+                    {
+                        Regex rightTaskNumberRegex = new Regex(@"Sprint\d{1,2}.Task\d{1,2}.V\d{1,2}\b");
+                        foreach (string directory in notCompiledDirectories)
                         {
-                            studentPathsToDlls = Build(localDir);
-                            if (studentPathsToDlls.Count > 0)
+                            Match match = rightTaskNumberRegex.Match(directory);
+                            if (match.Value != "")
                             {
-                                Regex rightTaskNumberRegex = new Regex(@"Sprint\d{1,2}.Task\d{1,2}.V\d{1,2}\b");
-                                foreach (string directory in notCompiledDirectories)
+                                taskData.Sprint = match.Value.Split('.')[0];
+                                taskData.Task = match.Value.Split('.')[1];
+                                taskData.Variant = match.Value.Split('.')[2];
+                                foreach (string path in studentPathsToDlls)
                                 {
-                                    Match match = rightTaskNumberRegex.Match(directory);
-                                    if (match.Value != "")
+                                    if (path.Contains(directory))
                                     {
-                                        taskData.Sprint = match.Value.Split('.')[0];
-                                        taskData.Task = match.Value.Split('.')[1];
-                                        taskData.Variant = match.Value.Split('.')[2];
-                                        foreach (string path in studentPathsToDlls)
+                                        taskData.Score = 0.4;
+                                        studentInetrfaceFromDll = ExtractInterfaceFromDll(path);
+                                        if (studentInetrfaceFromDll != null && directory.Replace(".", "").Contains(studentInetrfaceFromDll.GetType().GetInterfaces().First().Name.Substring(1)))
                                         {
-                                            if (path.Contains(directory))
+                                            if (LaunchFiles(studentInetrfaceFromDll))
+                                            {                                        
+                                                taskData.Score = 0.6;
+                                                taskData.TaskStatus = "ВСЕ ХОРОШО";
+                                            }
+                                            else
                                             {
-                                                taskData.Score = 0.4;
-                                                studentInetrfaceFromDll = ExtractInterfaceFromDll(path);
-                                                if (studentInetrfaceFromDll != null && directory.Replace(".", "").Contains          (studentInetrfaceFromDll.GetType().GetInterfaces().First().Name.Substring(1)))
-                                                {
-                                                    if (LaunchFiles(studentInetrfaceFromDll))
-                                                    {
-                                                        taskData.Score = 0.6;
-                                                        taskData.TaskStatus = "ВСЕ ХОРОШО";
-                                                    }
-                                                    else
-                                                    {
-                                                        taskData.TaskStatus = "НЕ СОШЛИСЬ ОТВЕТЫ";
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    taskData.TaskStatus = "ОШИБКА ИНТЕРФЕЙСА";
-                                                }
-                                                WriteReport(studentResultFile, taskData.StudentData);
-                                                WriteReport(studentResutlHrefFile, taskData.StudentHrefdata);
-                                                break;
+                                                taskData.TaskStatus = "НЕ СОШЛИСЬ ОТВЕТЫ";
                                             }
                                         }
+                                        else
+                                        {
+                                            taskData.TaskStatus = "ОШИБКА ИНТЕРФЕЙСА";
+                                        }
+                                        WriteReport(studentResultFile, taskData.GetStudentData);
+                                        break;
                                     }
-                                    else
-                                    {
-                                        taskData.Score = 0.2;
-                                        taskData.Task = Path.GetFileNameWithoutExtension(directory);
-                                        taskData.TaskStatus = "НЕКОРРЕКТНОЕ НАЗВАНИЕ ТАСКА";
-                                        WriteReport(studentResultFile, taskData.StudentData);
-                                        WriteReport(studentResutlHrefFile, taskData.StudentHrefdata);
-                                    }
-
                                 }
-
                             }
                             else
                             {
-                                taskData.TaskStatus = "БИБЛИОТЕКА НЕ СКОМПИЛИРОВАЛАСЬ";
-                                WriteReport(studentResultFile, taskData.StudentData);
-                                WriteReport(studentResutlHrefFile, taskData.StudentHrefdata);
+                                taskData.Score = 0.2;
+                                taskData.Task = Path.GetFileNameWithoutExtension(directory);
+                                taskData.TaskStatus = "НЕКОРРЕКТНОЕ НАЗВАНИЕ ТАСКА";
+                                WriteReport(studentResultFile, taskData.GetStudentData);
                             }
 
                         }
-                        else
-                        {
-                            taskData.TaskStatus = "НЕТ БИБЛИОТЕКИ У НУЖНОГО ТАСКА";
-                            WriteReport(studentResultFile, taskData.StudentData);
-                            WriteReport(studentResutlHrefFile, taskData.StudentHrefdata);
-                        }
+
                     }
                     else
                     {
-                        taskData.TaskStatus = "ССЫЛКА НЕВАЛИДНА";
-                        WriteReport(studentResultFile, taskData.StudentData);
-                        WriteReport(studentResutlHrefFile, taskData.StudentHrefdata);
+                        taskData.TaskStatus = "БИБЛИОТЕКА НЕ СКОМПИЛИРОВАЛАСЬ";
+                        WriteReport(studentResultFile, taskData.GetStudentData);
                     }
 
                 }
+                else
+                {
+                    taskData.TaskStatus = "НЕТ БИБЛИОТЕКИ У НУЖНОГО ТАСКА";
+                    WriteReport(studentResultFile, taskData.GetStudentData);
+                }
+            }
+            else
+            {
+                taskData.TaskStatus = "ССЫЛКА НЕВАЛИДНА";
+                WriteReport(studentResultFile, taskData.GetStudentData);
             }
         }
 
@@ -439,18 +471,18 @@ namespace tyuiu.cources.programming
 
     public class TaskData
     {
+        public bool itemIsLink;
         public string Group = string.Empty;
         public string Name = string.Empty;
         public string SurName = string.Empty;
         public string Date = string.Empty;
+        public string TaskStatus = string.Empty;
         public string Sprint = string.Empty;
         public string Task = string.Empty;
         public string Variant = string.Empty;
         public string Link = string.Empty;
-        public string TaskStatus = string.Empty;
         public double Score = 0.0;
-        public string StudentData { get { return $"{Group},{SurName} {Name},{Sprint},{Task},{Variant},{Date},{TaskCheckController.currentDate},{TaskStatus},{Score.ToString().Replace(',', '.')},,,{Link}"; } }
-        public string StudentHrefdata { get { return @$"{Group},{SurName} {Name},{Sprint},{Task},{Variant},{Date},{TaskCheckController.currentDate},{TaskStatus},{Score.ToString().Replace(',', '.')},,,<a href=""" + Link + @""" target=""_blank"">" + Link + "</a>"; } }
+        public string GetStudentData { get { if (itemIsLink) { { return $"{Task},{TaskStatus},{Link}"; } } else { return $"{Group},{SurName} {Name},{Sprint},{Task},{Variant},{Date},{TaskCheckController.currentDate},{TaskStatus},{Score.ToString().Replace(',', '.')},,,{Link}"; } } }
     }
 }
 
