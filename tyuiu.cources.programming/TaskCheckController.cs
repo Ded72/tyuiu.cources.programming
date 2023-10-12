@@ -157,7 +157,7 @@ namespace tyuiu.cources.programming
         {
 
             using (StreamWriter sw = new StreamWriter(studentResultFile, false)) { }
-            WriteReport(studentResultFile, "Группа,ФИО,Спринт,Таск,Вариант,Дата сдачи,Дата проверки,Оценка,Статус,Баллы,Бонус,Сумма,Ссылка");
+            WriteReport(studentResultFile, "Группа,ФИО,Спринт,Таск,Вариант,Дата сдачи,Дата проверки,Статус,Баллы,Бонус,Сумма,Ссылка");
             foreach (string line in csvFileLines)
             {
                 if (!line.Contains("Ответ"))
@@ -191,13 +191,13 @@ namespace tyuiu.cources.programming
                 taskData.Group = GetGroup(taskData.Name, taskData.SurName);
                 taskData.Score = 0.0;
             }
+            taskData.Task = Path.GetFileName(studentResultFile);
             if (gitController.Load(taskData.Link, currentDate))
             {
                 taskData.Score = 0.2;
                 var filename = Path.GetFileNameWithoutExtension(taskData.Link);
                 var localDir = $@"{gitController.rootDir}\{currentDate}\{filename}";
                 List<string> notCompiledDirectories = GetNotCompiledLibDirs(Directory.GetDirectories(localDir));
-                taskData.Task = Path.GetFileName(studentResultFile);
                 if (notCompiledDirectories.Count > 0)
                 {
                     studentPathsToDlls = Build(localDir);
