@@ -85,14 +85,16 @@ namespace tyuiu.cources.programming
                 string[] excelFiles = Directory.GetFiles(pathToTables, "*.xls*");
                 mergedWorksheet.Cells["A1"].Value = "Группа";
                 mergedWorksheet.Cells["B1"].Value = "ФИО";
-                mergedWorksheet.Cells["C1"].Value = "Задание";
-                mergedWorksheet.Cells["D1"].Value = "Дата сдачи";
-                mergedWorksheet.Cells["E1"].Value = "Дата проверки";
-                mergedWorksheet.Cells["F1"].Value = "Статус задания";
-                mergedWorksheet.Cells["G1"].Value = "Баллы";
-                mergedWorksheet.Cells["H1"].Value = "Бонус";
-                mergedWorksheet.Cells["I1"].Value = "Сумма";
-                mergedWorksheet.Cells["J1"].Value = "Сcылка";
+                mergedWorksheet.Cells["C1"].Value = "Спринт";
+                mergedWorksheet.Cells["D1"].Value = "Таск";
+                mergedWorksheet.Cells["E1"].Value = "Вариант";
+                mergedWorksheet.Cells["F1"].Value = "Дата сдачи";
+                mergedWorksheet.Cells["G1"].Value = "Дата проверки";
+                mergedWorksheet.Cells["H1"].Value = "Статус задания";
+                mergedWorksheet.Cells["I1"].Value = "Баллы";
+                mergedWorksheet.Cells["J1"].Value = "Бонус";
+                mergedWorksheet.Cells["K1"].Value = "Сумма";
+                mergedWorksheet.Cells["L1"].Value = "Сcылка";
                 int startRow = 2;
                 foreach (var file in excelFiles)
                 {

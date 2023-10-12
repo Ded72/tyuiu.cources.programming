@@ -447,12 +447,10 @@ namespace tyuiu.cources.programming
         public string Task = string.Empty;
         public string Variant = string.Empty;
         public string Link = string.Empty;
-        public double Bonus = 0.0;
-        public double Summ = 0.0;
         public string TaskStatus = string.Empty;
         public double Score = 0.0;
-        public string StudentData { get { return $"{Group},{SurName} {Name},{Sprint},{Task},{Variant},{Date},{TaskCheckController.currentDate},{TaskStatus},{Score.ToString().Replace(',', '.')},{Bonus.ToString().Replace(',', '.')},{Summ.ToString().Replace(',', '.')},{Link}"; } }
-        public string StudentHrefdata { get { return @$"{Group},{SurName} {Name},{Sprint},{Task},{Variant},{Date},{TaskCheckController.currentDate},{TaskStatus},{Score.ToString().Replace(',', '.')},{Bonus.ToString().Replace(',', '.')},{Summ.ToString().Replace(',', '.')},<a href=""" + Link + @""" target=""_blank"">" + Link + "</a>"; } }
+        public string StudentData { get { return $"{Group},{SurName} {Name},{Sprint},{Task},{Variant},{Date},{TaskCheckController.currentDate},{TaskStatus},{Score.ToString().Replace(',', '.')},,,{Link}"; } }
+        public string StudentHrefdata { get { return @$"{Group},{SurName} {Name},{Sprint},{Task},{Variant},{Date},{TaskCheckController.currentDate},{TaskStatus},{Score.ToString().Replace(',', '.')},,,<a href=""" + Link + @""" target=""_blank"">" + Link + "</a>"; } }
     }
 }
 
