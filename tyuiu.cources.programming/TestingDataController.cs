@@ -569,7 +569,7 @@ namespace tyuiu.cources.programming
 
             //Task3
 
-            { typeof(ISprint3Task3V1), (2, new object[] {"have a nice time",'a'})},
+            { typeof(ISprint3Task3V1), (3, new object[] {"have a nice time",'e'})},
             { typeof(ISprint3Task3V2), (3, new object[] { "asdzzz vfvfzz v gthvz", 'z'})},
             { typeof(ISprint3Task3V3), (2, new object[] {"cvbmzff orffgtrr dkfvfffdr",'f'})},
             { typeof(ISprint3Task3V4), ("plkdw cvkl", new object[] { "plkjjdw cvjkl", 'j'})},
