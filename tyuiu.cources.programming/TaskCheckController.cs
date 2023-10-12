@@ -139,8 +139,8 @@ namespace tyuiu.cources.programming
 
             using (StreamWriter sw = new StreamWriter(studentResultFile, false)) { }
             using (StreamWriter sw = new StreamWriter(studentResutlHrefFile, false)) { }
-            WriteReport(studentResultFile, "Группа,ФИО,Задание,Дата сдачи,Дата проверки,Оценка,Статус,Ссылка");
-            WriteReport(studentResutlHrefFile, "Группа,ФИО,Задание,Дата сдачи,Дата проверки,Оценка,Статус,Ссылка");
+            WriteReport(studentResultFile, "Группа,ФИО,Спринт,Таск,Вариант,Дата сдачи,Дата проверки,Оценка,Статус,Баллы,Бонус,Сумма,Ссылка");
+            WriteReport(studentResutlHrefFile, "Группа,ФИО,Спринт,Таск,Вариант,Дата сдачи,Дата проверки,Оценка,Статус,Баллы,Бонус,Сумма,Ссылка");
             List<string> studentPathsToDlls = new List<string>();
             object studentInetrfaceFromDll;
             TaskData taskData = new TaskData();
@@ -169,14 +169,16 @@ namespace tyuiu.cources.programming
                                     Match match = rightTaskNumberRegex.Match(directory);
                                     if (match.Value != "")
                                     {
-                                        taskData.Task = match.Value;
+                                        taskData.Sprint = match.Value.Split('.')[0];
+                                        taskData.Task = match.Value.Split('.')[1];
+                                        taskData.Variant = match.Value.Split('.')[2];
                                         foreach (string path in studentPathsToDlls)
                                         {
                                             if (path.Contains(directory))
                                             {
                                                 taskData.Score = 0.4;
                                                 studentInetrfaceFromDll = ExtractInterfaceFromDll(path);
-                                                if (studentInetrfaceFromDll != null && directory.Replace(".", "").Contains(studentInetrfaceFromDll.GetType().GetInterfaces().First().Name.Substring(1)))
+                                                if (studentInetrfaceFromDll != null && directory.Replace(".", "").Contains          (studentInetrfaceFromDll.GetType().GetInterfaces().First().Name.Substring(1)))
                                                 {
                                                     if (LaunchFiles(studentInetrfaceFromDll))
                                                     {
@@ -387,7 +389,9 @@ namespace tyuiu.cources.programming
                         SurName = values[0],
                         Name = values[1],
                         Date = date.ToString("dd.MM.yyyy HH:mm"),
+                        Sprint = String.Empty,
                         Task = String.Empty,
+                        Variant = String.Empty,
                         Link = values[values.Length - 1]
                     };
                 }
@@ -439,12 +443,14 @@ namespace tyuiu.cources.programming
         public string Name = string.Empty;
         public string SurName = string.Empty;
         public string Date = string.Empty;
+        public string Sprint = string.Empty;
         public string Task = string.Empty;
+        public string Variant = string.Empty;
         public string Link = string.Empty;
-        public double Score = 0.0;
         public string TaskStatus = string.Empty;
-        public string StudentData { get { return $"{Group},{SurName} {Name},{Task},{Date},{TaskCheckController.currentDate},{Score.ToString().Replace(',', '.')},{TaskStatus},{Link}"; } }
-        public string StudentHrefdata { get { return @$"{Group},{SurName} {Name},{Task},{Date},{TaskCheckController.currentDate},{Score.ToString().Replace(',', '.')},{TaskStatus},<a href=""" + Link + @""" target=""_blank"">" + Link + "</a>"; } }
+        public double Score = 0.0;
+        public string StudentData { get { return $"{Group},{SurName} {Name},{Sprint},{Task},{Variant},{Date},{TaskCheckController.currentDate},{TaskStatus},{Score.ToString().Replace(',', '.')},,,{Link}"; } }
+        public string StudentHrefdata { get { return @$"{Group},{SurName} {Name},{Sprint},{Task},{Variant},{Date},{TaskCheckController.currentDate},{TaskStatus},{Score.ToString().Replace(',', '.')},,,<a href=""" + Link + @""" target=""_blank"">" + Link + "</a>"; } }
     }
 }
 
