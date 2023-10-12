@@ -629,7 +629,7 @@ namespace tyuiu.cources.programming
             { typeof(ISprint3Task4V26), (1.924, new object[] {-5, 5})},
             { typeof(ISprint3Task4V27), (44.313, new object[] {-5, 5})},
             { typeof(ISprint3Task4V28), (-1.924, new object[] {-5, 5})},
-            { typeof(ISprint3Task4V29), (0, new object[] {-5, 5})},
+            { typeof(ISprint3Task4V29), (0.0, new object[] {-5, 5})},
             { typeof(ISprint3Task4V30), (-1.924, new object[] {-5, 5})},
 
         };
