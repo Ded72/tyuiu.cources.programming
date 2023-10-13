@@ -31,9 +31,9 @@ namespace tyuiu.cources.programming
 
 
 
-        public string WriteExcelReport(string[] items)
+        public string WriteExcelReport(string csvReportPath)
         {
-            string studentResultExcelFile = @$"{gitController.rootDir}\{items[1]}\ExcelReport-Task{taskNumber}.xlsx";
+            string studentResultExcelFile = $@"{Path.GetDirectoryName(csvReportPath)}\ExcelReport-Task{taskNumber}.xlsx";
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             using (ExcelPackage package = new ExcelPackage(new FileInfo(studentResultExcelFile)))
             {
@@ -43,7 +43,7 @@ namespace tyuiu.cources.programming
                 {
                     worksheet = package.Workbook.Worksheets.Add("Лист1");
                 }
-                string[] lines = File.ReadAllLines(items[0]); ;
+                string[] lines = File.ReadAllLines(csvReportPath); ;
                 int rowIndex = 1;
                 foreach (string line in lines)
                 {

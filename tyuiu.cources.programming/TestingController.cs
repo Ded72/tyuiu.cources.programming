@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -22,18 +24,41 @@ namespace tyuiu.cources.programming
             MethodInfo method = GetInstanceMethod(instance);
             var data = testDataController.GetData(instance.GetType().GetInterfaces().First());
             var res = RunMethod(instance, method, data);
-            Console.WriteLine($"Successful launch: { instance.GetType().FullName} !");
+            res = FileCheck(res);
+            Console.WriteLine($"Successful launch: {instance.GetType().FullName} !");
             return (AreEquals(data.result, res), GetReport(instance, method, data, res));
         }
         private static MethodInfo GetInstanceMethod<T>(T? instance)
         {
-
             return instance!.GetType().GetMethods().First();
         }
 
+        private object? FileCheck(object expectedFile)
+        {
+            if (File.Exists(expectedFile.ToString()))
+            {
+                string fileText = File.ReadAllText(expectedFile.ToString()).Trim();
+                File.Delete(expectedFile.ToString());
+                expectedFile = fileText;
+            }
+            return expectedFile;
+        }
         private object? RunMethod<T>(T? instance, MethodInfo method, (object result, object[] args) data)
         {
-            return method.Invoke(instance, data.args);
+            try
+            {
+                return method.Invoke(instance, data.args);
+            }
+            catch (TargetInvocationException e)
+            {
+                Console.WriteLine(e.InnerException.Message);
+                return new object();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return new object();
+            }
         }
         private IEnumerable<string> GetReport<T>(T instance, MethodInfo method, (object result, object[] args) data, object? res)
         {
@@ -64,7 +89,7 @@ namespace tyuiu.cources.programming
         {
             var buffer = message;
             if (value is Array valueArray)
-            {             
+            {
                 foreach (var item in valueArray)
                 {
                     buffer += $"{item} ";

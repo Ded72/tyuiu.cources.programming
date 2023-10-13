@@ -37,5 +37,4 @@ namespace tyuiu.cources.programming.interfaces.Sprint3
     public interface ISprint3Task4V28 { double Calculate(int startValue, int stopValue); }
     public interface ISprint3Task4V29 { double Calculate(int startValue, int stopValue); }
     public interface ISprint3Task4V30 { double Calculate(int startValue, int stopValue); }
-
 }
