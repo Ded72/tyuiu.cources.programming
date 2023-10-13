@@ -2,22 +2,22 @@
 using System.Text;
 using tyuiu.cources.programming;
 
+string taskNubmer = "2";
 
 var taskCheckController = new TaskCheckController(
-                "1",
+                taskNubmer,
                 new GitController(@"F:\ServiceWorkFolder"),
                 new AssemblyController(),
                 new TestingController(new TestingDataController()));
 
 var tableReportController = new TableContoller(
-    "1",
+    taskNubmer,
     new GitController(@"F:\ServiceWorkFolder")
     );
 
-string[] items = taskCheckController.Load(@"D:\Downloads\C# 1 Курс 2023-#1.1 Выслать ссылку с GitHub-ответы.csv");
+string csvReportPath = taskCheckController.LoadFile(@"C:\Temp\test\Sprint1.Task2.csv");
 
-Console.WriteLine(tableReportController.WriteExcelReport(items));
-
+Console.WriteLine(tableReportController.WriteExcelReport(csvReportPath));
 
 //Console.WriteLine(tableReportController.MergeTables(@"C:\Temp\TableFiles"));
 

@@ -20,21 +20,18 @@ namespace tyuiu.cources.programming
         }
         public bool Load(string repoUrl, string currentDate)
         {
+            var filename = Path.GetFileNameWithoutExtension(repoUrl);
+            var localDir = $@"{rootDir}\{currentDate}\{filename}";
             try
             {
-                var filename = Path.GetFileNameWithoutExtension(repoUrl);
-                var localDir = $@"{rootDir}\{currentDate}\{filename}";
-
                 Repository.Clone(repoUrl, localDir);
-                return true;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return false;
-                //throw new Exception(e.Message);
-                
+
             }
+            return Directory.Exists(localDir);
         }
 
 
