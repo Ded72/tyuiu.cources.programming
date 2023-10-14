@@ -15,7 +15,7 @@ using OfficeOpenXml;
 
 namespace tyuiu.cources.programming
 {
-
+    
     public class TaskCheckController
     {
 
@@ -23,7 +23,12 @@ namespace tyuiu.cources.programming
 
         private readonly AssemblyController assemblyController;
         private readonly TestingController testingController;
-        public string taskNumber;
+        private string taskNumber;
+        public string TaskNumber
+        {
+            get { return taskNumber; }
+            set { taskNumber = value; }
+        }
 
         public TaskCheckController(
             string taskNumber,
@@ -37,31 +42,22 @@ namespace tyuiu.cources.programming
             this.testingController = testingController;
         }
 
-        public static string currentDate = DateTime.Now.ToString().Replace(" ", "-").Replace(":", ".");
+        
 
         public string LoadLink(string link)
         {
-
-            string studentResultFile = @$"{gitController.rootDir}\{currentDate}\CsvReport-Task{taskNumber}.csv";
-            if (!Directory.Exists(@$"{gitController.rootDir}\{currentDate}"))
-            {
-                Directory.CreateDirectory(@$"{gitController.rootDir}\{currentDate}");
-            }
-            ProcessRepositoryFromLink(link, studentResultFile);
-            return studentResultFile;
+            FileController fileController = new FileController(gitController.rootDir, taskNumber);
+            string resultFilePath = ProcessRepositoryFromLink(link, fileController);
+            return resultFilePath;
         }
         public string LoadFile(string csvPath)
         {
-            string studentResultFile = @$"{gitController.rootDir}\{currentDate}\CsvReport-{Path.GetFileName(csvPath).Replace("csv", "")}.csv";
+            FileController fileController = new FileController(gitController.rootDir, taskNumber);
             List<string> csvFileLines = new List<string>();
-            if (!Directory.Exists(@$"{gitController.rootDir}\{currentDate}"))
-            {
-                Directory.CreateDirectory(@$"{gitController.rootDir}\{currentDate}");
-            }
             if (File.Exists(csvPath))
             {
                 csvFileLines = ReadCsvFile(csvPath);
-                ProcessRepositoryFromFile(csvFileLines, studentResultFile);
+                ProcessRepositoryFromFile(csvFileLines, fileController);
             }
             else if (Directory.Exists(csvPath))
             {
@@ -70,15 +66,15 @@ namespace tyuiu.cources.programming
                     if (Path.GetExtension(csvFilePath) == ".csv")
                     {
                         csvFileLines = ReadCsvFile(csvFilePath);
-                        ProcessRepositoryFromFile(csvFileLines, studentResultFile);
+                        ProcessRepositoryFromFile(csvFileLines, fileController);
                     }
                 }
             }
             else
             {
-                WriteReport(studentResultFile, $"Некорректно указан путь - {csvPath}");
+                fileController.WriteReport($"Некорректно указан путь - {csvPath}");
             }
-            return studentResultFile;
+            return fileController.StudentResultfilePath;
         }
 
         public List<string> ReadCsvFile(string pathCsvFile)
@@ -144,40 +140,35 @@ namespace tyuiu.cources.programming
             return correctedLines;
         }
 
-
-        public void ProcessRepositoryFromLink(string repoLink, string studentResultFile)
+        public string ProcessRepositoryFromLink(string repoLink, FileController fileController)
         {
-
-            using (StreamWriter sw = new StreamWriter(studentResultFile, false)) { };
-            WriteReport(studentResultFile, "Задание,Статус,Ссылка");
-            ProcessRepository(studentResultFile, repoLink);
+            fileController.WriteMarkupForLinkChecking();
+            ProcessRepository(fileController, repoLink);
+            return fileController.StudentResultfilePath;
         }
 
-        public void ProcessRepositoryFromFile(List<string> csvFileLines, string studentResultFile)
+        public string ProcessRepositoryFromFile(List<string> csvFileLines, FileController fileController)
         {
-
-            using (StreamWriter sw = new StreamWriter(studentResultFile, false)) { }
-            WriteReport(studentResultFile, "Группа,ФИО,Спринт,Таск,Вариант,Дата сдачи,Дата проверки,Статус,Баллы,Бонус,Сумма,Ссылка");
+            fileController.WriteMarkupForFileChecking();
             foreach (string line in csvFileLines)
             {
                 if (!line.Contains("Ответ"))
                 {
-                    ProcessRepository(studentResultFile, line);
+                    ProcessRepository(fileController, line);
                 }
             }
+            return fileController.StudentResultfilePath;
         }
-
-
-        public void ProcessRepository(string studentResultFile, string item)
+        public void ProcessRepository(FileController fileController, string item)
         {
-
             List<string> studentPathsToDlls = new List<string>();
             object studentInetrfaceFromDll;
             TaskData taskData = new TaskData();
+            taskData.CheckingDate = fileController.CurrentDate;
             taskData.itemIsLink = (Uri.TryCreate(item, UriKind.Absolute, out Uri uriResult));
             if (item == "")
             {
-                WriteReport(studentResultFile, "НЕВАЛИДНЫЕ ДАННЫЕ");
+                fileController.WriteReport("НЕВАЛИДНЫЕ ДАННЫЕ");
                 return;
             }
             if (taskData.itemIsLink)
@@ -191,16 +182,16 @@ namespace tyuiu.cources.programming
                 taskData.Group = GetGroup(taskData.Name, taskData.SurName);
                 taskData.Score = 0.0;
             }
-            taskData.Task = Path.GetFileName(studentResultFile);
-            if (gitController.Load(taskData.Link, currentDate))
+            taskData.Task = Path.GetFileName(fileController.StudentResultfilePath);
+            if (CheckLink(taskData.Link) && gitController.Load(taskData.Link, fileController.CurrentDate))
             {
                 taskData.Score = 0.2;
                 var filename = Path.GetFileNameWithoutExtension(taskData.Link);
-                var localDir = $@"{gitController.rootDir}\{currentDate}\{filename}";
+                var localDir = $@"{gitController.rootDir}\{fileController.CurrentDate}\{filename}";
                 List<string> notCompiledDirectories = GetNotCompiledLibDirs(Directory.GetDirectories(localDir));
                 if (notCompiledDirectories.Count > 0)
                 {
-                    studentPathsToDlls = Build(localDir);
+                    studentPathsToDlls = Build(notCompiledDirectories);
                     if (studentPathsToDlls.Count > 0)
                     {
                         Regex rightTaskNumberRegex = new Regex(@"Sprint\d{1,2}.Task\d{1,2}.V\d{1,2}\b");
@@ -220,7 +211,9 @@ namespace tyuiu.cources.programming
                                         studentInetrfaceFromDll = ExtractInterfaceFromDll(path);
                                         if (studentInetrfaceFromDll != null && directory.Replace(".", "").Contains(studentInetrfaceFromDll.GetType().GetInterfaces().First().Name.Substring(1)))
                                         {
-                                            if (LaunchFiles(studentInetrfaceFromDll))
+                                            (bool successLaunch, IEnumerable<String> lines) = LaunchMethodFromDll(studentInetrfaceFromDll);
+                                            printResultsOnScreen(lines);
+                                            if (successLaunch)
                                             {                                        
                                                 taskData.Score = 0.6;
                                                 taskData.TaskStatus = "ВСЕ ХОРОШО";
@@ -234,7 +227,7 @@ namespace tyuiu.cources.programming
                                         {
                                             taskData.TaskStatus = "ОШИБКА ИНТЕРФЕЙСА";
                                         }
-                                        WriteReport(studentResultFile, taskData.GetStudentData);
+                                        fileController.WriteReport(taskData.GetStudentData);
                                         break;
                                     }
                                 }
@@ -244,7 +237,7 @@ namespace tyuiu.cources.programming
                                 taskData.Score = 0.2;
                                 taskData.Task = Path.GetFileNameWithoutExtension(directory);
                                 taskData.TaskStatus = "НЕКОРРЕКТНОЕ НАЗВАНИЕ ТАСКА";
-                                WriteReport(studentResultFile, taskData.GetStudentData);
+                                fileController.WriteReport(taskData.GetStudentData);
                             }
 
                         }
@@ -253,20 +246,20 @@ namespace tyuiu.cources.programming
                     else
                     {
                         taskData.TaskStatus = "БИБЛИОТЕКА НЕ СКОМПИЛИРОВАЛАСЬ";
-                        WriteReport(studentResultFile, taskData.GetStudentData);
+                        fileController.WriteReport(taskData.GetStudentData);
                     }
 
                 }
                 else
                 {
                     taskData.TaskStatus = "НЕТ БИБЛИОТЕКИ У НУЖНОГО ТАСКА";
-                    WriteReport(studentResultFile, taskData.GetStudentData);
+                    fileController.WriteReport(taskData.GetStudentData);
                 }
             }
             else
             {
                 taskData.TaskStatus = "ССЫЛКА НЕВАЛИДНА";
-                WriteReport(studentResultFile, taskData.GetStudentData);
+                fileController.WriteReport(taskData.GetStudentData);
             }
         }
 
@@ -304,44 +297,23 @@ namespace tyuiu.cources.programming
             return process.ExitCode == 0;
         }
 
-        public List<string> Build(string directory)
+        public List<string> Build(List <string> notCompiledLibDirs)
         {
             List<string> dllPaths = new List<string>();
-            List<string> subLibDirectories = new List<string>();
-            foreach (var subDir in Directory.GetDirectories(directory))
-            {
-                if (subDir.EndsWith(".Lib"))
+                foreach (string notCompiledLibDir in notCompiledLibDirs)
                 {
-
-                    if (taskNumber != "-" && subDir.Contains($"Task{taskNumber}"))
+                    if (RunProcess(notCompiledLibDir))
                     {
-                        subLibDirectories.Add(subDir);
-                    }
-                    else if (taskNumber == "-")
-                    {
-                        subLibDirectories.Add(subDir);
-                    }
-
-                }
-            }
-            if (subLibDirectories.Count > 0)
-            {
-                foreach (string subDirectory in subLibDirectories)
-                {
-                    if (RunProcess(subDirectory))
-                    {
-
-                        dllPaths.Add($@"{directory}\{Path.GetFileNameWithoutExtension(subDirectory)}.Lib\bin\Debug\{Path.GetFileNameWithoutExtension(subDirectory)}.Lib.dll");
+                        
+                        dllPaths.Add($@"{notCompiledLibDir}\bin\Debug\{Path.GetFileNameWithoutExtension(notCompiledLibDir)}.Lib.dll");
                     }
                 }
-            }
             return dllPaths;
-
         }
 
         public object ExtractInterfaceFromDll(string studentDllPath)
         {
-            object? dllInterface = null;
+            object dllInterface = null;
             try
             {
                 dllInterface = assemblyController.CreateInstanceFromFile(studentDllPath);
@@ -350,46 +322,33 @@ namespace tyuiu.cources.programming
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                //throw new Exception(e.Message);
             };
             return dllInterface;
         }
 
-        public bool LaunchFiles(object interfaceFromDll)
+        public (bool IsSuccess, IEnumerable<String> lines) LaunchMethodFromDll(object interfaceFromDll)
         {
             try
             {
-                (var areEquals, var report) = testingController.Run(interfaceFromDll);
-                foreach (string line in report)
-                {
-                    Console.WriteLine(line);
-                }
-                if (areEquals)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return testingController.Run(interfaceFromDll);
             }
             catch (Exception e)
             {
 
                 Console.WriteLine(e.Message);
-                return false;
+                return (false, lines: new List<string> { });
             }
-
-
         }
 
-        public void WriteReport(string filePath, string data)
+        public void printResultsOnScreen(IEnumerable<String> results)
         {
-            using (StreamWriter sw = new StreamWriter(filePath, true))
+            foreach (string resultItem in results)
             {
-                sw.WriteLine(data);
+                Console.WriteLine(resultItem);
             }
         }
+
+        
 
         public string GetGroup(string name, string surName)
         {
@@ -405,7 +364,6 @@ namespace tyuiu.cources.programming
                     break;
                 }
             }
-
             return group;
         }
         private TaskData Parse(string line)
@@ -469,6 +427,52 @@ namespace tyuiu.cources.programming
         }
     }
 
+    public class FileController
+    {
+        private readonly string currentDate = DateTime.Now.ToString().Replace(" ", "-").Replace(":", ".");
+        private string studentResultfilePath;
+        private string rootDir;
+        private string taskNumber;
+        public FileController(string rootDir, string taskNumber)
+        {
+            this.rootDir = rootDir;
+            this.taskNumber = taskNumber;
+            InitializestudentResultfilePath();
+        }
+        public string StudentResultfilePath
+        {
+            get { return studentResultfilePath; }
+        }
+        public string CurrentDate
+        {
+            get { return currentDate; }
+        }
+        public void InitializestudentResultfilePath()
+        {
+            if (!Directory.Exists(@$"{rootDir}\{currentDate}"))
+            {
+                Directory.CreateDirectory(@$"{rootDir}\{currentDate}");
+            }
+            studentResultfilePath = @$"{rootDir}\{currentDate}\CsvReport-Task{taskNumber}.csv";
+            using (StreamWriter sw = new StreamWriter(studentResultfilePath, false)) { };
+        }
+        public void WriteMarkupForFileChecking()
+        {
+            WriteReport("Группа,ФИО,Спринт,Таск,Вариант,Дата сдачи,Дата проверки,Статус,Баллы,Бонус,Сумма,Ссылка");
+        }
+        public void WriteMarkupForLinkChecking()
+        {
+            WriteReport("Задание,Статус,Ссылка");
+        }
+
+        public void WriteReport (string data)
+        {
+            using (StreamWriter sw = new StreamWriter(studentResultfilePath, true))
+            {
+                sw.WriteLine(data);
+            }
+        }
+    }
     public class TaskData
     {
         public bool itemIsLink;
@@ -476,13 +480,14 @@ namespace tyuiu.cources.programming
         public string Name = string.Empty;
         public string SurName = string.Empty;
         public string Date = string.Empty;
+        public string CheckingDate = string.Empty;
         public string TaskStatus = string.Empty;
         public string Sprint = string.Empty;
         public string Task = string.Empty;
         public string Variant = string.Empty;
         public string Link = string.Empty;
         public double Score = 0.0;
-        public string GetStudentData { get { if (itemIsLink) { { return $"{Task},{TaskStatus},{Link}"; } } else { return $"{Group},{SurName} {Name},{Sprint},{Task},{Variant},{Date},{TaskCheckController.currentDate},{TaskStatus},{Score.ToString().Replace(',', '.')},,,{Link}"; } } }
+        public string GetStudentData { get { if (itemIsLink) { { return $"{Task},{TaskStatus},{Link}"; } } else { return $"{Group},{SurName} {Name},{Sprint},{Task},{Variant},{Date},{CheckingDate},{TaskStatus},{Score.ToString().Replace(',', '.')},,,{Link}"; } } }
     }
 }
 
