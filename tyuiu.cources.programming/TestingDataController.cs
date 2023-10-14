@@ -569,7 +569,7 @@ namespace tyuiu.cources.programming
 
             //Task3
 
-            { typeof(ISprint3Task3V1), (2, new object[] {"have a nice time",'a'})},
+            { typeof(ISprint3Task3V1), (3, new object[] {"have a nice time",'e'})},
             { typeof(ISprint3Task3V2), (3, new object[] { "asdzzz vfvfzz v gthvz", 'z'})},
             { typeof(ISprint3Task3V3), (2, new object[] {"cvbmzff orffgtrr dkfvfffdr",'f'})},
             { typeof(ISprint3Task3V4), ("plkdw cvkl", new object[] { "plkjjdw cvjkl", 'j'})},
@@ -665,6 +665,39 @@ namespace tyuiu.cources.programming
             { typeof(ISprint3Task5V28), (-2064.364, new object[] {2, 1, 1, 3, 12})},
             { typeof(ISprint3Task5V29), (72.558, new object[] {2, 1, 1, 3, 10})},
             { typeof(ISprint3Task5V30), (264.0, new object[] {2, 1, 1, 3, 11})},
+
+            //Task6
+
+            { typeof(ISprint3Task6V1), (151, new object[] {11, 17})},
+            { typeof(ISprint3Task6V2), (29, new object[] {12, 18})},
+            { typeof(ISprint3Task6V3), (121, new object[] {13, 19})},
+            { typeof(ISprint3Task6V4), (8, new object[] {14, 20})},
+            { typeof(ISprint3Task6V5), (242, new object[] {15, 22})},
+            { typeof(ISprint3Task6V6), (11, new object[] {16, 24})},
+            { typeof(ISprint3Task6V7), (344, new object[] {17, 26})},
+            { typeof(ISprint3Task6V8), (292, new object[] {18, 28})},
+            { typeof(ISprint3Task6V9), (53, new object[] {19, 30})},
+            { typeof(ISprint3Task6V10), (396, new object[] {20, 32})},
+            { typeof(ISprint3Task6V11), (9, new object[] {10, 19})},
+            { typeof(ISprint3Task6V12), (221, new object[] {9, 18})},
+            { typeof(ISprint3Task6V13), (117, new object[] {8, 17})},
+            { typeof(ISprint3Task6V14), (13, new object[] {7, 16})},
+            { typeof(ISprint3Task6V15), (168, new object[] {6, 15})},
+            { typeof(ISprint3Task6V16), (42, new object[] {5, 16})},
+            { typeof(ISprint3Task6V17), (43, new object[] {10, 20})},
+            { typeof(ISprint3Task6V18), (95, new object[] {9, 18})},
+            { typeof(ISprint3Task6V19), (16, new object[] {10, 15})},
+            { typeof(ISprint3Task6V20), (41, new object[] {20, 32})},
+            { typeof(ISprint3Task6V21), (485, new object[] {19, 30})},
+            { typeof(ISprint3Task6V22), (55, new object[] {19, 31})},
+            { typeof(ISprint3Task6V23), (34, new object[] {18, 28})},
+            { typeof(ISprint3Task6V24), (41, new object[] {17, 26})},
+            { typeof(ISprint3Task6V25), (89, new object[] {16, 24})},
+            { typeof(ISprint3Task6V26), (33, new object[] {15, 22})},
+            { typeof(ISprint3Task6V27), (129, new object[] {14, 20})},
+            { typeof(ISprint3Task6V28), (15, new object[] {13, 19})},
+            { typeof(ISprint3Task6V29), (178, new object[] {12, 18})},
+            { typeof(ISprint3Task6V30), (25, new object[] {11, 17})},
 
 
             { typeof(ISprint99Task99V99), ("101", new object[] { })},
