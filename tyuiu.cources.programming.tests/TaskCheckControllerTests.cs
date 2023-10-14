@@ -22,7 +22,7 @@ namespace tyuiu.cources.programming.tests
         [TestMethod]
         public void InvalidTestData()
         {
-            taskCheckController.taskNumber = "10";
+            taskCheckController.TaskNumber = "10";
             string items = taskCheckController.LoadLink("");
             string[] results = File.ReadAllLines(items);
 
@@ -32,7 +32,7 @@ namespace tyuiu.cources.programming.tests
         [TestMethod]
         public void InvalidLink()
         {
-            taskCheckController.taskNumber = "11";
+            taskCheckController.TaskNumber = "11";
             string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSTests.Sprint");
             string[] results = File.ReadAllLines(items);
             int indexOfStatusColumn = Array.IndexOf(results[0].Split(","), "Статус");
@@ -43,7 +43,7 @@ namespace tyuiu.cources.programming.tests
         [TestMethod]
         public void LibDontExists()
         {
-            taskCheckController.taskNumber = "10";
+            taskCheckController.TaskNumber = "10";
             string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
             string[] results = File.ReadAllLines(items);
             int indexOfStatusColumn = Array.IndexOf(results[0].Split(","), "Статус");
@@ -54,7 +54,7 @@ namespace tyuiu.cources.programming.tests
         [TestMethod]
         public void LibBuildFail()
         {
-            taskCheckController.taskNumber = "1";
+            taskCheckController.TaskNumber = "1";
             string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
             string[] results = File.ReadAllLines(items);
             int indexOfStatusColumn = Array.IndexOf(results[0].Split(","), "Статус");
@@ -65,7 +65,7 @@ namespace tyuiu.cources.programming.tests
         [TestMethod]
         public void InvalidTaskName()
         {
-            taskCheckController.taskNumber = "0";
+            taskCheckController.TaskNumber = "0";
             string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
             string[] results = File.ReadAllLines(items);
             int indexOfStatusColumn = Array.IndexOf(results[0].Split(","), "Статус");
@@ -77,18 +77,17 @@ namespace tyuiu.cources.programming.tests
         [TestMethod]
         public void InterfaceLoadFail()
         {
-            taskCheckController.taskNumber = "2";
+            taskCheckController.TaskNumber = "2";
             string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
             string[] results = File.ReadAllLines(items);
             int indexOfStatusColumn = Array.IndexOf(results[0].Split(","), "Статус");
-
             Assert.AreEqual("ОШИБКА ИНТЕРФЕЙСА", results[1].Split(",")[indexOfStatusColumn]);
         }
 
         [TestMethod]
         public void InvalidAnswers()
         {
-            taskCheckController.taskNumber = "3";
+            taskCheckController.TaskNumber = "3";
             string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
             string[] results = File.ReadAllLines(items);
             int indexOfStatusColumn = Array.IndexOf(results[0].Split(","), "Статус");
@@ -99,11 +98,10 @@ namespace tyuiu.cources.programming.tests
         [TestMethod]
         public void FullValidLaunch()
         {
-            taskCheckController.taskNumber = "4";
+            taskCheckController.TaskNumber = "4";
             string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
             string[] results = File.ReadAllLines(items);
             int indexOfStatusColumn = Array.IndexOf(results[0].Split(","), "Статус");
-
             Assert.AreEqual("ВСЕ ХОРОШО", results[1].Split(",")[indexOfStatusColumn]);
         }
 
