@@ -164,7 +164,6 @@ namespace tyuiu.cources.programming
             List<string> studentPathsToDlls = new List<string>();
             object studentInetrfaceFromDll;
             TaskData taskData = new TaskData();
-            taskData.CheckingDate = fileController.CurrentDate;
             taskData.itemIsLink = (Uri.TryCreate(item, UriKind.Absolute, out Uri uriResult));
             if (item == "")
             {
@@ -182,6 +181,7 @@ namespace tyuiu.cources.programming
                 taskData.Group = GetGroup(taskData.Name, taskData.SurName);
                 taskData.Score = 0.0;
             }
+            taskData.CheckingDate = fileController.CurrentDate;
             taskData.Task = Path.GetFileName(fileController.StudentResultfilePath);
             if (CheckLink(taskData.Link) && gitController.Load(taskData.Link, fileController.CurrentDate))
             {
