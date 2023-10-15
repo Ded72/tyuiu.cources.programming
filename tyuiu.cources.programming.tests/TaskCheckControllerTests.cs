@@ -18,6 +18,7 @@ namespace tyuiu.cources.programming.tests
                 new GitController(@"F:\ServiceWorkFolder"),
                 new AssemblyController(),
                 new TestingController(new TestingDataController()));
+
         [TestMethod]
         public void InvalidTestData()
         {
@@ -33,10 +34,10 @@ namespace tyuiu.cources.programming.tests
         {
             taskCheckController.taskNumber = "11";
             string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSTests.Sprint");
-
             string[] results = File.ReadAllLines(items);
+            int indexOfStatusColumn = Array.IndexOf(results[0].Split(","), "Статус");
 
-            Assert.AreEqual("ССЫЛКА НЕВАЛИДНА", results[1].Split(",")[1]);
+            Assert.AreEqual("ССЫЛКА НЕВАЛИДНА", results[1].Split(",")[indexOfStatusColumn]);
         }
 
         [TestMethod]
@@ -45,8 +46,9 @@ namespace tyuiu.cources.programming.tests
             taskCheckController.taskNumber = "10";
             string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
             string[] results = File.ReadAllLines(items);
+            int indexOfStatusColumn = Array.IndexOf(results[0].Split(","), "Статус");
 
-            Assert.AreEqual("НЕТ БИБЛИОТЕКИ У НУЖНОГО ТАСКА", results[1].Split(",")[1]);
+            Assert.AreEqual("НЕТ БИБЛИОТЕКИ У НУЖНОГО ТАСКА", results[1].Split(",")[indexOfStatusColumn]);
         }
 
         [TestMethod]
@@ -55,8 +57,9 @@ namespace tyuiu.cources.programming.tests
             taskCheckController.taskNumber = "1";
             string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
             string[] results = File.ReadAllLines(items);
+            int indexOfStatusColumn = Array.IndexOf(results[0].Split(","), "Статус");
 
-            Assert.AreEqual("БИБЛИОТЕКА НЕ СКОМПИЛИРОВАЛАСЬ", results[1].Split(",")[1]);
+            Assert.AreEqual("БИБЛИОТЕКА НЕ СКОМПИЛИРОВАЛАСЬ", results[1].Split(",")[indexOfStatusColumn]);
         }
 
         [TestMethod]
@@ -65,8 +68,9 @@ namespace tyuiu.cources.programming.tests
             taskCheckController.taskNumber = "0";
             string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
             string[] results = File.ReadAllLines(items);
+            int indexOfStatusColumn = Array.IndexOf(results[0].Split(","), "Статус");
 
-            Assert.AreEqual("НЕКОРРЕКТНОЕ НАЗВАНИЕ ТАСКА", results[1].Split(",")[1]);
+            Assert.AreEqual("НЕКОРРЕКТНОЕ НАЗВАНИЕ ТАСКА", results[1].Split(",")[indexOfStatusColumn]);
         }
 
 
@@ -76,8 +80,9 @@ namespace tyuiu.cources.programming.tests
             taskCheckController.taskNumber = "2";
             string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
             string[] results = File.ReadAllLines(items);
+            int indexOfStatusColumn = Array.IndexOf(results[0].Split(","), "Статус");
 
-            Assert.AreEqual("ОШИБКА ИНТЕРФЕЙСА", results[1].Split(",")[1]);
+            Assert.AreEqual("ОШИБКА ИНТЕРФЕЙСА", results[1].Split(",")[indexOfStatusColumn]);
         }
 
         [TestMethod]
@@ -86,8 +91,9 @@ namespace tyuiu.cources.programming.tests
             taskCheckController.taskNumber = "3";
             string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
             string[] results = File.ReadAllLines(items);
+            int indexOfStatusColumn = Array.IndexOf(results[0].Split(","), "Статус");
 
-            Assert.AreEqual("НЕ СОШЛИСЬ ОТВЕТЫ", results[1].Split(",")[1]);
+            Assert.AreEqual("НЕ СОШЛИСЬ ОТВЕТЫ", results[1].Split(",")[indexOfStatusColumn]);
         }
 
         [TestMethod]
@@ -96,8 +102,9 @@ namespace tyuiu.cources.programming.tests
             taskCheckController.taskNumber = "4";
             string items = taskCheckController.LoadLink("https://github.com/clipboard1/Tyuiu.SimonSRTests.Sprint1");
             string[] results = File.ReadAllLines(items);
+            int indexOfStatusColumn = Array.IndexOf(results[0].Split(","), "Статус");
 
-            Assert.AreEqual("ВСЕ ХОРОШО", results[1].Split(",")[1]);
+            Assert.AreEqual("ВСЕ ХОРОШО", results[1].Split(",")[indexOfStatusColumn]);
         }
 
 
