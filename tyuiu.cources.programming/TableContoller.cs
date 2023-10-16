@@ -100,7 +100,7 @@ namespace tyuiu.cources.programming
                 {
                     using (ExcelPackage excelPackage = new ExcelPackage(new FileInfo(file)))
                     {
-                        ExcelWorksheet currentWorksheet = excelPackage.Workbook.Worksheets[1];
+                        ExcelWorksheet currentWorksheet = excelPackage.Workbook.Worksheets[0];
                         int rowCount = currentWorksheet.Dimension.End.Row;
                         int colCount = currentWorksheet.Dimension.End.Column;
                         bool hasData = false;
