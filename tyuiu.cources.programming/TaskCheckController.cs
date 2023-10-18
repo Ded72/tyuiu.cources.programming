@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using tyuiu.cources.programming.interfaces;
 using OfficeOpenXml;
+using NLog;
 
 namespace tyuiu.cources.programming
 {
@@ -20,6 +21,8 @@ namespace tyuiu.cources.programming
     {
 
         public GitController gitController { get; }
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         private readonly AssemblyController assemblyController;
         private readonly TestingController testingController;
@@ -104,7 +107,7 @@ namespace tyuiu.cources.programming
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Ошибка: " + ex.Message);
+                Logger.Error("Ошибка: " + ex.Message);
                 return false;
             }
         }
@@ -286,12 +289,20 @@ namespace tyuiu.cources.programming
 
         private static bool RunProcess(string directory)
         {
+
             Process process = new Process();
             process.StartInfo.FileName = "dotnet";
             process.StartInfo.Arguments = "build";
             process.StartInfo.WorkingDirectory = directory;
-
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.RedirectStandardError = true;
+            process.StartInfo.StandardOutputEncoding = Encoding.UTF8;
+            process.StartInfo.StandardErrorEncoding = Encoding.UTF8;
             process.Start();
+
+            StreamReader standardOutputReader = process.StandardOutput;
+            Logger.Info(standardOutputReader.ReadToEnd());
+
             process.WaitForExit();
 
             return process.ExitCode == 0;
@@ -321,7 +332,7 @@ namespace tyuiu.cources.programming
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Logger.Error(e.Message);
             };
             return dllInterface;
         }
@@ -335,7 +346,7 @@ namespace tyuiu.cources.programming
             catch (Exception e)
             {
 
-                Console.WriteLine(e.Message);
+                Logger.Error(e.Message);
                 return (false, lines: new List<string> { });
             }
         }
@@ -344,7 +355,7 @@ namespace tyuiu.cources.programming
         {
             foreach (string resultItem in results)
             {
-                Console.WriteLine(resultItem);
+                Logger.Info(resultItem);
             }
         }
 
@@ -399,7 +410,7 @@ namespace tyuiu.cources.programming
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Logger.Error(e.Message);
                 if (values.Length < 8)
                 {
                     return new TaskData()
