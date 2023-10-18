@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using NLog;
 
 namespace tyuiu.cources.programming
 {
@@ -13,6 +14,7 @@ namespace tyuiu.cources.programming
 
     {
         public readonly string rootDir;
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         public GitController(string rootDir)
         {
@@ -28,7 +30,7 @@ namespace tyuiu.cources.programming
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Logger.Error(e.Message);
 
             }
             return Directory.Exists(localDir);

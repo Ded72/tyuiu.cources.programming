@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Dynamic;
@@ -14,6 +15,8 @@ namespace tyuiu.cources.programming
     {
 
         private readonly TestingDataController testDataController;
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
 
         public TestingController(TestingDataController testDataController)
         {
@@ -25,7 +28,7 @@ namespace tyuiu.cources.programming
             var data = testDataController.GetData(instance.GetType().GetInterfaces().First());
             var res = RunMethod(instance, method, data);
             res = FileCheck(res);
-            Console.WriteLine($"Successful launch: {instance.GetType().FullName} !");
+            Logger.Info($"Successful launch: {instance.GetType().FullName} !");
             return (AreEquals(data.result, res), GetReport(instance, method, data, res));
         }
         private static MethodInfo GetInstanceMethod<T>(T? instance)
@@ -51,12 +54,12 @@ namespace tyuiu.cources.programming
             }
             catch (TargetInvocationException e)
             {
-                Console.WriteLine(e.InnerException.Message);
+                Logger.Error(e.InnerException.Message);
                 return new object();
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Logger.Error(e.Message);
                 return new object();
             }
         }
